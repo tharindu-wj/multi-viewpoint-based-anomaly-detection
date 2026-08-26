@@ -1,0 +1,9 @@
+# prepared/ is generated -- regenerate it with the scripts in scripts/.
+prepared/
+
+# runs/ is not: the model varies between identical runs, so a run cannot be
+# recreated. It is ignored because most runs here are smoke and setup runs
+# that churn every session -- copy the ones that count into evidence/.
+runs/
+__pycache__/
+.adk/

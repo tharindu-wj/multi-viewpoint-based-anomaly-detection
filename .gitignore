@@ -1,0 +1,97 @@
+# =============================================================================
+# Workspace root: multi-viewpoint-based-anomaly-detection
+#
+# What this repo tracks: the multiobserverbility source, its dataset files,
+# its run records, and the root orchestration that ties the three projects
+# together. Everything a script can regenerate stays out.
+# =============================================================================
+
+# --- Sibling projects, cloned by the setup script ----------------------------
+# Each is its own repository with its own history; the workspace pins their
+# versions in the manifest, never their contents.
+/ADKGD/
+/KGSAGE/
+
+# --- Archive of the repository this workspace was split out of ---------------
+/.git_old_adkgd/
+
+# --- Secrets -----------------------------------------------------------------
+# API keys reach the agents through .env. A template may be committed; a
+# filled-in one never can.
+.env
+.env.*
+*.env
+!.env.example
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# --- Editors and operating systems -------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+.claude/settings.local.json
+
+# --- HPC job output ----------------------------------------------------------
+# SLURM writes these beside the submit script on every job.
+slurm-*.out
+*.err
+logs/
+*.log
+
+# --- Generated artifacts ------------------------------------------------------
+# prepared/ holds what scripts 1 and 2 build: the contaminated graph, the
+# ground truth, the trained scorer and its score file. All of it is derived
+# from data/ (which IS tracked) by seeded scripts, so the clone stays small
+# and every machine regenerates its own -- which is also what keeps a stale
+# score file from travelling between machines.
+prepared/
+checkpoints/
+temp/
+tmp/
+scratch/
+
+# Observation runs. Each project ignores its own runs/ (see its .gitignore):
+# most are smoke and setup runs, and they churn every session. Runs worth
+# keeping are not reproducible -- the model varies between identical runs --
+# so copy those into a tracked evidence/ folder rather than committing the
+# whole directory.
+
+# Model weights, wherever they land.
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Google ADK session stores.
+.adk/
+
+# --- Retired predecessor projects ---------------------------------------------
+# Their code is kept for reference; their run output is not.
+/multi-observerbility-AD/runs/
+/multiviewpoint-AD-in-KGs/runs/
+
+# --- Reference library --------------------------------------------------------
+# ~470 MB of publisher PDFs and working notes. Not redistributable and far too
+# large for a clone; back these up outside git.
+/docs_v1/
+/docs_v2/
+/docs_thesis/
+/papers/
+
+# =============================================================================
+# Deliberately NOT ignored -- do not add these:
+#   multiobserverbility-AD-in-KGs/data/   dataset files the pipeline reads;
+#                                         tracked so an offline HPC node can
+#                                         run straight from the clone
+#   evidence/                             curated run records kept as results
+# =============================================================================
