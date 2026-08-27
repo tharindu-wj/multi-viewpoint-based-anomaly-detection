@@ -27,7 +27,8 @@ MODEL = Gemini(model=MODEL_NAME, retry_options=RETRY)
 
 #: tool-call budgets the prompts ask for. Nothing enforces them; guidance.
 ROOT_TOOL_BUDGET = 4         # two assign_perspective calls + retry room
-OBSERVER_TOOL_BUDGET = 16   # declare, look, select, then find and judge
+OBSERVER_TOOL_BUDGET = 20   # declare, look, select, then PAGE the rules
+                            # until the 30-candidate reading budget is spent
 
 #: the dataset tools -- open in phase 2 only, the phase gate holds the door
 DATA_TOOLS = [describe_dataset, describe_relation, explain_term, inspect_triples]

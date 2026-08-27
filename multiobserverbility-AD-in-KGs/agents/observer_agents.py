@@ -16,6 +16,7 @@ from agents.config import MODEL, OBSERVER_TOOLS, OBSERVER_TOOL_BUDGET
 from agents.phase_gate import keep_norms_blind
 from loaders.active import DATASET
 from tools._observers import OBSERVER_NAMES, state_key
+from tools.find_suspects import READING_BUDGET
 
 OBSERVER_INSTRUCTION = f"""\
 You are an observer. You will eventually judge facts for anomalies; today you
@@ -45,16 +46,20 @@ each of them yours. Your norms are fixed; only the mapping is yours to
 choose now.
 
 PHASE 3 -- FIND AND JUDGE.
-You cannot read the whole graph, so mining rules sweep it for you: call
-find_suspects with a rule whose kind of suspicious MATCHES YOUR NORMS
-(its description lists the menu), and say which norm it serves. Then judge --
-every candidate you are served gets a verdict through submit_verdicts, by
-YOUR norms alone: anomaly, ok, out_of_scope, or unsure, each with one
-sentence of why. A candidate a rule found suspicious can still be ok
-by your norms, and a fact that is literally true can still be an anomaly by
-them -- the rules find, but only you judge.
+You cannot read the whole graph, so mining rules sweep it for you. You have
+a reading budget of {READING_BUDGET} candidates -- SPEND IT: a page of ten
+is a start, not the hunt. Call find_suspects with every rule whose kind of
+suspicious MATCHES YOUR NORMS (its description lists the menu), saying
+which norm each serves, and keep fetching further pages until your budget
+is reached or the rules have nothing more in your scope. Judge every
+candidate you are served through submit_verdicts, by YOUR norms alone:
+anomaly, ok, out_of_scope, or unsure, each with one sentence of why. A
+candidate a rule found suspicious can still be ok by your norms, and a
+fact that is literally true can still be an anomaly by them -- the rules
+find, but only you judge.
 
-You are done when every served candidate is judged. Use at most
+You are done only when your reading budget is spent (or the rules are
+exhausted) AND every served candidate is judged. Use at most
 {OBSERVER_TOOL_BUDGET} tool calls in all.
 """
 

@@ -712,3 +712,36 @@ State/JSON renames: `scanners_N` → `rules_N`, run JSON `"scanners"` →
 `"rules"`, served/verdict field `"scanner"` → `"rule"`,
 `check_scanners.py` → `check_mining_rules.py`. Older run files keep the old
 keys; the evaluator reads only new-format runs from here on.
+
+## 17. The reading-budget fix — measured (28 Aug 2026)
+
+Diagnosis: observers judged one page (10) and stopped, using a third of the
+30-candidate budget. Two "you are done" sites caused it — the phase-3
+instruction and submit_verdicts' closing line (the select_scope lesson
+again: the tool response is the last thing the model reads). Fixed both:
+the instruction now says SPEND the budget across every norm-matching rule,
+and submit_verdicts hands the hunt back while room remains (reviewers, and
+a spent budget, still end the phase). OBSERVER_TOOL_BUDGET 16 → 20.
+
+Before (run_20260827_155020) → after (run_20260828_005921), same graph:
+facts read 20 → 54 · rules used 1+1 → 3+1 · flagged union 11 → 24 ·
+disagreement set 2 → 5 committed splits · planted caught 6 → 6 ·
+precision 55%/67% → 26%/32%.
+
+The result behind the numbers: reading volume no longer binds — RULE
+CHOICE does. The formalist spent pages on odd_types (a 0-planted,
+norm-coverage rule) and unlikely_facts (0 planted in early pages, the
+memorization effect); the empiricist put all 30 on unlikely_facts. Nobody
+chose odd_values, the roster's top planted-catcher. The planted-yield of a
+run is now a function of which rules the observer's NORMS select — a
+measured property of the standpoint design, not a bug. We deliberately do
+NOT nudge the menu toward planted-heavy rules: observers judge by norms,
+not by the answer key, and coaching rule choice would optimize the metric
+by contaminating the design. Run-to-run rule-choice variance belongs to
+the seed harness.
+
+The precision drop is the flip side of coverage: the extra flags are
+norm-true verdicts (voice-as-instrument, empire-as-country, region-as-
+diplomatic-partner) — exactly the standpoint judgments the disagreement
+set exists to hold. Same-fact splits tripled, including the first
+REVERSED split (James Taylor: empiricist flags, formalist passes).

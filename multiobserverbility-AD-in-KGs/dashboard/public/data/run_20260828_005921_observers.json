@@ -1,0 +1,2774 @@
+{
+ "run": "run_20260828_005921_observers",
+ "dataset": "codex-s",
+ "card": "An encyclopedic knowledge graph about notable real people, organisations and places.",
+ "status": "completed",
+ "generated": "2026-08-28T01:00:19",
+ "stats": {
+  "triples": 37043,
+  "entities": 2034,
+  "relations": 42,
+  "planted_total": 500,
+  "judged": 54,
+  "flagged_union": 24,
+  "disagreements": 5,
+  "caught": 6
+ },
+ "judges": {
+  "observer_1": {
+   "handle": "The Ontological Formalist",
+   "persona": "You are a rigorous ontological formalist who judges knowledge graphs by their structural consistency, hierarchical purity, and strict adherence to defined schemas. To you, an anomaly is any logical contradiction, orphaned entity, or violation of formal property constraints within the network. You demand that every assertion fits neatly into a pristine, unambiguous taxonomy.",
+   "norms": {
+    "agent": "observer_1",
+    "normal": "A normal fact of this domain is a precise, unambiguous assertion linking a properly typed entity to another via a cleanly defined, functionally constrained relation within a strict hierarchical taxonomy.",
+    "anomalous": "An anomaly is any structural inconsistency, type violation, logical contradiction, or orphaned entity that violates strict hierarchical purity and defined schema constraints.",
+    "lets_pass": "I let pass minor lexical variations or informal naming conventions as long as they map unambiguously to the correct formal ontological categories."
+   },
+   "scope_size": 42,
+   "rules_used": {
+    "odd_types": "My norms flag type violations, where entities occupy seats or relations inconsistent with their formal ontological types and property domain constraints.",
+    "odd_pairs": "My norms flag structural inconsistencies, contradictions, and unexpected property combinations that violate logical coherence.",
+    "unlikely_facts": "My norms flag unlikely or improbable factual assertions that contradict established ontological and historical constraints."
+   }
+  },
+  "observer_2": {
+   "handle": "The Data-driven Empiricist",
+   "persona": "You are a pragmatic, data-driven empiricist who judges knowledge graphs by their fidelity to messy, real-world historical and social reality. To you, an anomaly is any claim that defies plausibility, contradicts documented consensus, or distorts the lived context of notable entities. You care less about formal schema perfection and more about whether the interconnected facts actually make sense in the wild.",
+   "norms": {
+    "agent": "observer_2",
+    "normal": "Well-documented biographical, organizational, and geographical facts where dates, roles, and relationships align with established historical and social records.",
+    "anomalous": "Claims that defy historical consensus, geographic impossibility, or logical role consistency (e.g., a person born after their death, someone holding an office before they were born, or an organization operating in an era before its founding).",
+    "lets_pass": "Minor chronological ambiguities, overlapping terms, or alternative naming conventions that do not fundamentally break historical reality."
+   },
+   "scope_size": 12,
+   "rules_used": {
+    "unlikely_facts": "Unlikely facts identified by link prediction can reveal implausible biographical connections or anachronisms that defy real-world historical context."
+   }
+  }
+ },
+ "blindness": [
+  {
+   "agent": "observer_1",
+   "declared_at": 2,
+   "first_data_call_at": 4,
+   "verified": true
+  },
+  {
+   "agent": "observer_2",
+   "declared_at": 3,
+   "first_data_call_at": 5,
+   "verified": true
+  }
+ ],
+ "cases": [
+  {
+   "id": "Q179150-P106-Q82955",
+   "cids": {
+    "observer_1": "c21",
+    "observer_2": "c1"
+   },
+   "triple": {
+    "h": "Q179150",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Sonny Bono",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Sonny Bono was indeed a politician, serving as mayor of Palm Springs and a U.S. Representative."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sonny Bono was famously a politician, serving as the mayor of Palm Springs and a U.S. Congressman."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q106775-P106-Q4964182",
+   "cids": {
+    "observer_1": "r1",
+    "observer_2": "c10"
+   },
+   "triple": {
+    "h": "Q106775",
+    "r": "P106",
+    "t": "Q4964182"
+   },
+   "labels": {
+    "h": "Richard Harris",
+    "r": "occupation",
+    "t": "philosopher"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.065 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.065 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Richard Harris was an actor and singer, not a philosopher, creating a categorical taxonomic contradiction in the schema."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Richard Harris was a celebrated actor and singer, not a philosopher."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.065,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q182589-P106-Q488205",
+   "cids": {
+    "observer_1": "r2",
+    "observer_2": "c12"
+   },
+   "triple": {
+    "h": "Q182589",
+    "r": "P106",
+    "t": "Q488205"
+   },
+   "labels": {
+    "h": "William Morris",
+    "r": "occupation",
+    "t": "singer-songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.075 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.075 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "William Morris was a textile designer, artist, and writer, not a singer-songwriter, violating ontological accuracy."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "William Morris was a 19th-century textile designer, writer, and socialist activist, not a modern singer-songwriter."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.075,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q217427-P3373-Q202801",
+   "cids": {
+    "observer_1": "c13",
+    "observer_2": "r3"
+   },
+   "triple": {
+    "h": "Q217427",
+    "r": "P3373",
+    "t": "Q202801"
+   },
+   "labels": {
+    "h": "La Toya Jackson",
+    "r": "sibling",
+    "t": "Vanessa Williams"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Vanessa Williams and La Toya Jackson are not siblings; this is a false assertion violating factual and biographical coherence."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Vanessa Williams is not a sibling of La Toya Jackson."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q42904-P106-Q82955",
+   "cids": {
+    "observer_1": "r3",
+    "observer_2": "c13"
+   },
+   "triple": {
+    "h": "Q42904",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Dima Bilan",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.076 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.076 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Dima Bilan is a singer, not a politician, representing a false taxonomic classification."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Dima Bilan is a famous Russian pop singer, not a politician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.076,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104081-P26-Q273055",
+   "cids": {
+    "observer_1": "c14",
+    "observer_2": "r4"
+   },
+   "triple": {
+    "h": "Q104081",
+    "r": "P26",
+    "t": "Q273055"
+   },
+   "labels": {
+    "h": "Mickey Rooney",
+    "r": "spouse",
+    "t": "R. Kelly"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Mickey Rooney and R. Kelly were never spouses; this is a fabricated relationship violating biographical reality."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mickey Rooney and R. Kelly were never married, contradicting all known biographical and historical facts."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q108941-P451-Q13909",
+   "cids": {
+    "observer_1": "c15",
+    "observer_2": "r5"
+   },
+   "triple": {
+    "h": "Q108941",
+    "r": "P451",
+    "t": "Q13909"
+   },
+   "labels": {
+    "h": "Carrie Fisher",
+    "r": "unmarried partner",
+    "t": "Angelina Jolie"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 72% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 72% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Carrie Fisher and Angelina Jolie were never partners; this is a spurious assertion."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Carrie Fisher and Angelina Jolie were never romantic partners in any documented reality."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.72,
+    "examples": [
+     [
+      "Yul Brynner",
+      "Marlene Dietrich"
+     ],
+     [
+      "Max Frisch",
+      "Ingeborg Bachmann"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q180619-P106-Q2405480",
+   "cids": {
+    "observer_1": "r4",
+    "observer_2": "c16"
+   },
+   "triple": {
+    "h": "Q180619",
+    "r": "P106",
+    "t": "Q2405480"
+   },
+   "labels": {
+    "h": "Stephen Jay Gould",
+    "r": "occupation",
+    "t": "voice actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.096 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.096 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Stephen Jay Gould was a paleontologist and evolutionary biologist, not a voice actor, violating formal type constraints."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Stephen Jay Gould was a celebrated paleontologist and evolutionary biologist, not a voice actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.096,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q349461-P3373-Q344983",
+   "cids": {
+    "observer_1": "c18",
+    "observer_2": "r6"
+   },
+   "triple": {
+    "h": "Q349461",
+    "r": "P3373",
+    "t": "Q344983"
+   },
+   "labels": {
+    "h": "Randy Jackson",
+    "r": "sibling",
+    "t": "Babyface"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Randy Jackson and Babyface are not siblings; this is a false family relationship."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Babyface (Kenneth Edmonds) is not a sibling of Randy Jackson."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q185465-P106-Q1930187",
+   "cids": {
+    "observer_1": "r5",
+    "observer_2": "c18"
+   },
+   "triple": {
+    "h": "Q185465",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Paula Abdul",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.104 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.104 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Paula Abdul is a singer, dancer, and choreographer, not a journalist, violating property assignment consistency."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Paula Abdul is a singer, dancer, and choreographer, not a journalist."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.104,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104109-P26-Q108941",
+   "cids": {
+    "observer_1": "c19",
+    "observer_2": "r7"
+   },
+   "triple": {
+    "h": "Q104109",
+    "r": "P26",
+    "t": "Q108941"
+   },
+   "labels": {
+    "h": "Mary Pickford",
+    "r": "spouse",
+    "t": "Carrie Fisher"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Mary Pickford and Carrie Fisher were not spouses; this is a false biographical record."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mary Pickford and Carrie Fisher lived in entirely different eras and were never spouses."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q93356-P106-Q33999",
+   "cids": {
+    "observer_1": "c24",
+    "observer_2": "c2"
+   },
+   "triple": {
+    "h": "Q93356",
+    "r": "P106",
+    "t": "Q33999"
+   },
+   "labels": {
+    "h": "Seamus Heaney",
+    "r": "occupation",
+    "t": "actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney was a celebrated poet and playwright, not an actor, violating occupational taxonomy."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney was a renowned poet and Nobel laureate, not an actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q108941-P451-Q202878",
+   "cids": {
+    "observer_1": "c20",
+    "observer_2": "r8"
+   },
+   "triple": {
+    "h": "Q108941",
+    "r": "P451",
+    "t": "Q202878"
+   },
+   "labels": {
+    "h": "Carrie Fisher",
+    "r": "unmarried partner",
+    "t": "Mae West"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 72% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 72% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Carrie Fisher and Mae West were never unmarried partners; this is an erroneous relationship."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Carrie Fisher and Mae West were never romantic partners, defying historical chronology and biographical facts."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.72,
+    "examples": [
+     [
+      "Yul Brynner",
+      "Marlene Dietrich"
+     ],
+     [
+      "Max Frisch",
+      "Ingeborg Bachmann"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q6882-P1303-Q17172850",
+   "cids": {
+    "observer_1": "c23",
+    "observer_2": "r9"
+   },
+   "triple": {
+    "h": "Q6882",
+    "r": "P1303",
+    "t": "Q17172850"
+   },
+   "labels": {
+    "h": "James Joyce",
+    "r": "instrument",
+    "t": "voice"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.042 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.042 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Voice is not a musical instrument, violating the ontological classification of instruments."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "James Joyce famously used his voice and singing talent in musical contexts alongside his writing."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.042,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1512-P106-Q753110",
+   "cids": {
+    "observer_1": "r6",
+    "observer_2": "c23"
+   },
+   "triple": {
+    "h": "Q1512",
+    "r": "P106",
+    "t": "Q753110"
+   },
+   "labels": {
+    "h": "Robert Louis Stevenson",
+    "r": "occupation",
+    "t": "songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Robert Louis Stevenson was a novelist and poet, not a songwriter, presenting an invalid property assertion."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Robert Louis Stevenson was a novelist and poet, not a professional songwriter."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.125,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q17-P530-Q12585",
+   "cids": {
+    "observer_1": "c25",
+    "observer_2": "r10"
+   },
+   "triple": {
+    "h": "Q17",
+    "r": "P530",
+    "t": "Q12585"
+   },
+   "labels": {
+    "h": "Japan",
+    "r": "diplomatic relation",
+    "t": "Latin America"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.029 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.029 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Latin America is a geographic region, not a sovereign state capable of holding bilateral diplomatic relations."
+    },
+    "observer_2": {
+     "verdict": "out_of_scope",
+     "why": "Latin America is a geographic region rather than a single sovereign state, making direct diplomatic relations framing too vague for specific historical verification."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.029,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q154145-P106-Q639669",
+   "cids": {
+    "observer_1": "c26",
+    "observer_2": "c3"
+   },
+   "triple": {
+    "h": "Q154145",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Gabriel Marcel",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Gabriel Marcel was a trained musician and composer in addition to being a philosopher."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Gabriel Marcel was a prominent French philosopher and dramatist, but also a trained musician and composer."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q47162-P106-Q639669",
+   "cids": {
+    "observer_1": "r7",
+    "observer_2": "c26"
+   },
+   "triple": {
+    "h": "Q47162",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Romain Rolland",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.133 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.133 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Romain Rolland was a writer and dramatist, not primarily a musician, violating strict hierarchical purity."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Romain Rolland was a French dramatist, novelist, and art historian, not a musician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.133,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q25820-P106-Q639669",
+   "cids": {
+    "observer_1": "c27",
+    "observer_2": "c4"
+   },
+   "triple": {
+    "h": "Q25820",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Thomas Young",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Thomas Young was a polymath who engaged in musical theory and played instruments."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Thomas Young was a polymath who made notable contributions to physics, medicine, and linguistics, but also had musical and acoustic interests. Let us accept it as part of his polymathic range."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.004,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q18809-P106-Q33999",
+   "cids": {
+    "observer_1": "r8",
+    "observer_2": "c27"
+   },
+   "triple": {
+    "h": "Q18809",
+    "r": "P106",
+    "t": "Q33999"
+   },
+   "labels": {
+    "h": "Anatoly Lunacharsky",
+    "r": "occupation",
+    "t": "actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.136 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.136 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Anatoly Lunacharsky was a revolutionary and art critic, not an actor, violating ontological type definitions."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Anatoly Lunacharsky was a prominent Soviet commissar for enlightenment, art critic, and playwright, not an actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.136,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q310300-P106-Q36180",
+   "cids": {
+    "observer_1": "r9",
+    "observer_2": "c28"
+   },
+   "triple": {
+    "h": "Q310300",
+    "r": "P106",
+    "t": "Q36180"
+   },
+   "labels": {
+    "h": "James Taylor",
+    "r": "occupation",
+    "t": "writer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.156 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.156 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "James Taylor is indeed a well-known songwriter and musician who has authored works, fitting the writer classification broadly under our taxonomy."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "James Taylor is a famous singer-songwriter, not primarily known as a writer of prose books or literature."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.156,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q542101-P106-Q170790",
+   "cids": {
+    "observer_1": "c29",
+    "observer_2": "c5"
+   },
+   "triple": {
+    "h": "Q542101",
+    "r": "P106",
+    "t": "Q170790"
+   },
+   "labels": {
+    "h": "Boris Grebenshchikov",
+    "r": "occupation",
+    "t": "mathematician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is a rock musician, not a mathematician, making this an occupational misclassification."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is a legendary Russian rock musician, not a mathematician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.019,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q101638-P106-Q43845",
+   "cids": {
+    "observer_1": "r10",
+    "observer_2": "c29"
+   },
+   "triple": {
+    "h": "Q101638",
+    "r": "P106",
+    "t": "Q43845"
+   },
+   "labels": {
+    "h": "Mary Wollstonecraft",
+    "r": "occupation",
+    "t": "businessperson"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.165 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.165 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Mary Wollstonecraft was a philosopher and writer, not a businessperson, creating a structural schema violation."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mary Wollstonecraft was a pioneering feminist philosopher, writer, and advocate for women's rights, not a businessperson."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.165,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1007-P17-Q200464",
+   "cids": {
+    "observer_1": "c3",
+    "observer_2": "r1"
+   },
+   "triple": {
+    "h": "Q1007",
+    "r": "P17",
+    "t": "Q200464"
+   },
+   "labels": {
+    "h": "Guinea-Bissau",
+    "r": "country",
+    "t": "Portuguese Empire"
+   },
+   "rule": "odd_types",
+   "note": "tail is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as tail here (40 distinct tails; usual kinds: sovereign state x33, country x23) -- this entity sits in 12 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as tail here (40 distinct tails; usual kinds: sovereign state x33, country x23) -- this entity sits in 12 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "An empire is not a contemporary sovereign state or country, violating the formal type constraints of the country relation."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Guinea-Bissau has a well-documented historical connection as a former colony of the Portuguese Empire."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "Empire on which the sun never sets",
+     "colonial empire"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      33
+     ],
+     [
+      "country",
+      23
+     ],
+     [
+      "historical country",
+      15
+     ]
+    ],
+    "occupants": 40,
+    "sample": [
+     "Holy Roman Empire",
+     "Austrian Empire",
+     "France"
+    ]
+   }
+  },
+  {
+   "id": "Q5879-P106-Q36834",
+   "cids": {
+    "observer_1": "c30",
+    "observer_2": "c6"
+   },
+   "triple": {
+    "h": "Q5879",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Johann Wolfgang von Goethe",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Johann Wolfgang von Goethe was a writer and statesman, not a composer, violating occupational classification."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Johann Wolfgang von Goethe is primarily known as a writer and polymath, but his texts were heavily set to music by major composers, and he engaged deeply with musical theory."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q233295-P106-Q1930187",
+   "cids": {
+    "observer_1": "r11",
+    "observer_2": "c30"
+   },
+   "triple": {
+    "h": "Q233295",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Tila Tequila",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.169 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.169 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Tila Tequila is a television personality and media figure, not a journalist, violating formal property constraints."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Tila Tequila is a television personality and media figure, not a journalist."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.169,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104154-P119-Q272208",
+   "cids": {
+    "observer_1": "c9",
+    "observer_2": "r2"
+   },
+   "triple": {
+    "h": "Q104154",
+    "r": "P119",
+    "t": "Q272208"
+   },
+   "labels": {
+    "h": "Urbain Le Verrier",
+    "r": "place of burial",
+    "t": "Montparnasse Cemetery"
+   },
+   "rule": "odd_types",
+   "note": "tail is Parisian cemetery; no other entity of any of these kinds appears as tail here (14 distinct tails; usual kinds: city with millions of inhabitants x5, city x5) -- this entity sits in 19 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is Parisian cemetery; no other entity of any of these kinds appears as tail here (14 distinct tails; usual kinds: city with millions of inhabitants x5, city x5) -- this entity sits in 19 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A cemetery is a specific geographic site/facility rather than a city or settlement, violating the type constraints of burial locations in this schema."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Urbain Le Verrier is historically documented to be buried in Montparnasse Cemetery in Paris."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "Parisian cemetery"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      5
+     ],
+     [
+      "country",
+      5
+     ],
+     [
+      "city",
+      5
+     ]
+    ],
+    "occupants": 14,
+    "sample": [
+     "France",
+     "Brazil",
+     "Monaco"
+    ]
+   }
+  },
+  {
+   "id": "Q1000-P463-Q3348506",
+   "cids": {
+    "observer_1": "c1"
+   },
+   "triple": {
+    "h": "Q1000",
+    "r": "P463",
+    "t": "Q3348506"
+   },
+   "labels": {
+    "h": "Gabon",
+    "r": "member of",
+    "t": "AFRISTAT"
+   },
+   "rule": "odd_types",
+   "note": "tail is statistical service, membership organization; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is statistical service, membership organization; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Statistical service and membership organizations conform to the structural requirements of being a member of an international grouping."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "statistical service",
+     "membership organization"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q1046616-P1303-Q46185",
+   "cids": {
+    "observer_1": "c10"
+   },
+   "triple": {
+    "h": "Q1046616",
+    "r": "P1303",
+    "t": "Q46185"
+   },
+   "labels": {
+    "h": "Tim Rice-Oxley",
+    "r": "instrument",
+    "t": "bass guitar"
+   },
+   "rule": "odd_types",
+   "note": "tail is guitar, bass; no other entity of any of these kinds appears as tail here (17 distinct tails; usual kinds: class of instruments x3, musical instrument x3) -- this entity sits in 76 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is guitar, bass; no other entity of any of these kinds appears as tail here (17 distinct tails; usual kinds: class of instruments x3, musical instrument x3) -- this entity sits in 76 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Bass guitar is a specific musical instrument matching the instrument relation's semantic domain."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "guitar",
+     "bass"
+    ],
+    "usual": [
+     [
+      "class of instruments",
+      3
+     ],
+     [
+      "musical instrument",
+      3
+     ],
+     [
+      "keyboard instrument",
+      2
+     ]
+    ],
+    "occupants": 17,
+    "sample": [
+     "percussion instrument",
+     "keyboard instrument",
+     "accordion"
+    ]
+   }
+  },
+  {
+   "id": "Q161806-P101-Q150",
+   "cids": {
+    "observer_1": "c11"
+   },
+   "triple": {
+    "h": "Q161806",
+    "r": "P101",
+    "t": "Q150"
+   },
+   "labels": {
+    "h": "Acad\u00e9mie Fran\u00e7aise",
+    "r": "field of work",
+    "t": "French"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 3 ways: 'Acad\u00e9mie Fran\u00e7aise' --field of work-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --languages spoken, written, or signed-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --official language-- 'French' -- a combination carried by only 1 pair in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 3 ways: 'Acad\u00e9mie Fran\u00e7aise' --field of work-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --languages spoken, written, or signed-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --official language-- 'French' -- a combination carried by only 1 pair in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The French language is the core institutional field and operational medium of the Acad\u00e9mie Fran\u00e7aise."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Acad\u00e9mie Fran\u00e7aise",
+      "r": "field of work",
+      "t": "French"
+     },
+     {
+      "h": "Acad\u00e9mie Fran\u00e7aise",
+      "r": "languages spoken, written, or signed",
+      "t": "French"
+     },
+     {
+      "h": "Acad\u00e9mie Fran\u00e7aise",
+      "r": "official language",
+      "t": "French"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q17714-P106-Q10798782",
+   "cids": {
+    "observer_2": "c11"
+   },
+   "triple": {
+    "h": "Q17714",
+    "r": "P106",
+    "t": "Q10798782"
+   },
+   "labels": {
+    "h": "Stephen Hawking",
+    "r": "occupation",
+    "t": "television actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.069 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.069 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Stephen Hawking made numerous notable cameo appearances as a television actor (e.g., The Simpsons, Star Trek, The Big Bang Theory)."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.069,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1011-P530-Q458",
+   "cids": {
+    "observer_1": "c12"
+   },
+   "triple": {
+    "h": "Q1011",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Cape Verde",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Diplomatic relations can be recorded unidirectionally without structural contradiction."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q15873-P106-Q169470",
+   "cids": {
+    "observer_2": "c14"
+   },
+   "triple": {
+    "h": "Q15873",
+    "r": "P106",
+    "t": "Q169470"
+   },
+   "labels": {
+    "h": "Brian May",
+    "r": "occupation",
+    "t": "physicist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.080 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.080 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Brian May, the lead guitarist of Queen, holds a Ph.D. in astrophysics and is an accomplished astrophysicist."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.08,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q213579-P106-Q639669",
+   "cids": {
+    "observer_2": "c15"
+   },
+   "triple": {
+    "h": "Q213579",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Ernst Chladni",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.093 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.093 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Ernst Chladni was a physicist and musician known as the father of acoustics, who invented musical instruments (the euphon and clavicylinder)."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.093,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q184366-P119-Q84",
+   "cids": {
+    "observer_1": "c16"
+   },
+   "triple": {
+    "h": "Q184366",
+    "r": "P119",
+    "t": "Q84"
+   },
+   "labels": {
+    "h": "Thomas Henry Huxley",
+    "r": "place of burial",
+    "t": "London"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 2 ways: 'Thomas Henry Huxley' --place of burial-- 'London'; 'Thomas Henry Huxley' --residence-- 'London' -- a combination carried by only 1 pair in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 2 ways: 'Thomas Henry Huxley' --place of burial-- 'London'; 'Thomas Henry Huxley' --residence-- 'London' -- a combination carried by only 1 pair in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Being buried in the same city one resided in is a consistent geographic fact."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Thomas Henry Huxley",
+      "r": "place of burial",
+      "t": "London"
+     },
+     {
+      "h": "Thomas Henry Huxley",
+      "r": "residence",
+      "t": "London"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q1028-P530-Q458",
+   "cids": {
+    "observer_1": "c17"
+   },
+   "triple": {
+    "h": "Q1028",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Morocco",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Diplomatic relations do not require bidirectional record entries to be formally valid."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q34969-P106-Q639669",
+   "cids": {
+    "observer_2": "c17"
+   },
+   "triple": {
+    "h": "Q34969",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Benjamin Franklin",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Benjamin Franklin played several musical instruments (like the glass harmonica, which he invented) and composed music."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.103,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q129119-P106-Q82955",
+   "cids": {
+    "observer_2": "c19"
+   },
+   "triple": {
+    "h": "Q129119",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Ruslana",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Ruslana is a Ukrainian singer who also served as a Member of the Ukrainian Parliament (Verkhovna Rada)."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1005-P463-Q384535",
+   "cids": {
+    "observer_1": "c2"
+   },
+   "triple": {
+    "h": "Q1005",
+    "r": "P463",
+    "t": "Q384535"
+   },
+   "labels": {
+    "h": "Gambia",
+    "r": "member of",
+    "t": "African Union \u2013 United Nations Hybrid Operation in Darfur"
+   },
+   "rule": "odd_types",
+   "note": "tail is military operation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 44 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is military operation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 44 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "A nation participating in a peacekeeping military operation satisfies the logical participation constraint of the membership relation."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "military operation"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q131964-P463-Q12548",
+   "cids": {
+    "observer_2": "c20"
+   },
+   "triple": {
+    "h": "Q131964",
+    "r": "P463",
+    "t": "Q12548"
+   },
+   "labels": {
+    "h": "Austrian Empire",
+    "r": "member of",
+    "t": "Holy Roman Empire"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.117 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.117 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "The Austrian Empire succeeded parts of the Habsburg monarchy and had complex historical ties to the Holy Roman Empire, though strictly speaking the Austrian Empire was proclaimed after the HRE dissolved; however, historically the Habsburg lands were the core of the HRE, so let us accept it as a broad historical linkage."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.117,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q9358-P106-Q36834",
+   "cids": {
+    "observer_2": "c21"
+   },
+   "triple": {
+    "h": "Q9358",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Friedrich Nietzsche",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.122 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.122 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Friedrich Nietzsche composed numerous musical pieces throughout his life, making composer a historically accurate secondary occupation."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.122,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q155-P530-Q7159",
+   "cids": {
+    "observer_1": "c22"
+   },
+   "triple": {
+    "h": "Q155",
+    "r": "P530",
+    "t": "Q7159"
+   },
+   "labels": {
+    "h": "Brazil",
+    "r": "diplomatic relation",
+    "t": "African Union"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.060 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.060 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Brazil maintains formal diplomatic relations with the African Union."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.06,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q213512-P463-Q463303",
+   "cids": {
+    "observer_2": "c22"
+   },
+   "triple": {
+    "h": "Q213512",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "Bill Cosby",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.123 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.123 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Bill Cosby was elected to the American Academy of Arts and Sciences in 2000 (though later honors were controversial, the membership itself is a documented historical fact)."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.123,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q4028-P463-Q463303",
+   "cids": {
+    "observer_2": "c24"
+   },
+   "triple": {
+    "h": "Q4028",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "Paul Simon",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Paul Simon was elected as a member of the American Academy of Arts and Sciences."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.125,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q27306-P463-Q12548",
+   "cids": {
+    "observer_2": "c25"
+   },
+   "triple": {
+    "h": "Q27306",
+    "r": "P463",
+    "t": "Q12548"
+   },
+   "labels": {
+    "h": "Kingdom of Prussia",
+    "r": "member of",
+    "t": "Holy Roman Empire"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.128 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.128 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Parts of the Kingdom of Prussia (such as Brandenburg) were constituent states and electorates of the Holy Roman Empire."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.128,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q159-P530-Q7172",
+   "cids": {
+    "observer_1": "c28"
+   },
+   "triple": {
+    "h": "Q159",
+    "r": "P530",
+    "t": "Q7172"
+   },
+   "labels": {
+    "h": "Russia",
+    "r": "diplomatic relation",
+    "t": "Arab League"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Russia maintains diplomatic relations with the Arab League as an international organization."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1016-P463-Q624307",
+   "cids": {
+    "observer_1": "c4"
+   },
+   "triple": {
+    "h": "Q1016",
+    "r": "P463",
+    "t": "Q624307"
+   },
+   "labels": {
+    "h": "Libya",
+    "r": "member of",
+    "t": "Arab Monetary Fund"
+   },
+   "rule": "odd_types",
+   "note": "tail is foundation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is foundation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "A monetary fund functions as an international financial organization, fitting the general membership category."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "foundation"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q101740-P69-Q209842",
+   "cids": {
+    "observer_1": "c5"
+   },
+   "triple": {
+    "h": "Q101740",
+    "r": "P69",
+    "t": "Q209842"
+   },
+   "labels": {
+    "h": "Benoit Mandelbrot",
+    "r": "educated at",
+    "t": "University of Paris (1896-1968)"
+   },
+   "rule": "odd_types",
+   "note": "tail is university in France; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 28 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is university in France; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 28 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "A university in France is a valid educational institution for higher learning, fitting the schema range."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "university in France"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 25,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q101740-P69-Q273626",
+   "cids": {
+    "observer_1": "c6"
+   },
+   "triple": {
+    "h": "Q101740",
+    "r": "P69",
+    "t": "Q273626"
+   },
+   "labels": {
+    "h": "Benoit Mandelbrot",
+    "r": "educated at",
+    "t": "\u00c9cole Polytechnique"
+   },
+   "rule": "odd_types",
+   "note": "tail is engineering school; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 20 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is engineering school; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 20 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "An elite engineering school is a recognized higher education institution, satisfying educational relation constraints."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "engineering school"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 25,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q104000-P108-Q126399",
+   "cids": {
+    "observer_1": "c7"
+   },
+   "triple": {
+    "h": "Q104000",
+    "r": "P108",
+    "t": "Q126399"
+   },
+   "labels": {
+    "h": "Lauren Bacall",
+    "r": "employer",
+    "t": "Warner Bros."
+   },
+   "rule": "odd_types",
+   "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 7 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 7 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "A film production company acts as a valid corporate employer in this context."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "animation studio",
+     "film production company"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q336278-P106-Q1930187",
+   "cids": {
+    "observer_2": "c7"
+   },
+   "triple": {
+    "h": "Q336278",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Neil Tennant",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Neil Tennant, lead singer of the Pet Shop Boys, worked as a journalist for Smash Hits before his music career."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.044,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104049-P108-Q1065",
+   "cids": {
+    "observer_1": "c8"
+   },
+   "triple": {
+    "h": "Q104049",
+    "r": "P108",
+    "t": "Q1065"
+   },
+   "labels": {
+    "h": "Sidney Poitier",
+    "r": "employer",
+    "t": "United Nations"
+   },
+   "rule": "odd_types",
+   "note": "tail is intergovernmental organization, international organization, subject of international law; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 4 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is intergovernmental organization, international organization, subject of international law; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 4 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "An intergovernmental organization acts as a valid institutional employer."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "intergovernmental organization",
+     "international organization",
+     "subject of international law"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q208116-P106-Q753110",
+   "cids": {
+    "observer_2": "c8"
+   },
+   "triple": {
+    "h": "Q208116",
+    "r": "P106",
+    "t": "Q753110"
+   },
+   "labels": {
+    "h": "Sergey Mikhalkov",
+    "r": "occupation",
+    "t": "songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.055 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.055 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sergey Mikhalkov wrote children's books and also authored the lyrics to the State Anthem of the Soviet Union/Russia, making songwriter a valid description."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.055,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q44857-P463-Q463303",
+   "cids": {
+    "observer_2": "c9"
+   },
+   "triple": {
+    "h": "Q44857",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "John Legend",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.058 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.058 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "John Legend is a prominent artist who holds honorary and professional recognitions fitting cultural academies."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.058,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  }
+ ]
+}

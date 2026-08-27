@@ -162,7 +162,8 @@ check("an empty why is refused",
 ok = submit_verdicts([{"id": "c1", "verdict": "anomaly",
                        "why": "one-sided record of a mutual bond"}], agent_1)
 check("a valid verdict is recorded", ok.startswith("Recorded"))
-check("progress says what remains", "unjudged" in ok or "done" in ok)
+check("progress says what remains or hands the hunt back",
+      "unjudged" in ok or "done" in ok or "room" in ok)
 
 # Second-opinion guards -- reuses the state above (agent_1 judged c1 'anomaly').
 print("\nsecond opinions")

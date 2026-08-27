@@ -11,7 +11,9 @@ ranking key.
 """
 import json
 
-from tools._observers import OBSERVER_NAMES, principal_of, state_key
+from tools._observers import (OBSERVER_NAMES, is_reviewer, principal_of,
+                              state_key)
+from tools.find_suspects import READING_BUDGET
 
 VERDICTS = ("anomaly", "ok", "out_of_scope", "unsure")
 
@@ -27,8 +29,9 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
       out_of_scope  a candidate your norms are silent on
       unsure        you genuinely cannot tell; say what is missing
 
-    The why is one sentence, in terms of YOUR norms, not anyone else's. You
-    are done when every candidate you were served has a verdict.
+    The why is one sentence, in terms of YOUR norms, not anyone else's.
+    Every candidate you were served needs a verdict -- and judging a page
+    does not end the hunt while your reading budget has room for more.
 
     Args:
         verdicts: a list of {"id", "verdict", "why"} objects.
@@ -82,5 +85,21 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
         return (f"Recorded {len(accepted)} verdict(s). "
                 f"{len(remaining)} candidate(s) still unjudged: "
                 f"{', '.join(sorted(remaining))}.")
-    return (f"Recorded {len(accepted)} verdict(s). Every candidate you were "
-            f"served is judged -- you are done, stop here.")
+
+    # The closing line is the last thing the model reads (the select_scope
+    # lesson), so it must hand the hunt BACK while budget remains. Only a
+    # reviewer, or a spent budget, ends the phase.
+    if is_reviewer(tool_context.agent_name):
+        return (f"Recorded {len(accepted)} verdict(s). Every candidate you "
+                f"were served is judged -- you are done, stop here.")
+    room = READING_BUDGET - len(served)
+    if room > 0:
+        return (f"Recorded {len(accepted)} verdict(s). Every candidate "
+                f"served so far is judged, and your reading budget has room "
+                f"for {room} more. Fetch the next page, or a rule you have "
+                f"not tried whose kind of suspicious matches your norms -- "
+                f"stop only when the budget is spent or the rules have "
+                f"nothing more in your scope.")
+    return (f"Recorded {len(accepted)} verdict(s). Every candidate is "
+            f"judged and your reading budget is spent -- you are done, "
+            f"stop here.")
