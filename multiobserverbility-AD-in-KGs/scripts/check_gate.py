@@ -39,9 +39,9 @@ class FakeToolContext:
 
 
 # Relation probes come from the loaded dataset, so the rig ports with it.
-# REL_A must be one the one_way_links scanner can fire on (mostly two-way,
+# REL_A must be one the odd_pairs mirror case can fire on (mostly two-way,
 # with at least one one-way edge), because the phase-3 checks below serve a
-# candidate from it. Derived by the scanner's own criterion, not by name.
+# candidate from it. Derived by the rule's own criterion, not by name.
 import collections  # noqa: E402
 
 from loaders.context import get_context  # noqa: E402
@@ -136,16 +136,16 @@ from tools.submit_verdicts import submit_verdicts  # noqa: E402
 
 fresh = FakeToolContext("observer_2", {})
 check("find_suspects refuses without a scope",
-      find_suspects("one_way_links", "w", 1, fresh).startswith("ERROR"))
+      find_suspects("odd_pairs", "w", 1, fresh).startswith("ERROR"))
 check("submit_verdicts refuses before anything is served",
       submit_verdicts([{"id": "c1", "verdict": "ok", "why": "w"}],
                       fresh).startswith("ERROR"))
 
-check("unknown assistant is a readable error",
+check("unknown rule is a readable error",
       find_suspects("psychic", "w", 1, agent_1).startswith("ERROR"))
-check("first call to an assistant requires a why",
-      find_suspects("one_way_links", "", 1, agent_1).startswith("ERROR"))
-page = find_suspects("one_way_links",
+check("first call to a rule requires a why",
+      find_suspects("odd_pairs", "", 1, agent_1).startswith("ERROR"))
+page = find_suspects("odd_pairs",
                        "my mutuality norm concerns two-way bonds", 1, agent_1)
 check("candidates served with stable ids", "c1." in page)
 check("serving is recorded", "served_1" in state and "c1" in state["served_1"])

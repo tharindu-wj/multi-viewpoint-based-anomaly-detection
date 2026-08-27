@@ -63,7 +63,7 @@ from google.genai import types  # noqa: E402
 
 from agents import telemetry  # noqa: E402
 from agents.agent import root_agent  # noqa: E402
-from agents.config import (SCANNER_KEYS, NORMS_KEYS, PERSONA_KEYS,  # noqa: E402
+from agents.config import (RULE_KEYS, NORMS_KEYS, PERSONA_KEYS,  # noqa: E402
                            SCOPE_KEYS, SERVED_KEYS, VERDICT_KEYS)
 from agents.phase_gate import DATA_TOOL_NAMES  # noqa: E402
 from tools._observers import OBSERVER_NAMES  # noqa: E402
@@ -119,7 +119,7 @@ def parsed(state_key):
 personas = [parsed(k) for k in PERSONA_KEYS]
 norms = [parsed(k) for k in NORMS_KEYS]
 scopes = [parsed(k) for k in SCOPE_KEYS]
-scanners_used = [parsed(k) or {} for k in SCANNER_KEYS]
+rules_used = [parsed(k) or {} for k in RULE_KEYS]
 served = [parsed(k) or {} for k in SERVED_KEYS]
 verdicts = [parsed(k) or {} for k in VERDICT_KEYS]
 
@@ -166,8 +166,8 @@ from loaders.context import get_context  # noqa: E402
 
 context = get_context()
 
-for name, persona, norm, scope, gens, mine, judged in zip(
-        OBSERVER_NAMES, personas, norms, scopes, scanners_used, served,
+for name, persona, norm, scope, rules, mine, judged in zip(
+        OBSERVER_NAMES, personas, norms, scopes, rules_used, served,
         verdicts):
     print(f"  {name}")
     print(f"    persona:   {(persona or {}).get('persona', 'MISSING')}")
@@ -181,8 +181,8 @@ for name, persona, norm, scope, gens, mine, judged in zip(
         print(f"    scope:     {', '.join(e['label'] for e in scope['scope'])}")
     else:
         print("    scope:     MISSING")
-    for scanner_name, why in gens.items():
-        print(f"    assistant: {scanner_name} -- {why}")
+    for rule_name, why in rules.items():
+        print(f"    rule: {rule_name} -- {why}")
     counts = collections.Counter(v["verdict"] for v in judged.values())
     print(f"    judged {len(judged)}/{len(mine)} served: "
           f"{dict(counts) if counts else 'none'}")
@@ -211,7 +211,7 @@ out.write_text(json.dumps({
     "personas": personas,
     "norms": norms,
     "scopes": scopes,
-    "scanners": scanners_used,
+    "rules": rules_used,
     "served": served,
     "verdicts": verdicts,
     "trace": trace,

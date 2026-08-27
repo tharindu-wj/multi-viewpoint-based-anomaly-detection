@@ -1,8 +1,8 @@
-"""Print what every scanner finds, for human eyes. No agent, no API.
+"""Print what every mining rule finds, for human eyes. No agent, no API.
 
-    python scripts/check_scanners.py
+    python scripts/check_mining_rules.py
 
-Run before any agent touches them. Whatever a scanner surfaces is exactly
+Run before any agent touches them. Whatever a rule surfaces is exactly
 what a judge will be handed -- if the candidates here are junk, every verdict
 downstream is junk with a rationale.
 
@@ -15,24 +15,22 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from loaders.context import get_context  # noqa: E402
-from tools.scanners import (unlikely_facts, too_many_values,  # noqa: E402
-                              one_way_links, odd_types)
+from tools.mining_rules import RULES  # noqa: E402
 
 ctx = get_context()
 ALL_RELATIONS = set(ctx.relations)
 
-for scanner in (one_way_links, too_many_values, odd_types,
-                  unlikely_facts):
+for name, rule in RULES.items():
     print("\n" + "=" * 72)
-    print(f"  {scanner.NAME}  (scope = every relation)")
+    print(f"  {name}  (scope = every relation)")
     print("=" * 72)
     try:
-        found = scanner.find(ALL_RELATIONS, ctx)
+        found = rule.find(ALL_RELATIONS, ctx)
     except RuntimeError as refusal:
         print(f"  refused: {refusal}")
         continue
 
-    again = scanner.find(ALL_RELATIONS, ctx)
+    again = rule.find(ALL_RELATIONS, ctx)
     print(f"  {len(found)} candidates   deterministic: {found == again}")
     for triple, note in found[:6]:
         print(f"    {ctx.triple_text(triple)}")
@@ -46,6 +44,6 @@ import collections  # noqa: E402
 
 counts = collections.Counter(r for _, r, _ in ctx.triples)
 probe_id, _ = counts.most_common()[-1]
-print(f"\nscoped run -- one_way_links on '{ctx.relation_label(probe_id)}' only:")
-for triple, note in one_way_links.find({probe_id}, ctx)[:8]:
+print(f"\nscoped run -- odd_pairs on '{ctx.relation_label(probe_id)}' only:")
+for triple, note in RULES["odd_pairs"].find({probe_id}, ctx)[:8]:
     print(f"    {ctx.triple_text(triple)}   [{note}]")

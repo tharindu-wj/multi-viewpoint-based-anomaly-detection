@@ -45,14 +45,14 @@ each of them yours. Your norms are fixed; only the mapping is yours to
 choose now.
 
 PHASE 3 -- FIND AND JUDGE.
-You cannot read the whole graph, so assistants sweep it for you: call
-find_suspects with a scanner whose kind of suspicious MATCHES YOUR NORMS
+You cannot read the whole graph, so mining rules sweep it for you: call
+find_suspects with a rule whose kind of suspicious MATCHES YOUR NORMS
 (its description lists the menu), and say which norm it serves. Then judge --
 every candidate you are served gets a verdict through submit_verdicts, by
 YOUR norms alone: anomaly, ok, out_of_scope, or unsure, each with one
-sentence of why. A candidate an assistant found suspicious can still be ok
+sentence of why. A candidate a rule found suspicious can still be ok
 by your norms, and a fact that is literally true can still be an anomaly by
-them -- the assistants find, but only you judge.
+them -- the rules find, but only you judge.
 
 You are done when every served candidate is judged. Use at most
 {OBSERVER_TOOL_BUDGET} tool calls in all.

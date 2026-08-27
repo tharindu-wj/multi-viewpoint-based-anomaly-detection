@@ -100,8 +100,8 @@ for name in OBSERVER_NAMES:
     for v in missed[:3]:
         print(f"    [{v['verdict']:>8}] {ctx.triple_text(tuple(v['triple']))[:56]}"
               f" -- {v['why'][:60]}")
-    per_scanner = collections.Counter(v["scanner"] for v in judged.values())
-    print(f"  candidates by assistant: {dict(per_scanner)}")
+    per_rule = collections.Counter(v["rule"] for v in judged.values())
+    print(f"  candidates by rule: {dict(per_rule)}")
 
 # ---- VIEWPOINT: composition and disagreement ------------------------------
 verdict_of = {}

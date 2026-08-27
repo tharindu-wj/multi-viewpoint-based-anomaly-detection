@@ -43,6 +43,6 @@ OBSERVER_TOOLS = ([declare_semantics, select_scope] + DATA_TOOLS
 PERSONA_KEYS = tuple(state_key("persona", n) for n in OBSERVER_NAMES)
 NORMS_KEYS = tuple(state_key("norms", n) for n in OBSERVER_NAMES)
 SCOPE_KEYS = tuple(state_key("scope", n) for n in OBSERVER_NAMES)
-SCANNER_KEYS = tuple(state_key("scanners", n) for n in OBSERVER_NAMES)
+RULE_KEYS = tuple(state_key("rules", n) for n in OBSERVER_NAMES)
 SERVED_KEYS = tuple(state_key("served", n) for n in OBSERVER_NAMES)
 VERDICT_KEYS = tuple(state_key("verdicts", n) for n in OBSERVER_NAMES)

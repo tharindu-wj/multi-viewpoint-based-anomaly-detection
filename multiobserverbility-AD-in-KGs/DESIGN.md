@@ -673,3 +673,42 @@ people-domain words reaching any agent. The one caution for future sweeps:
 seed harness exists to measure: per-run objective performance swings on
 which observability points the root deals out. The disagreement set (10)
 remains rich either way.
+
+## 16. Mining rules — the TAXO-grounded roster (28 Aug 2026)
+
+**DECIDED — "scanners" are now "mining rules"**, `tools/mining_rules/`, and
+the roster is grounded in the TAXO anomaly taxonomy (Senaratne et al.,
+arXiv:2412.04780, §5) instead of ad-hoc: every non-missingness,
+entity-to-entity TAXO type maps onto one of four counting rules, plus the
+kept plausibility channel. Ten paper types → five rules. Full audited survey
+(16 designed rules, 3 adversarial audits, yields measured on kg.tsv):
+<https://claude.ai/code/artifact/515dcfa9-eeaa-4eab-96f7-0bd6b68da80d>.
+
+| rule | TAXO types | mechanism |
+|---|---|---|
+| `odd_pairs` | contradicting facts, incorrect predicate, entity ambiguity, one-way records | rare (relation, direction) combination on one entity pair (≤2 pairs graph-wide, both relations ≥20 pairs); self links on non-looping relations; missing mirrors on ≥50%-two-way relations (the retired `one_way_links`, absorbed) |
+| `odd_types` | invalid predicate | leave-one-out type support: no OTHER entity of any of the occupant's kinds ever filled this (relation, slot). Replaces the 80%-dominance version — 49 of 65 findings fall where dominance never fired, and minority-but-attested kinds no longer false-fire |
+| `odd_values` | predicate ambiguity, redundant facts, duplicate facts | extra values on ≥90%-single relations (the retired `too_many_values`, absorbed); value pairs the graph itself links by a hierarchy-shaped (<0.2 reciprocity) relation; stem-equal value labels |
+| `odd_degrees` | rare entity, prolific entity | degree vs same-kind peer median, both tails, audit-tightened gates (≥5× median AND >p99) and hard caps (5 thin + 10 heavy) — findings are usually TRUE; their value is the note |
+| `unlikely_facts` | incorrectness at large | unchanged KGE percentile — kept because its provable blind spots (symmetry, popularity bias, per-triple scoring) are exactly the counting rules' ground |
+
+Missingness types stay at the storage layer per TAXO itself → ingest guards
+in `1_prepare_graph.py` (duplicates already guarded: GUARDS prints 0).
+
+**Measured on the contaminated graph (500 planted):** odd_pairs 244
+candidates / 31 planted (15 in first 30 — round-robin pays); odd_types 65 /
+0 planted (expected: CoDEx negatives are type-clean — this rule is
+norm-coverage, not a planted-catcher); odd_values 269 / 70 planted (5 in
+first 30 after per-relation interleave fix; a pooled queue had diluted it to
+1); odd_degrees 15 / 1. Union of the four counting rules: 585 candidates,
+102/500 planted — the same ~20% recall ceiling as the old roster, now with
+contradiction/ambiguity/redundancy coverage the old roster lacked.
+
+**Ordering lesson re-learned:** cross-section beats concatenation, but
+pooled case-queues dilute measured detectors — one queue per relation
+inside a case, then round-robin across everything.
+
+State/JSON renames: `scanners_N` → `rules_N`, run JSON `"scanners"` →
+`"rules"`, served/verdict field `"scanner"` → `"rule"`,
+`check_scanners.py` → `check_mining_rules.py`. Older run files keep the old
+keys; the evaluator reads only new-format runs from here on.
