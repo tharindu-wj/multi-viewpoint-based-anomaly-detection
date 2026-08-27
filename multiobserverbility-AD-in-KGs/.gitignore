@@ -7,3 +7,7 @@ prepared/
 runs/
 __pycache__/
 .adk/
+
+# dashboard frontend
+dashboard/node_modules/
+dashboard/dist/

@@ -23,6 +23,7 @@ sys.path.insert(0, str(ROOT))
 
 import argparse  # noqa: E402
 import datetime  # noqa: E402
+import hashlib  # noqa: E402
 
 from loaders.active import DATASET  # noqa: E402
 
@@ -202,6 +203,8 @@ out.write_text(json.dumps({
     "dataset": DATASET.NAME,
     #: the exact card this run's phase 1 could see -- provenance
     "card": DATASET.CARD,
+    #: binds this run to the graph it judged -- consumers refuse a mismatch
+    "kg_sha256": hashlib.sha256(DATASET.KG.read_bytes()).hexdigest(),
     "status": ("invalid" if not blindness_holds
                else "truncated" if health["truncated"]
                else "completed" if everything_placed

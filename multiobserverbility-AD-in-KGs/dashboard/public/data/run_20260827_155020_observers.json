@@ -1,0 +1,1036 @@
+{
+ "run": "run_20260827_155020_observers",
+ "dataset": "codex-s",
+ "card": "An encyclopedic knowledge graph about notable real people, organisations and places.",
+ "status": "completed",
+ "generated": "2026-08-28T00:07:16",
+ "stats": {
+  "triples": 37043,
+  "entities": 2034,
+  "relations": 42,
+  "planted_total": 500,
+  "judged": 20,
+  "flagged_union": 11,
+  "disagreements": 2,
+  "caught": 6
+ },
+ "judges": {
+  "observer_1": {
+   "handle": "The Structural Formalist",
+   "persona": "You are a strict structural formalist and logical purist. You evaluate entries purely by their internal consistency, adherence to strict relational schemas, and formal ontological coherence, demanding that every asserted connection cleanly obeys rigorous hierarchical and property definitions.",
+   "norms": {
+    "agent": "observer_1",
+    "normal": "A normal fact in this domain is a precise, unambiguous hierarchical or relational assertion connecting two entities of expected ontological types in strict accordance with formal schema rules.",
+    "anomalous": "Anomalous facts are those that violate clean hierarchical or relational schemas, such as instances where an entity engages in a relation that contradicts its ontological type, exhibits illogical inverse or symmetric failures, or creates structural paradoxes.",
+    "lets_pass": "I deliberately tolerate unusual vocabulary or minor naming eccentricities as long as the underlying relational structure and formal ontology remain strictly consistent and logically coherent."
+   },
+   "scope_size": 42,
+   "rules_used": {
+    "odd_pairs": "Checking for odd relational pairings and structural contradictions in entity connections to ensure rigorous ontological consistency."
+   }
+  },
+  "observer_2": {
+   "handle": "The Narrative-driven Empiricist",
+   "persona": "You are a pragmatic, narrative-driven empiricist. You evaluate entries by how well they reflect real-world contextual truth, historical plausibility, and practical human understanding, caring less for rigid schemas and more for whether the facts make sense in the messy context of human history and society.",
+   "norms": {
+    "agent": "observer_2",
+    "normal": "Normal facts are straightforward, historically plausible connections between notable people, organizations, and places that align with our general understanding of history, biography, and geography.",
+    "anomalous": "Anomalous facts are those that defy historical plausibility, present impossible chronological or geographical overlaps, or describe human relationships and organizational roles that contradict well-established practical realities of history and society.",
+    "lets_pass": "I will tolerate slight anachronisms or unconventional categorizations if the broader historical and narrative context of the person or place remains coherent and plausible."
+   },
+   "scope_size": 20,
+   "rules_used": {
+    "unlikely_facts": "I use unlikely_facts to find biographical or historical associations that strain practical human understanding or chronological plausibility."
+   }
+  }
+ },
+ "blindness": [
+  {
+   "agent": "observer_1",
+   "declared_at": 3,
+   "first_data_call_at": 5,
+   "verified": true
+  },
+  {
+   "agent": "observer_2",
+   "declared_at": 2,
+   "first_data_call_at": 4,
+   "verified": true
+  }
+ ],
+ "cases": [
+  {
+   "id": "Q108941-P451-Q202878",
+   "cids": {
+    "observer_1": "c10",
+    "observer_2": "r8"
+   },
+   "triple": {
+    "h": "Q108941",
+    "r": "P451",
+    "t": "Q202878"
+   },
+   "labels": {
+    "h": "Carrie Fisher",
+    "r": "unmarried partner",
+    "t": "Mae West"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 72% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 72% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Unmarried partner relations require bidirectional symmetry to be structurally coherent."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Carrie Fisher and Mae West were from different generations and never shared an unmarried partnership."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.72,
+    "examples": [
+     [
+      "Yul Brynner",
+      "Marlene Dietrich"
+     ],
+     [
+      "Max Frisch",
+      "Ingeborg Bachmann"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q1011-P530-Q458",
+   "cids": {
+    "observer_1": "c2",
+    "observer_2": "r1"
+   },
+   "triple": {
+    "h": "Q1011",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Cape Verde",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Diplomatic relations are symmetric by definition, and recording this one-way violates proper bidirectional relational consistency."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Cape Verde and the European Union maintain long-standing diplomatic and cooperative ties, making this relation practically and historically true."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q217427-P3373-Q202801",
+   "cids": {
+    "observer_1": "c3",
+    "observer_2": "r2"
+   },
+   "triple": {
+    "h": "Q217427",
+    "r": "P3373",
+    "t": "Q202801"
+   },
+   "labels": {
+    "h": "La Toya Jackson",
+    "r": "sibling",
+    "t": "Vanessa Williams"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Sibling relations are strictly symmetric and mutual, making a one-way assertion structurally invalid."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "La Toya Jackson and Vanessa Williams are not siblings; Vanessa Williams is not part of the Jackson family."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q93356-P106-Q33999",
+   "cids": {
+    "observer_1": "r1",
+    "observer_2": "c3"
+   },
+   "triple": {
+    "h": "Q93356",
+    "r": "P106",
+    "t": "Q33999"
+   },
+   "labels": {
+    "h": "Seamus Heaney",
+    "r": "occupation",
+    "t": "actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney is structurally categorized as a poet and writer rather than an actor, violating ontological role definitions."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney was a renowned poet and Nobel laureate, not an actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104081-P26-Q273055",
+   "cids": {
+    "observer_1": "c4",
+    "observer_2": "r3"
+   },
+   "triple": {
+    "h": "Q104081",
+    "r": "P26",
+    "t": "Q273055"
+   },
+   "labels": {
+    "h": "Mickey Rooney",
+    "r": "spouse",
+    "t": "R. Kelly"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Spouse relations are mutually symmetric, and a unidirectional entry violates relational symmetry schemas."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mickey Rooney and R. Kelly were never married, representing a nonsensical and historically false relationship."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q108941-P451-Q13909",
+   "cids": {
+    "observer_1": "c5",
+    "observer_2": "r4"
+   },
+   "triple": {
+    "h": "Q108941",
+    "r": "P451",
+    "t": "Q13909"
+   },
+   "labels": {
+    "h": "Carrie Fisher",
+    "r": "unmarried partner",
+    "t": "Angelina Jolie"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 72% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 72% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Unmarried partner relations are inherently symmetric, so recording it in only one direction violates formal relational symmetry."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Carrie Fisher and Angelina Jolie were never unmarried partners, defying historical plausibility and basic biographical facts."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.72,
+    "examples": [
+     [
+      "Yul Brynner",
+      "Marlene Dietrich"
+     ],
+     [
+      "Max Frisch",
+      "Ingeborg Bachmann"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q154145-P106-Q639669",
+   "cids": {
+    "observer_1": "r2",
+    "observer_2": "c5"
+   },
+   "triple": {
+    "h": "Q154145",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Gabriel Marcel",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Gabriel Marcel is an existentialist philosopher and playwright, making the occupation of musician ontologically incompatible with his core defined entities."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Gabriel Marcel was a prominent French philosopher and playwright, not a musician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1028-P530-Q458",
+   "cids": {
+    "observer_1": "c7",
+    "observer_2": "r5"
+   },
+   "triple": {
+    "h": "Q1028",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Morocco",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Diplomatic relations require mutual bidirectional recording to maintain proper formal symmetry."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Morocco and the European Union share deep diplomatic, trade, and geopolitical relations, making this factually sound."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q349461-P3373-Q344983",
+   "cids": {
+    "observer_1": "c8",
+    "observer_2": "r6"
+   },
+   "triple": {
+    "h": "Q349461",
+    "r": "P3373",
+    "t": "Q344983"
+   },
+   "labels": {
+    "h": "Randy Jackson",
+    "r": "sibling",
+    "t": "Babyface"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Sibling connections must be symmetric and mutual within the formal relational schema."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Randy Jackson and Babyface are not siblings; Randy Jackson is a member of the Jackson family, while Babyface is Kenneth Edmonds."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q542101-P106-Q170790",
+   "cids": {
+    "observer_1": "r3",
+    "observer_2": "c8"
+   },
+   "triple": {
+    "h": "Q542101",
+    "r": "P106",
+    "t": "Q170790"
+   },
+   "labels": {
+    "h": "Boris Grebenshchikov",
+    "r": "occupation",
+    "t": "mathematician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is fundamentally a musician and songwriter rather than a mathematician, failing strict relational schema consistency."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is a legendary Russian rock musician, not a mathematician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.019,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104109-P26-Q108941",
+   "cids": {
+    "observer_1": "c9",
+    "observer_2": "r7"
+   },
+   "triple": {
+    "h": "Q104109",
+    "r": "P26",
+    "t": "Q108941"
+   },
+   "labels": {
+    "h": "Mary Pickford",
+    "r": "spouse",
+    "t": "Carrie Fisher"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Spouse relations must be symmetric, making a unidirectional record structurally flawed."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mary Pickford and Carrie Fisher lived in entirely different eras and were never married."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q161806-P101-Q150",
+   "cids": {
+    "observer_1": "c1"
+   },
+   "triple": {
+    "h": "Q161806",
+    "r": "P101",
+    "t": "Q150"
+   },
+   "labels": {
+    "h": "Acad\u00e9mie Fran\u00e7aise",
+    "r": "field of work",
+    "t": "French"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 3 ways: 'Acad\u00e9mie Fran\u00e7aise' --field of work-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --languages spoken, written, or signed-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --official language-- 'French' -- a combination carried by only 1 pair in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 3 ways: 'Acad\u00e9mie Fran\u00e7aise' --field of work-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --languages spoken, written, or signed-- 'French'; 'Acad\u00e9mie Fran\u00e7aise' --official language-- 'French' -- a combination carried by only 1 pair in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The multiple connections between Acad\u00e9mie Fran\u00e7aise and French represent distinct properties (field of work, language spoken/written, and official language) which are logically permissible and structurally sound."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Acad\u00e9mie Fran\u00e7aise",
+      "r": "field of work",
+      "t": "French"
+     },
+     {
+      "h": "Acad\u00e9mie Fran\u00e7aise",
+      "r": "languages spoken, written, or signed",
+      "t": "French"
+     },
+     {
+      "h": "Acad\u00e9mie Fran\u00e7aise",
+      "r": "official language",
+      "t": "French"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q179150-P106-Q82955",
+   "cids": {
+    "observer_2": "c1"
+   },
+   "triple": {
+    "h": "Q179150",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Sonny Bono",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sonny Bono famously transitioned from a musician to a politician, serving as mayor of Palm Springs and a U.S. Congressman."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q148-P530-Q15",
+   "cids": {
+    "observer_2": "c10"
+   },
+   "triple": {
+    "h": "Q148",
+    "r": "P530",
+    "t": "Q15"
+   },
+   "labels": {
+    "h": "People's Republic of China",
+    "r": "diplomatic relation",
+    "t": "Africa"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "China engages in formal diplomatic cooperation and forums with Africa as a continental bloc."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.044,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q155-P530-Q7159",
+   "cids": {
+    "observer_2": "c2"
+   },
+   "triple": {
+    "h": "Q155",
+    "r": "P530",
+    "t": "Q7159"
+   },
+   "labels": {
+    "h": "Brazil",
+    "r": "diplomatic relation",
+    "t": "African Union"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.060 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.060 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Brazil maintains diplomatic engagement and multilateral relations with the African Union and African nations."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.06,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q17-P530-Q12585",
+   "cids": {
+    "observer_2": "c4"
+   },
+   "triple": {
+    "h": "Q17",
+    "r": "P530",
+    "t": "Q12585"
+   },
+   "labels": {
+    "h": "Japan",
+    "r": "diplomatic relation",
+    "t": "Latin America"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.029 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.029 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Japan engages in formal diplomatic and economic relations with Latin America as a region through various multilateral frameworks."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.029,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q184366-P119-Q84",
+   "cids": {
+    "observer_1": "c6"
+   },
+   "triple": {
+    "h": "Q184366",
+    "r": "P119",
+    "t": "Q84"
+   },
+   "labels": {
+    "h": "Thomas Henry Huxley",
+    "r": "place of burial",
+    "t": "London"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 2 ways: 'Thomas Henry Huxley' --place of burial-- 'London'; 'Thomas Henry Huxley' --residence-- 'London' -- a combination carried by only 1 pair in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 2 ways: 'Thomas Henry Huxley' --place of burial-- 'London'; 'Thomas Henry Huxley' --residence-- 'London' -- a combination carried by only 1 pair in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "An entity having both a place of burial and a residence in the same location is a valid biographical co-occurrence with no structural contradiction."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Thomas Henry Huxley",
+      "r": "place of burial",
+      "t": "London"
+     },
+     {
+      "h": "Thomas Henry Huxley",
+      "r": "residence",
+      "t": "London"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q25820-P106-Q639669",
+   "cids": {
+    "observer_2": "c6"
+   },
+   "triple": {
+    "h": "Q25820",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Thomas Young",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Thomas Young was a genuine polymath who made significant contributions to physics, medicine, and linguistics, and musical acoustics was indeed among his varied intellectual pursuits."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.004,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q159-P530-Q7172",
+   "cids": {
+    "observer_2": "c7"
+   },
+   "triple": {
+    "h": "Q159",
+    "r": "P530",
+    "t": "Q7172"
+   },
+   "labels": {
+    "h": "Russia",
+    "r": "diplomatic relation",
+    "t": "Arab League"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Russia maintains formal diplomatic dialogue and relations with the Arab League."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q5879-P106-Q36834",
+   "cids": {
+    "observer_2": "c9"
+   },
+   "triple": {
+    "h": "Q5879",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Johann Wolfgang von Goethe",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Johann Wolfgang von Goethe was primarily a literary giant, but his poetry inspired countless musical compositions and he deeply engaged with musical theory and culture of his time."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  }
+ ]
+}
