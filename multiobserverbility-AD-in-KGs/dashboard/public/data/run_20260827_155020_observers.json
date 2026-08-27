@@ -3,7 +3,7 @@
  "dataset": "codex-s",
  "card": "An encyclopedic knowledge graph about notable real people, organisations and places.",
  "status": "completed",
- "generated": "2026-08-28T00:07:16",
+ "generated": "2026-08-28T00:48:50",
  "stats": {
   "triples": 37043,
   "entities": 2034,

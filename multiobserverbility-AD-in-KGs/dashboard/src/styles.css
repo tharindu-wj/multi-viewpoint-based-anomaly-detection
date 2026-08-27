@@ -87,7 +87,23 @@ button { font: inherit; cursor: pointer; }
 .judge-intro dd { margin: 2px 0 0; font-size: 14px; }
 .judge-meta { font-size: 12.5px; color: var(--muted); margin: 0; }
 
-.decks-title { font-family: Georgia, serif; font-size: 24px; margin: 0 0 12px; }
+.decks-title { font-family: Georgia, serif; font-size: 24px; margin: 0 0 4px; }
+.decks-sub { color: var(--muted); font-size: 14px; margin: 0 0 12px; max-width: 62ch; }
+
+/* The docket: one square per judged fact. Hovering a deck keeps only its
+   members lit, so overlapping membership is seen rather than explained. */
+.dot-strip { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 6px; }
+.dot {
+  width: 13px; height: 13px; border-radius: 3px;
+  background: var(--line); transition: background 0.12s;
+}
+.dot.on { background: var(--accent); }
+
+.deck-dim-label {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 14px 0 6px;
+}
+.deck-dim:first-of-type .deck-dim-label { margin-top: 8px; }
 .deck-grid { display: flex; gap: 12px; flex-wrap: wrap; }
 .deck-button {
   flex: 1 1 260px; text-align: left; background: var(--card);
@@ -105,8 +121,9 @@ button { font: inherit; cursor: pointer; }
 .deck-button .deck-count {
   position: absolute; top: 12px; right: 14px; background: var(--accent-soft);
   color: var(--accent); font-weight: 700; border-radius: 999px;
-  padding: 1px 10px; font-size: 14px;
+  padding: 1px 10px; font-size: 12.5px; white-space: nowrap;
 }
+.deck-button b { padding-right: 74px; }
 .deck-button.minor { flex: 1 1 160px; opacity: 0.85; }
 .fine-print { margin-top: 32px; color: var(--muted); font-size: 12.5px; }
 

@@ -37,10 +37,22 @@ export const isCaught = (c) =>
 
 const caseRules = (c) => (c.origins || []).map((o) => o.rule)
 
+// Decks are overlapping VIEWS of one docket, never disjoint bins -- the
+// same fact sits in several. Each deck carries a `dimension` so the
+// overview can group them into labeled slices and show counts as
+// "n of <total>", and the dot strip can light up membership on hover.
 export function buildDecks(cases) {
   const decks = [
     {
+      key: 'all',
+      dimension: 'all',
+      title: 'Every judged fact',
+      blurb: 'The full docket, including the ones that passed.',
+      cases,
+    },
+    {
       key: 'disagree',
+      dimension: 'verdict',
       title: 'Where the judges disagree',
       blurb:
         'The same fact, two verdicts -- both right by their own rules. ' +
@@ -49,12 +61,14 @@ export function buildDecks(cases) {
     },
     {
       key: 'agreed',
+      dimension: 'verdict',
       title: 'Where both agree it is wrong',
       blurb: 'Flagged by both judges, each for their own reason.',
       cases: cases.filter(isAgreedAnomaly),
     },
     {
       key: 'caught',
+      dimension: 'outcome',
       title: 'Caught fakes',
       blurb:
         'Every card here is a planted falsehood a judge flagged -- ' +
@@ -64,18 +78,13 @@ export function buildDecks(cases) {
       spoiled: true,
       cases: cases.filter(isCaught),
     },
-    {
-      key: 'all',
-      title: 'Every judged fact',
-      blurb: 'The full docket, including the ones that passed.',
-      cases,
-    },
   ]
   const rules = [...new Set(cases.flatMap(caseRules))].sort()
   for (const rule of rules) {
     if (rule === 'unknown') continue
     decks.push({
       key: `rule:${rule}`,
+      dimension: 'rule',
       title: `Found by ${ruleName(rule)}`,
       blurb: 'All judged facts this mining rule surfaced.',
       cases: cases.filter((c) => caseRules(c).includes(rule)),
