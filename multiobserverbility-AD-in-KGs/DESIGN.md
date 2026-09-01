@@ -745,3 +745,75 @@ norm-true verdicts (voice-as-instrument, empire-as-country, region-as-
 diplomatic-partner) — exactly the standpoint judgments the disagreement
 set exists to hold. Same-fact splits tripled, including the first
 REVERSED split (James Taylor: empiricist flags, formalist passes).
+
+## 18. Selected evaluation metrics (1 Sep 2026)
+
+**DECIDED — the headline metrics are Precision@K and Recall@K on the
+UNION of observer anomaly flags**, K = the union's own size. Detection is
+"flagged by at least one observer": the research question is what DIFFERENT
+perspectives find, so agreement is a confidence tier inside the union,
+never the definition of detection. Implemented in 4_evaluate_verdicts.py
+(UNION block).
+
+Protocol per run: K, K/|graph|, P@K (planted hits / K), R@K (hits / 500)
+printed beside its ceiling min(K,500)/500 — recall is budget-bound and must
+never be read bare. Companion metric: COMPLEMENTARITY on primary flags
+(c-ids only — found by the observer's own hunt): alone/alone/both, and
+union gain over the best single observer. Primary flags because the review
+phase deliberately converges the sets afterwards (measured: run
+20260828 shows 11+11 unique vs 2 shared before review; "6 = 6 = 6" after).
+Baseline: the standalone scorer's top-K at the same K, same graph.
+Reported numbers are mean ± sd over seeded runs (single-run values swing
+25% → 0% between consecutive runs; the seed harness is a prerequisite for
+any published number).
+
+Prior art anchoring: ADKGD (Eq. 33-34) and CAGED (Eq. 12) use P@K/R@K
+ladders (noting P@K = R@K when K = anomaly ratio); SEKA evaluates
+precision/recall at expert budget b = 100 ("the number of triples an
+expert can handle manually") — the budget framing is our reading budget,
+published by the home group. SEKA Table 11 (per-TAXO-type coverage of two
+detectors in the top-100) is the field's only detector-agreement
+evaluation and the direct precedent for our complementarity metric.
+AUC/AUPR are RESERVED for the scorer layer (which ranks every triple;
+DistMult AUC 0.617 measured): the observer layer emits a decision set,
+not a ranking — there is no threshold to slide, so curve metrics do not
+exist there and will not be fabricated. Validated precision (manual
+adjudication of the union's unplanted flags, Senaratne-group top-100
+style) is the planned upgrade that turns P@K from a lower bound into a
+true value plus a discovery count.
+
+### 18.1 Improvement levers, ranked (light survey, session evidence + repo papers)
+
+The funnel fact that orders everything: in both measured runs, observers
+missed ZERO planted facts that were served to them ("planted seen but not
+flagged: 0"). Judging is not the bottleneck — SERVING is. P@K rises by
+putting more planted into the pages read; R@K rises the same way (its
+ceiling only via budget).
+
+1. **In-rule ranking** (cheap, no design change): order each rule's
+   candidates strongest-lead-first — odd_values extra case by
+   single-share, odd_degrees by peer ratio (odd_pairs already sorts by
+   symmetry). Measured precedent: the odd_values interleave fix alone
+   moved planted-in-first-30 from 1 to 5.
+2. **Fix the plausibility channel's memorization**: held-out scoring for
+   DistMult (score each triple from a model that never trained on it) or
+   the planned ADKGD dual-channel swap (bridge exists). Evidence: AUC
+   0.617 + zero planted in early pages = the channel currently
+   contributes nothing at K; ADKGD/CAGED report large gains over
+   translational baselines exactly at K ≤ 5%.
+3. **A corroboration rule from the survey backlog**: SEKA's CPA
+   path-corroboration as a sixth mining rule (judged yes-fit in the
+   adoption survey; code public) — a falsehood lead with different blind
+   spots from both the KGE and the counting rules.
+4. **Standpoint diversity → complementarity**: the axis-lottery for root
+   personas (seeded axis list in the trigger). Evidence: three runs dealt
+   the same formalist/empiricist pair; the Sep-1 pair's rule choices
+   yielded P@K = 0 — which standpoints get dealt currently decides the
+   number. Scope disjointness guidance is the stronger variant (union
+   covers more graph); both preserve norms-choose-rules integrity.
+5. **Budget sweep** (raises the recall ceiling itself): budgets 30/60/120
+   → ceilings 4.8%/9.6%/19.2%; linear API cost; also produces the short
+   P@B curve for the paper.
+6. NOT a lever: coaching rule choice toward planted-heavy rules — that
+   optimizes the metric by contaminating the design (observers must never
+   be steered by the answer key).

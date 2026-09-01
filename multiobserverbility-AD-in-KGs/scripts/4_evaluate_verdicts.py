@@ -116,13 +116,49 @@ agent_1, agent_2 = OBSERVER_NAMES
 both_judged = [t for t, by in verdict_of.items() if len(by) == 2]
 
 print("\n" + "=" * 70)
+print("  UNION -- the system's detection output")
+print("=" * 70)
+# The research question is what DIFFERENT perspectives find, so detection
+# is "flagged by at least one observer" -- agreement is the high-confidence
+# tier inside it, never the definition. The union is stable under the
+# review phase (a reviewer only re-judges facts already flagged), so it is
+# measured over all flags; COMPLEMENTARITY is measured over PRIMARY flags
+# (c-ids, an observer's own hunt) because the review phase deliberately
+# converges the two sets afterwards.
+union_flags = flags[agent_1] | flags[agent_2]
+union_hits = sum(1 for t in union_flags if truth.get(t) == 1)
+if union_flags:
+    K = len(union_flags)
+    print(f"  union flags K = {K} ({K / len(truth):.2%} of the graph)")
+    print(f"  precision@K: {union_hits}/{K} ({union_hits / K:.0%})")
+    print(f"  recall@K:    {union_hits}/{planted_total} "
+          f"({union_hits / planted_total:.1%})  -- ceiling at this K is "
+          f"{min(K, planted_total) / planted_total:.1%}: recall is "
+          f"budget-bound, so read it beside its ceiling")
+else:
+    print("  union flags 0")
+primary = {name: {tuple(v["triple"])
+                  for cid, v in verdicts_by_agent[name].items()
+                  if v["verdict"] == "anomaly" and cid.startswith("c")}
+           for name in OBSERVER_NAMES}
+only_1 = primary[agent_1] - primary[agent_2]
+only_2 = primary[agent_2] - primary[agent_1]
+shared = primary[agent_1] & primary[agent_2]
+print(f"  complementarity of the two hunts (primary flags only):")
+print(f"    {agent_1} alone {len(only_1)} "
+      f"(planted {sum(1 for t in only_1 if truth.get(t) == 1)})   "
+      f"{agent_2} alone {len(only_2)} "
+      f"(planted {sum(1 for t in only_2 if truth.get(t) == 1)})   "
+      f"both {len(shared)}")
+print(f"  equal-K scorer comparison uses K = {len(union_flags)}")
+
+print("\n" + "=" * 70)
 print("  COMPOSED -- the two viewpoints together")
 print("=" * 70)
 print(f"  flagged: {agent_1} {len(flags[agent_1])}, "
       f"{agent_2} {len(flags[agent_2])}, "
-      f"union {len(flags[agent_1] | flags[agent_2])}, "
+      f"union {len(union_flags)}, "
       f"agreement {len(flags[agent_1] & flags[agent_2])}")
-union_hits = sum(1 for t in flags[agent_1] | flags[agent_2] if truth.get(t) == 1)
 print(f"  union catches {union_hits} planted -- vs "
       f"{sum(1 for t in flags[agent_1] if truth.get(t)==1)} and "
       f"{sum(1 for t in flags[agent_2] if truth.get(t)==1)} alone")
