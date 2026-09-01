@@ -1,6 +1,6 @@
 /* Projector-first: big type, high contrast, no external fonts (must work
    offline). One accent (teal) for structure; verdict colors are semantic
-   and separate; each judge carries their own hue. */
+   and separate; each observer carries their own hue. */
 
 :root {
   --ground: #f6f7f9;
@@ -18,8 +18,8 @@
   --unsure-soft: #f6eedd;
   --oos: #5a6b7d;
   --oos-soft: #e9edf2;
-  --judge-1: #4a5899;
-  --judge-2: #b0641f;
+  --observer-1: #4a5899;
+  --observer-2: #b0641f;
 }
 
 * { box-sizing: border-box; }
@@ -70,22 +70,22 @@ button { font: inherit; cursor: pointer; }
 .stat.accent { border-color: var(--accent); }
 .stat.accent b { color: var(--accent); }
 
-.judge-intro-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
-.judge-intro {
+.observer-intro-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
+.observer-intro {
   flex: 1 1 320px; background: var(--card); border: 1px solid var(--line);
   border-top: 4px solid var(--line); border-radius: 8px; padding: 18px 20px;
 }
-.judge-intro.judge-1 { border-top-color: var(--judge-1); }
-.judge-intro.judge-2 { border-top-color: var(--judge-2); }
-.judge-intro h2 { margin: 0 0 8px; font-size: 20px; }
-.judge-intro .persona { color: var(--muted); font-style: italic; margin: 0 0 12px; }
-.judge-intro dl { margin: 0 0 10px; }
-.judge-intro dt {
+.observer-intro.observer-1 { border-top-color: var(--observer-1); }
+.observer-intro.observer-2 { border-top-color: var(--observer-2); }
+.observer-intro h2 { margin: 0 0 8px; font-size: 20px; }
+.observer-intro .persona { color: var(--muted); font-style: italic; margin: 0 0 12px; }
+.observer-intro dl { margin: 0 0 10px; }
+.observer-intro dt {
   font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--muted); margin-top: 8px;
 }
-.judge-intro dd { margin: 2px 0 0; font-size: 14px; }
-.judge-meta { font-size: 12.5px; color: var(--muted); margin: 0; }
+.observer-intro dd { margin: 2px 0 0; font-size: 14px; }
+.observer-meta { font-size: 12.5px; color: var(--muted); margin: 0; }
 
 .decks-title { font-family: Georgia, serif; font-size: 24px; margin: 0 0 4px; }
 .decks-sub { color: var(--muted); font-size: 14px; margin: 0 0 12px; max-width: 62ch; }
@@ -159,10 +159,11 @@ button { font: inherit; cursor: pointer; }
   margin: 0 0 22px;
 }
 
-.suspicion h2, .judges-title {
+.suspicion h2, .observers-title {
   font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted); margin: 0 0 8px;
+  color: var(--muted); margin: 0 0 8px; font-weight: 600;
 }
+.observers-title { margin-top: 4px; }
 .suspicion .note { margin: 0 0 12px; font-size: 15px; }
 .evidence {
   background: var(--ground); border: 1px solid var(--line); border-radius: 8px;
@@ -208,14 +209,14 @@ button { font: inherit; cursor: pointer; }
 .track-label.left { left: 8px; }
 .track-label.right { right: 8px; }
 
-.judges { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
-.judge-panel {
+.observers { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+.observer-panel {
   flex: 1 1 300px; border: 1px solid var(--line); border-radius: 8px;
   border-left: 4px solid var(--line); padding: 12px 16px;
 }
-.judge-panel.judge-1 { border-left-color: var(--judge-1); }
-.judge-panel.judge-2 { border-left-color: var(--judge-2); }
-.judge-panel header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.observer-panel.observer-1 { border-left-color: var(--observer-1); }
+.observer-panel.observer-2 { border-left-color: var(--observer-2); }
+.observer-panel header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
 .stamp {
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
   border-radius: 4px; padding: 2px 8px; white-space: nowrap;
@@ -225,8 +226,23 @@ button { font: inherit; cursor: pointer; }
 .stamp-ok { background: var(--pass-soft); color: var(--pass); }
 .stamp-unsure { background: var(--unsure-soft); color: var(--unsure); }
 .stamp-out_of_scope, .stamp-none { background: var(--oos-soft); color: var(--oos); }
-.judge-panel .why { margin: 0; font-size: 14.5px; }
-.judge-panel .via { margin: 8px 0 0; font-size: 12px; color: var(--muted); font-style: italic; }
+.observer-panel .why { margin: 0; font-size: 14.5px; }
+
+/* Every panel names its own role -- which observer turned the fact up, and
+   which was handed it blind. Without both, a first-time reader cannot tell
+   what the two panels are. */
+.role {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  margin: 0 0 9px; padding-bottom: 9px; border-bottom: 1px solid var(--line);
+}
+.role-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; border-radius: 3px; padding: 2px 8px;
+  white-space: nowrap; flex: none;
+}
+.role-note { font-size: 12.5px; color: var(--muted); }
+.role-primary .role-tag { background: var(--oos-soft); color: var(--oos); }
+.role-reviewing .role-tag { background: var(--accent-soft); color: var(--accent); }
 
 .split-banner {
   background: var(--accent-soft); color: var(--accent); border-radius: 8px;

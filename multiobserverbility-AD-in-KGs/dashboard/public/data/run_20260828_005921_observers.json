@@ -3,7 +3,7 @@
  "dataset": "codex-s",
  "card": "An encyclopedic knowledge graph about notable real people, organisations and places.",
  "status": "completed",
- "generated": "2026-08-28T01:00:19",
+ "generated": "2026-09-01T07:30:40",
  "stats": {
   "triples": 37043,
   "entities": 2034,
@@ -1565,7 +1565,7 @@
       3
      ],
      [
-      "keyboard instrument",
+      "plucked necked box lutes",
       2
      ]
     ],

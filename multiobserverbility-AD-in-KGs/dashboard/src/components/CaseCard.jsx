@@ -12,7 +12,7 @@ const VERDICT_LABEL = {
 export default function CaseCard({ data, deck, index, onPrev, onNext, onHome }) {
   const c = deck.cases[index]
   const split = isDisagreement(c)
-  const judgeNames = Object.keys(data.judges)
+  const observerNames = Object.keys(data.observers)
   // Keyed by case id so navigating can never flash the NEXT case's answer
   // before an effect resets a stale boolean (review finding).
   const [revealedId, setRevealedId] = useState(null)
@@ -44,14 +44,19 @@ export default function CaseCard({ data, deck, index, onPrev, onNext, onHome }) 
           <Evidence evidence={c.evidence} labels={c.labels} />
         </section>
 
-        <section className="judges">
-          {judgeNames.map((name, i) => {
-            const judge = data.judges[name]
+        <h2 className="observers-title">how each observer ruled</h2>
+        <section className="observers">
+          {observerNames.map((name, i) => {
+            const observer = data.observers[name]
             const v = c.verdicts[name]
+            // Same entity, two roles: the observer whose own rule turned this
+            // fact up, and the one handed it blind afterwards.
+            const reviewing = c.via_second_opinion[name]
+            const origin = (c.origins || []).find((o) => o.observer === name)
             return (
-              <div key={name} className={`judge-panel judge-${i + 1}`}>
+              <div key={name} className={`observer-panel observer-${i + 1}`}>
                 <header>
-                  <b>{judge.handle}</b>
+                  <b>{observer.handle}</b>
                   {v ? (
                     <span className={`stamp stamp-${v.verdict}`}>
                       {VERDICT_LABEL[v.verdict] || v.verdict}
@@ -60,19 +65,30 @@ export default function CaseCard({ data, deck, index, onPrev, onNext, onHome }) 
                     <span className="stamp">NEVER SHOWN</span>
                   )}
                 </header>
-                {v && <p className="why">&ldquo;{v.why}&rdquo;</p>}
-                {v && c.via_second_opinion[name] && (
-                  <p className="via">reached this judge as a blind second
-                  opinion &mdash; no hint of the other verdict</p>
+                {v && (
+                  <p className={`role ${reviewing ? 'role-reviewing' : 'role-primary'}`}>
+                    <span className="role-tag">
+                      {reviewing ? 'reviewing observer' : 'primary observer'}
+                    </span>
+                    <span className="role-note">
+                      {reviewing
+                        ? 'handed the bare fact afterwards — the primary observer’s verdict and reasons hidden'
+                        : origin
+                          ? `found it first: ${ruleName(origin.rule)} turned it up inside their own scope`
+                          : 'found it first, inside their own scope'}
+                    </span>
+                  </p>
                 )}
+                {v && <p className="why">&ldquo;{v.why}&rdquo;</p>}
               </div>
             )
           })}
         </section>
         {split && (
           <p className="split-banner">
-            The judges split on this fact &mdash; and neither is wrong by
-            their own rules. No answer key can settle a norm disagreement.
+            The two observers split on this fact &mdash; and neither is wrong
+            by their own norms. No answer key can settle a disagreement about
+            what counts as an anomaly.
           </p>
         )}
 
@@ -90,16 +106,16 @@ export default function CaseCard({ data, deck, index, onPrev, onNext, onHome }) 
             <p className="reveal-answer unplanted">
               NOT PLANTED &mdash; this fact came with the original data. A
               flag here can still be a real error the source carried, or a
-              judgement the judge&rsquo;s norms demand.
+              judgement the observer&rsquo;s norms demand.
             </p>
           )}
         </section>
 
         <footer className="provenance">
           {data.run} · {c.rule}
-          {judgeNames
+          {observerNames
             .filter((n) => c.cids[n])
-            .map((n) => ` · ${data.judges[n].handle}: ${c.cids[n]}`)
+            .map((n) => ` · ${data.observers[n].handle}: ${c.cids[n]}`)
             .join('')}
         </footer>
       </article>

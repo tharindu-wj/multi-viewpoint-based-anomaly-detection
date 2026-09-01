@@ -387,11 +387,11 @@ disagreements = [c for c in cases
                  if {v["verdict"] for v in c["verdicts"].values()}
                  == {"anomaly", "ok"}]
 
-judges = {}
+observers = {}
 for name, persona, norms, scope, rules in zip(
         OBSERVER_NAMES, run["personas"], run["norms"], run["scopes"],
         run["rules"]):
-    judges[name] = {
+    observers[name] = {
         "handle": _handle((persona or {}).get("persona", "")),
         "persona": (persona or {}).get("persona", ""),
         "norms": norms or {},
@@ -416,7 +416,7 @@ view_model = {
         "caught": sum(1 for c in cases if c["planted"] and any(
             v["verdict"] == "anomaly" for v in c["verdicts"].values())),
     },
-    "judges": judges,
+    "observers": observers,
     "blindness": run["blindness"],
     "cases": cases,
 }

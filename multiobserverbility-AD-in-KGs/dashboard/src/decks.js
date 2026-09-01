@@ -17,8 +17,8 @@ export const RULE_NAMES = {
 export const ruleName = (rule) => RULE_NAMES[rule] || rule
 
 // A genuine split is one committed verdict against the other. An "unsure"
-// judge has not taken a position and "out_of_scope" has declined to rule,
-// so neither makes a norm disagreement.
+// observer has not taken a position and "out_of_scope" has declined to
+// rule, so neither makes a norm disagreement.
 export const isDisagreement = (c) => {
   const verdicts = Object.values(c.verdicts).map((v) => v.verdict)
   return (
@@ -53,9 +53,9 @@ export function buildDecks(cases) {
     {
       key: 'disagree',
       dimension: 'verdict',
-      title: 'Where the judges disagree',
+      title: 'Where the observers disagree',
       blurb:
-        'The same fact, two verdicts -- both right by their own rules. ' +
+        'The same fact, two verdicts -- both right by their own norms. ' +
         'This is what the architecture exists to surface.',
       cases: cases.filter(isDisagreement),
     },
@@ -63,7 +63,7 @@ export function buildDecks(cases) {
       key: 'agreed',
       dimension: 'verdict',
       title: 'Where both agree it is wrong',
-      blurb: 'Flagged by both judges, each for their own reason.',
+      blurb: 'Flagged by both observers, each for their own reason.',
       cases: cases.filter(isAgreedAnomaly),
     },
     {
@@ -71,7 +71,7 @@ export function buildDecks(cases) {
       dimension: 'outcome',
       title: 'Caught fakes',
       blurb:
-        'Every card here is a planted falsehood a judge flagged -- ' +
+        'Every card here is a planted falsehood an observer flagged -- ' +
         'so these cards arrive already revealed.',
       // Membership is defined by planted status, so the guess-then-reveal
       // would be dead on arrival -- CaseCard shows these pre-revealed.

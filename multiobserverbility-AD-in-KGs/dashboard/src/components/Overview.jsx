@@ -1,4 +1,4 @@
-// The 30-second setup screen: what happened, who the judges are, and the
+// The 30-second setup screen: what happened, who the observers are, and the
 // decks. Everything on it is quoted from the run -- personas, norms and
 // every number come from the loaded data, never from literals here.
 
@@ -8,7 +8,7 @@ import { ruleName } from '../decks.js'
 //: how the deck slices are introduced. Decks overlap by design; the
 //: grouping and the "n of total" chips are what make that legible.
 const DIMENSION_LABELS = {
-  verdict: 'the same facts, sliced by how the judges ruled',
+  verdict: 'the same facts, sliced by how the observers ruled',
   outcome: 'sliced by what they turned out to be',
   rule: 'sliced by which mining rule surfaced them',
 }
@@ -17,13 +17,13 @@ const DIMENSION_ORDER = ['all', 'verdict', 'outcome', 'rule']
 const pipelineSteps = (s) => [
   ['plant', `${s.planted_total.toLocaleString()} verified-false facts are hidden in the graph`],
   ['mine', `deterministic rules sweep all ${s.triples.toLocaleString()} facts for suspects`],
-  ['judge blind', 'two judges declare their norms before seeing any data, then rule on the suspects their own rules surface'],
-  ['compare', 'each blindly reviews the other’s flags -- agreement and disagreement are both results'],
+  ['rule blind', 'two observers declare their norms before seeing any data, then rule on the suspects their own rules surface'],
+  ['review', 'each observer re-judges the other’s flags blind -- agreement and disagreement are both results'],
 ]
 
 export default function Overview({ data, decks, onOpenDeck }) {
   const s = data.stats
-  const judgeNames = Object.keys(data.judges)
+  const observerNames = Object.keys(data.observers)
   const blindnessVerified = data.blindness.every((b) => b.verified)
   // Hovering (or focusing) a deck lights up exactly the docket dots it
   // holds -- the overlap between decks becomes visible, not explained.
@@ -34,11 +34,11 @@ export default function Overview({ data, decks, onOpenDeck }) {
     <div className="overview">
       <header>
         <p className="eyebrow">{data.dataset} &middot; {data.run}</p>
-        <h1>Two judges, one graph</h1>
+        <h1>Two observers, one graph</h1>
         <p className="lede">{data.card} We hid {s.planted_total} facts known
         to be false among {s.triples.toLocaleString()} records, then asked
-        two AI judges with different worldviews to find what is wrong &mdash;
-        each by their own rules.</p>
+        two AI observers with different worldviews to find what is wrong
+        &mdash; each by their own norms.</p>
       </header>
 
       <div className="pipeline">
@@ -54,27 +54,27 @@ export default function Overview({ data, decks, onOpenDeck }) {
       <div className="stat-row">
         <Stat n={s.triples.toLocaleString()} label="facts in the graph" />
         <Stat n={s.judged} label="facts judged" />
-        <Stat n={s.flagged_union} label="flagged by a judge" />
+        <Stat n={s.flagged_union} label="flagged by an observer" />
         <Stat n={s.disagreements} label="split verdicts" accent />
       </div>
 
-      <div className="judge-intro-row">
-        {judgeNames.map((name, i) => {
-          const j = data.judges[name]
+      <div className="observer-intro-row">
+        {observerNames.map((name, i) => {
+          const o = data.observers[name]
           return (
-            <section key={name} className={`judge-intro judge-${i + 1}`}>
-              <h2>{j.handle}</h2>
-              <p className="persona">&ldquo;{j.persona}&rdquo;</p>
+            <section key={name} className={`observer-intro observer-${i + 1}`}>
+              <h2>{o.handle}</h2>
+              <p className="persona">&ldquo;{o.persona}&rdquo;</p>
               <dl>
                 <dt>calls anomalous</dt>
-                <dd>{j.norms.anomalous}</dd>
+                <dd>{o.norms.anomalous}</dd>
                 <dt>lets pass</dt>
-                <dd>{j.norms.lets_pass}</dd>
+                <dd>{o.norms.lets_pass}</dd>
               </dl>
-              <p className="judge-meta">
-                watches {j.scope_size} of {s.relations} relations &middot;
+              <p className="observer-meta">
+                watches {o.scope_size} of {s.relations} relations &middot;
                 hunts with{' '}
-                {Object.keys(j.rules_used).map(ruleName).join(', ') || '—'}
+                {Object.keys(o.rules_used).map(ruleName).join(', ') || '—'}
               </p>
             </section>
           )
@@ -130,7 +130,7 @@ export default function Overview({ data, decks, onOpenDeck }) {
 
       <footer className="fine-print">
         {blindnessVerified
-          ? 'Norms were declared before either judge saw any data (verified from the run trace). '
+          ? 'Norms were declared before either observer saw any data (verified from the run trace). '
           : 'Blindness could not be verified for this run -- treat the norms with care. '}
         Verdicts come from the run file; planted status from the withheld
         answer key, revealed per case on request.

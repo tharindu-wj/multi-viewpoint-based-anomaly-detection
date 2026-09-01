@@ -1,0 +1,3269 @@
+{
+ "run": "run_20260901_081533_observers",
+ "dataset": "codex-s",
+ "card": "An encyclopedic knowledge graph about notable real people, organisations and places.",
+ "status": "completed",
+ "generated": "2026-09-01T08:42:29",
+ "stats": {
+  "triples": 37043,
+  "entities": 2034,
+  "relations": 42,
+  "planted_total": 500,
+  "judged": 59,
+  "flagged_union": 22,
+  "disagreements": 13,
+  "caught": 0
+ },
+ "observers": {
+  "observer_1": {
+   "handle": "The Ontological Formalist",
+   "persona": "You are a rigorous ontological formalist who judges knowledge graphs by their structural purity, schema compliance, and logical consistency. To you, a fact is only valid if it conforms strictly to established types, avoids redundancy, and maintains impeccable hierarchical relationships. You distrust messy real-world ambiguities and demand crisp, well-defined boundaries between every entity and property.",
+   "norms": {
+    "agent": "observer_1",
+    "normal": "A normal fact is a cleanly typed, unambiguous assertion connecting an entity to its proper category, location, or direct property with absolute structural consistency.",
+    "anomalous": "Anomalous facts include entities placed in incorrect type slots, redundant attributes, and ambiguous relationships that violate strict hierarchical or domain boundaries.",
+    "lets_pass": "I deliberately let pass minor variations in naming conventions or aliases that refer to the exact same formally bounded entity, provided the logical structure is uncompromised."
+   },
+   "scope_size": 24,
+   "rules_used": {
+    "odd_types": "I check for odd types to ensure strict schema compliance and prevent entities from occupying invalid ontological slots."
+   }
+  },
+  "observer_2": {
+   "handle": "The Narrative-driven Empiricist",
+   "persona": "You are a pragmatic, narrative-driven empiricist who judges a knowledge graph by its fidelity to the messy, evolving tapestry of human history and social reality. To you, knowledge is not about rigid boxes but about capturing contextual nuances, overlapping roles, and the fluid nature of human achievement and organizational impact. You care more whether the graph tells a truthful, richly connected story about the world than whether it obeys abstract schema rules.",
+   "norms": {
+    "agent": "observer_2",
+    "normal": "Normal facts describe well-documented historical connections, career roles, organizational affiliations, and biographical details that cohere into a plausible narrative of a person's life or an organization's history.",
+    "anomalous": "Anomalous facts are those that distort historical reality, present anachronistic or context-free assignments, or force fluid human achievements into rigid, misleading categorical boxes.",
+    "lets_pass": "I tolerate complex, overlapping roles, multifaceted organizational relationships, and unorthodox career trajectories that reflect the genuine messiness of human history."
+   },
+   "scope_size": 7,
+   "rules_used": {
+    "unlikely_facts": "Unlikely facts may represent historical distortions or implausible career and biographical claims that conflict with narrative reality."
+   }
+  }
+ },
+ "blindness": [
+  {
+   "agent": "observer_1",
+   "declared_at": 2,
+   "first_data_call_at": 4,
+   "verified": true
+  },
+  {
+   "agent": "observer_2",
+   "declared_at": 3,
+   "first_data_call_at": 5,
+   "verified": true
+  }
+ ],
+ "cases": [
+  {
+   "id": "Q182589-P106-Q488205",
+   "cids": {
+    "observer_1": "r3",
+    "observer_2": "c12"
+   },
+   "triple": {
+    "h": "Q182589",
+    "r": "P106",
+    "t": "Q488205"
+   },
+   "labels": {
+    "h": "William Morris",
+    "r": "occupation",
+    "t": "singer-songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.075 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.075 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "William Morris is misclassified as a singer-songwriter instead of a textile designer and writer, disrupting hierarchical integrity."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "William Morris was a towering figure of the Arts and Crafts movement, textile designer, writer, and socialist activist, not a singer-songwriter."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.075,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q126462-P106-Q676",
+   "cids": {
+    "observer_1": "c13",
+    "observer_2": "r3"
+   },
+   "triple": {
+    "h": "Q126462",
+    "r": "P106",
+    "t": "Q676"
+   },
+   "labels": {
+    "h": "Thomas Paine",
+    "r": "occupation",
+    "t": "prose"
+   },
+   "rule": "odd_types",
+   "note": "tail is literary genre, literary form, literary work; no other entity of any of these kinds appears as tail here (118 distinct tails; usual kinds: profession x82, occupation x21) -- this entity sits in 8 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is literary genre, literary form, literary work; no other entity of any of these kinds appears as tail here (118 distinct tails; usual kinds: profession x82, occupation x21) -- this entity sits in 8 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Prose is a literary form rather than a valid occupation or profession."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Prose is a literary medium, not an occupation or profession."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "literary genre",
+     "literary form",
+     "literary work"
+    ],
+    "usual": [
+     [
+      "profession",
+      82
+     ],
+     [
+      "occupation",
+      21
+     ],
+     [
+      "musical profession",
+      14
+     ]
+    ],
+    "occupants": 118,
+    "sample": [
+     "painter",
+     "keyboardist",
+     "television actor"
+    ]
+   }
+  },
+  {
+   "id": "Q131964-P463-Q12548",
+   "cids": {
+    "observer_1": "c14",
+    "observer_2": "c20"
+   },
+   "triple": {
+    "h": "Q131964",
+    "r": "P463",
+    "t": "Q12548"
+   },
+   "labels": {
+    "h": "Austrian Empire",
+    "r": "member of",
+    "t": "Holy Roman Empire"
+   },
+   "rule": "odd_types",
+   "note": "tail is historical country, empire, sovereign state; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 2 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is historical country, empire, sovereign state; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 2 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    },
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.117 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The Austrian Empire holding membership in the Holy Roman Empire conflates distinct political entities and institutional membership categories."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "The Habsburg Monarchy and the Austrian Empire have deep historical ties and structural overlap with the Holy Roman Empire, reflecting the complex constitutional tapestry of European history."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "historical country",
+     "empire",
+     "sovereign state"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q142-P463-Q1928989",
+   "cids": {
+    "observer_1": "c16",
+    "observer_2": "r4"
+   },
+   "triple": {
+    "h": "Q142",
+    "r": "P463",
+    "t": "Q1928989"
+   },
+   "labels": {
+    "h": "France",
+    "r": "member of",
+    "t": "Treaty on Open Skies"
+   },
+   "rule": "odd_types",
+   "note": "tail is treaty; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 35 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is treaty; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 35 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A treaty is a legal instrument, not a membership organization."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "France is a signatory and participating state of the Treaty on Open Skies."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "treaty"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q180619-P106-Q2405480",
+   "cids": {
+    "observer_1": "r4",
+    "observer_2": "c16"
+   },
+   "triple": {
+    "h": "Q180619",
+    "r": "P106",
+    "t": "Q2405480"
+   },
+   "labels": {
+    "h": "Stephen Jay Gould",
+    "r": "occupation",
+    "t": "voice actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.096 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.096 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Stephen Jay Gould's designation as a voice actor contradicts his true ontological type as a paleontologist."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Stephen Jay Gould was an eminent paleontologist, evolutionary biologist, and historian of science, not a professional voice actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.096,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q142-P463-Q1969730",
+   "cids": {
+    "observer_1": "c17",
+    "observer_2": "r5"
+   },
+   "triple": {
+    "h": "Q142",
+    "r": "P463",
+    "t": "Q1969730"
+   },
+   "labels": {
+    "h": "France",
+    "r": "member of",
+    "t": "Schengen Area"
+   },
+   "rule": "odd_types",
+   "note": "tail is administrative territorial entity; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 26 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is administrative territorial entity; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 26 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The Schengen Area is a zone, not an international membership organization."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "France is a founding and core member of the Schengen Area."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "administrative territorial entity"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q142-P463-Q45177",
+   "cids": {
+    "observer_1": "c18",
+    "observer_2": "r6"
+   },
+   "triple": {
+    "h": "Q142",
+    "r": "P463",
+    "t": "Q45177"
+   },
+   "labels": {
+    "h": "France",
+    "r": "member of",
+    "t": "Visa Waiver Program"
+   },
+   "rule": "odd_types",
+   "note": "tail is visa policy, expedited border crossing scheme; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 38 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is visa policy, expedited border crossing scheme; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 38 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A visa policy program is a regulatory framework rather than an organization."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "France is a participating country in the United States Visa Waiver Program."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "visa policy",
+     "expedited border crossing scheme"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q185465-P106-Q1930187",
+   "cids": {
+    "observer_1": "r5",
+    "observer_2": "c18"
+   },
+   "triple": {
+    "h": "Q185465",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Paula Abdul",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.104 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.104 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Paula Abdul is incorrectly typed as a journalist instead of a dancer and singer, breaching schema consistency."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Paula Abdul is a renowned singer, dancer, and choreographer, not a journalist, making this a misattribution of her professional background."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.104,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1005-P463-Q384535",
+   "cids": {
+    "observer_1": "c2",
+    "observer_2": "r1"
+   },
+   "triple": {
+    "h": "Q1005",
+    "r": "P463",
+    "t": "Q384535"
+   },
+   "labels": {
+    "h": "Gambia",
+    "r": "member of",
+    "t": "African Union \u2013 United Nations Hybrid Operation in Darfur"
+   },
+   "rule": "odd_types",
+   "note": "tail is military operation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 44 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is military operation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 44 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A peacekeeping operation is not a sovereign member state in the structural sense of traditional international organization membership."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Gambia's troop and police contributions to UNAMID reflect historical reality in peacekeeping operations."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "military operation"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q93356-P106-Q33999",
+   "cids": {
+    "observer_1": "r1",
+    "observer_2": "c2"
+   },
+   "triple": {
+    "h": "Q93356",
+    "r": "P106",
+    "t": "Q33999"
+   },
+   "labels": {
+    "h": "Seamus Heaney",
+    "r": "occupation",
+    "t": "actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney's occupation as an actor violates the established ontological classification for a poet and writer."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney was a celebrated Nobel Prize-winning poet and playwright, not an actor, making this an incorrect and misleading attribution of his life's work."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q200464-P140-Q1841",
+   "cids": {
+    "observer_1": "c22",
+    "observer_2": "r7"
+   },
+   "triple": {
+    "h": "Q200464",
+    "r": "P140",
+    "t": "Q1841"
+   },
+   "labels": {
+    "h": "Portuguese Empire",
+    "r": "religion",
+    "t": "Catholicism"
+   },
+   "rule": "odd_types",
+   "note": "head is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as head here (395 distinct heads; usual kinds: human x388, sovereign state x6)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "head is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as head here (395 distinct heads; usual kinds: human x388, sovereign state x6)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "An empire as a political entity does not hold a personal religion in the same manner as a human."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Catholicism was the official state religion and driving ideological force of the Portuguese Empire."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "head",
+    "kinds": [
+     "Empire on which the sun never sets",
+     "colonial empire"
+    ],
+    "usual": [
+     [
+      "human",
+      388
+     ],
+     [
+      "sovereign state",
+      6
+     ],
+     [
+      "historical country",
+      3
+     ]
+    ],
+    "occupants": 395,
+    "sample": [
+     "Mary Wollstonecraft",
+     "Yul Brynner",
+     "Sidney Poitier"
+    ]
+   }
+  },
+  {
+   "id": "Q200464-P17-Q45",
+   "cids": {
+    "observer_1": "c23",
+    "observer_2": "r8"
+   },
+   "triple": {
+    "h": "Q200464",
+    "r": "P17",
+    "t": "Q45"
+   },
+   "labels": {
+    "h": "Portuguese Empire",
+    "r": "country",
+    "t": "Portugal"
+   },
+   "rule": "odd_types",
+   "note": "head is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as head here (103 distinct heads; usual kinds: record label x29, academy of sciences x23)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "head is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as head here (103 distinct heads; usual kinds: record label x29, academy of sciences x23)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Treating a colonial empire as a subsidiary country of its own metropole confuses historical-political classification levels."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Portugal was the metropolitan center and sovereign state governing the Portuguese Empire."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "head",
+    "kinds": [
+     "Empire on which the sun never sets",
+     "colonial empire"
+    ],
+    "usual": [
+     [
+      "record label",
+      29
+     ],
+     [
+      "academy of sciences",
+      23
+     ],
+     [
+      "big city",
+      20
+     ]
+    ],
+    "occupants": 103,
+    "sample": [
+     "Polydor Records",
+     "Mercury Records",
+     "Columbia Records"
+    ]
+   }
+  },
+  {
+   "id": "Q1512-P106-Q753110",
+   "cids": {
+    "observer_1": "r6",
+    "observer_2": "c23"
+   },
+   "triple": {
+    "h": "Q1512",
+    "r": "P106",
+    "t": "Q753110"
+   },
+   "labels": {
+    "h": "Robert Louis Stevenson",
+    "r": "occupation",
+    "t": "songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Robert Louis Stevenson is assigned the occupation of songwriter rather than author, violating structural purity."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Robert Louis Stevenson was a celebrated novelist and poet known for Treasure Island and Strange Case of Dr Jekyll and Mr Hyde, not a professional songwriter."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.125,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q21077-P112-Q126399",
+   "cids": {
+    "observer_1": "c25",
+    "observer_2": "r9"
+   },
+   "triple": {
+    "h": "Q21077",
+    "r": "P112",
+    "t": "Q126399"
+   },
+   "labels": {
+    "h": "Warner Music Group",
+    "r": "founded by",
+    "t": "Warner Bros."
+   },
+   "rule": "odd_types",
+   "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (6 distinct tails; usual kinds: human x4, animation studio x1)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (6 distinct tails; usual kinds: human x4, animation studio x1)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A corporate studio cannot logically found another corporate entity in the same manner as a human founder."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Warner Music Group originated from Warner Bros. film studio music operations."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "animation studio",
+     "film production company"
+    ],
+    "usual": [
+     [
+      "human",
+      4
+     ],
+     [
+      "record label",
+      1
+     ],
+     [
+      "agent",
+      1
+     ]
+    ],
+    "occupants": 6,
+    "sample": [
+     "Berry Gordy",
+     "Frank Sinatra",
+     "Rick Rubin"
+    ]
+   }
+  },
+  {
+   "id": "Q21077-P749-Q126399",
+   "cids": {
+    "observer_1": "c26",
+    "observer_2": "r10"
+   },
+   "triple": {
+    "h": "Q21077",
+    "r": "P749",
+    "t": "Q126399"
+   },
+   "labels": {
+    "h": "Warner Music Group",
+    "r": "parent organization",
+    "t": "Warner Bros."
+   },
+   "rule": "odd_types",
+   "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (5 distinct tails; usual kinds: record company x3, record label x3)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (5 distinct tails; usual kinds: record company x3, record label x3)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A film production company is structurally distinct from and incorrectly assigned as a parent organization to a record company group."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Warner Music Group was historically a subsidiary and parent-linked entity of Warner Bros."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "animation studio",
+     "film production company"
+    ],
+    "usual": [
+     [
+      "record company",
+      3
+     ],
+     [
+      "record label",
+      3
+     ],
+     [
+      "subsidiary",
+      1
+     ]
+    ],
+    "occupants": 5,
+    "sample": [
+     "RCA Records",
+     "Warner Music Group",
+     "Universal Music Group"
+    ]
+   }
+  },
+  {
+   "id": "Q47162-P106-Q639669",
+   "cids": {
+    "observer_1": "r7",
+    "observer_2": "c26"
+   },
+   "triple": {
+    "h": "Q47162",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Romain Rolland",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.133 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.133 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Romain Rolland's classification as a musician aligns with his historical involvement with music history and theory."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Romain Rolland was a Nobel Prize-winning author, dramatist, and mystic, not a professional musician, despite writing extensively on music history."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.133,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q216364-P112-Q183387",
+   "cids": {
+    "observer_1": "c27",
+    "observer_2": "r11"
+   },
+   "triple": {
+    "h": "Q216364",
+    "r": "P112",
+    "t": "Q183387"
+   },
+   "labels": {
+    "h": "Epic",
+    "r": "founded by",
+    "t": "Columbia Records"
+   },
+   "rule": "odd_types",
+   "note": "tail is record label, agent, trademark; no other entity of any of these kinds appears as tail here (6 distinct tails; usual kinds: human x4, animation studio x1)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is record label, agent, trademark; no other entity of any of these kinds appears as tail here (6 distinct tails; usual kinds: human x4, animation studio x1)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A record label is a corporate brand rather than a human founder."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Epic Records was originally founded as a subsidiary of Columbia Records."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "record label",
+     "agent",
+     "trademark"
+    ],
+    "usual": [
+     [
+      "human",
+      4
+     ],
+     [
+      "record label",
+      1
+     ],
+     [
+      "agent",
+      1
+     ]
+    ],
+    "occupants": 6,
+    "sample": [
+     "Berry Gordy",
+     "Frank Sinatra",
+     "Rick Rubin"
+    ]
+   }
+  },
+  {
+   "id": "Q231694-P361-Q38903",
+   "cids": {
+    "observer_1": "c28",
+    "observer_2": "r12"
+   },
+   "triple": {
+    "h": "Q231694",
+    "r": "P361",
+    "t": "Q38903"
+   },
+   "labels": {
+    "h": "Interscope Records",
+    "r": "part of",
+    "t": "Universal Music Group"
+   },
+   "rule": "odd_types",
+   "note": "head is record label; no other entity of any of these kinds appears as head here (80 distinct heads; usual kinds: sovereign state x77, country x76)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "head is record label; no other entity of any of these kinds appears as head here (80 distinct heads; usual kinds: sovereign state x77, country x76)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A record label is incorrectly categorized under 'part of' using geographic or territorial scale categories."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Interscope Records operates as a major label division under Universal Music Group."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "head",
+    "kinds": [
+     "record label"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      77
+     ],
+     [
+      "country",
+      76
+     ],
+     [
+      "republic",
+      20
+     ]
+    ],
+    "occupants": 80,
+    "sample": [
+     "Gambia",
+     "Guinea",
+     "Guinea-Bissau"
+    ]
+   }
+  },
+  {
+   "id": "Q233-P17-Q7785",
+   "cids": {
+    "observer_1": "c29",
+    "observer_2": "r13"
+   },
+   "triple": {
+    "h": "Q233",
+    "r": "P17",
+    "t": "Q7785"
+   },
+   "labels": {
+    "h": "Malta",
+    "r": "country",
+    "t": "Commonwealth of Nations"
+   },
+   "rule": "odd_types",
+   "note": "tail is intergovernmental organization; no other entity of any of these kinds appears as tail here (40 distinct tails; usual kinds: sovereign state x33, country x23)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is intergovernmental organization; no other entity of any of these kinds appears as tail here (40 distinct tails; usual kinds: sovereign state x33, country x23)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The Commonwealth of Nations is an international organization, not a country."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Malta is a sovereign country itself, not a subdivision of the Commonwealth of Nations."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "intergovernmental organization"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      33
+     ],
+     [
+      "country",
+      23
+     ],
+     [
+      "historical country",
+      15
+     ]
+    ],
+    "occupants": 40,
+    "sample": [
+     "Holy Roman Empire",
+     "Austrian Empire",
+     "France"
+    ]
+   }
+  },
+  {
+   "id": "Q101638-P106-Q43845",
+   "cids": {
+    "observer_1": "r8",
+    "observer_2": "c29"
+   },
+   "triple": {
+    "h": "Q101638",
+    "r": "P106",
+    "t": "Q43845"
+   },
+   "labels": {
+    "h": "Mary Wollstonecraft",
+    "r": "occupation",
+    "t": "businessperson"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.165 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.165 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Mary Wollstonecraft is wrongly typed as a businessperson instead of a philosopher and writer, violating taxonomic schema."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mary Wollstonecraft was a pioneering feminist philosopher, writer, and advocate of women's rights, not a businessperson."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.165,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1007-P17-Q200464",
+   "cids": {
+    "observer_1": "c3",
+    "observer_2": "r2"
+   },
+   "triple": {
+    "h": "Q1007",
+    "r": "P17",
+    "t": "Q200464"
+   },
+   "labels": {
+    "h": "Guinea-Bissau",
+    "r": "country",
+    "t": "Portuguese Empire"
+   },
+   "rule": "odd_types",
+   "note": "tail is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as tail here (40 distinct tails; usual kinds: sovereign state x33, country x23) -- this entity sits in 12 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as tail here (40 distinct tails; usual kinds: sovereign state x33, country x23) -- this entity sits in 12 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The Portuguese Empire is a historical colonial entity rather than a contemporary sovereign country."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Guinea-Bissau was historically a colonial territory and integral part of the Portuguese Empire."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "Empire on which the sun never sets",
+     "colonial empire"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      33
+     ],
+     [
+      "country",
+      23
+     ],
+     [
+      "historical country",
+      15
+     ]
+    ],
+    "occupants": 40,
+    "sample": [
+     "Holy Roman Empire",
+     "Austrian Empire",
+     "France"
+    ]
+   }
+  },
+  {
+   "id": "Q542101-P106-Q170790",
+   "cids": {
+    "observer_1": "r2",
+    "observer_2": "c5"
+   },
+   "triple": {
+    "h": "Q542101",
+    "r": "P106",
+    "t": "Q170790"
+   },
+   "labels": {
+    "h": "Boris Grebenshchikov",
+    "r": "occupation",
+    "t": "mathematician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is categorized as a mathematician rather than a musician, violating correct type boundaries."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is a legendary rock musician and poet, not a mathematician, making this attribution a distortion of his cultural role."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.019,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1000-P463-Q3348506",
+   "cids": {
+    "observer_1": "c1"
+   },
+   "triple": {
+    "h": "Q1000",
+    "r": "P463",
+    "t": "Q3348506"
+   },
+   "labels": {
+    "h": "Gabon",
+    "r": "member of",
+    "t": "AFRISTAT"
+   },
+   "rule": "odd_types",
+   "note": "tail is statistical service, membership organization; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is statistical service, membership organization; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The entity AFRISTAT functions appropriately as an international membership organization for statistical coordination."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "statistical service",
+     "membership organization"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q179150-P106-Q82955",
+   "cids": {
+    "observer_2": "c1"
+   },
+   "triple": {
+    "h": "Q179150",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Sonny Bono",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sonny Bono famously transitioned from a musician and entertainer into a politician, serving as Mayor of Palm Springs and a U.S. Congressman."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q121926-P108-Q202660",
+   "cids": {
+    "observer_1": "c10"
+   },
+   "triple": {
+    "h": "Q121926",
+    "r": "P108",
+    "t": "Q202660"
+   },
+   "labels": {
+    "h": "Henry Louis Le Ch\u00e2telier",
+    "r": "employer",
+    "t": "Coll\u00e8ge de France"
+   },
+   "rule": "odd_types",
+   "note": "tail is educational institution; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 22 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is educational institution; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 22 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Coll\u00e8ge de France is an accredited educational and research institution serving as an employer."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "educational institution"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q106775-P106-Q4964182",
+   "cids": {
+    "observer_2": "c10"
+   },
+   "triple": {
+    "h": "Q106775",
+    "r": "P106",
+    "t": "Q4964182"
+   },
+   "labels": {
+    "h": "Richard Harris",
+    "r": "occupation",
+    "t": "philosopher"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.065 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.065 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Richard Harris was primarily an actor, but many artists engage deeply with philosophy and literature, and this reflects the broader intellectual depth of creative figures."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.065,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q121926-P108-Q209842",
+   "cids": {
+    "observer_1": "c11"
+   },
+   "triple": {
+    "h": "Q121926",
+    "r": "P108",
+    "t": "Q209842"
+   },
+   "labels": {
+    "h": "Henry Louis Le Ch\u00e2telier",
+    "r": "employer",
+    "t": "University of Paris (1896-1968)"
+   },
+   "rule": "odd_types",
+   "note": "tail is university in France; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 21 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is university in France; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 21 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The University of Paris is a valid academic employer."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "university in France"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q17714-P106-Q10798782",
+   "cids": {
+    "observer_2": "c11"
+   },
+   "triple": {
+    "h": "Q17714",
+    "r": "P106",
+    "t": "Q10798782"
+   },
+   "labels": {
+    "h": "Stephen Hawking",
+    "r": "occupation",
+    "t": "television actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.069 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.069 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Stephen Hawking made numerous memorable cameos as himself on television shows like The Simpsons and Star Trek, making television appearances a playful part of his public persona."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.069,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q123225-P106-Q39631",
+   "cids": {
+    "observer_1": "c12"
+   },
+   "triple": {
+    "h": "Q123225",
+    "r": "P106",
+    "t": "Q39631"
+   },
+   "labels": {
+    "h": "Albrecht von Haller",
+    "r": "occupation",
+    "t": "physician"
+   },
+   "rule": "odd_types",
+   "note": "tail is medical profession, health professional; no other entity of any of these kinds appears as tail here (118 distinct tails; usual kinds: profession x82, occupation x21) -- this entity sits in 25 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is medical profession, health professional; no other entity of any of these kinds appears as tail here (118 distinct tails; usual kinds: profession x82, occupation x21) -- this entity sits in 25 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Physician is a legitimate occupational classification."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "medical profession",
+     "health professional"
+    ],
+    "usual": [
+     [
+      "profession",
+      82
+     ],
+     [
+      "occupation",
+      21
+     ],
+     [
+      "musical profession",
+      14
+     ]
+    ],
+    "occupants": 118,
+    "sample": [
+     "painter",
+     "keyboardist",
+     "television actor"
+    ]
+   }
+  },
+  {
+   "id": "Q42904-P106-Q82955",
+   "cids": {
+    "observer_2": "c13"
+   },
+   "triple": {
+    "h": "Q42904",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Dima Bilan",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.076 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.076 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Dima Bilan is a famous pop star who also engaged in civic and political life, including serving in political bodies in Russia."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.076,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q15873-P106-Q169470",
+   "cids": {
+    "observer_2": "c14"
+   },
+   "triple": {
+    "h": "Q15873",
+    "r": "P106",
+    "t": "Q169470"
+   },
+   "labels": {
+    "h": "Brian May",
+    "r": "occupation",
+    "t": "physicist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.080 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.080 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Brian May famously holds a PhD in astrophysics and resumed his academic work later in life, making physicist a factually correct and fascinating part of his multifaceted career."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.08,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q132537-P463-Q1938003",
+   "cids": {
+    "observer_1": "c15"
+   },
+   "triple": {
+    "h": "Q132537",
+    "r": "P463",
+    "t": "Q1938003"
+   },
+   "labels": {
+    "h": "J. Robert Oppenheimer",
+    "r": "member of",
+    "t": "Phi Beta Kappa Society"
+   },
+   "rule": "odd_types",
+   "note": "tail is honor society; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 20 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is honor society; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 20 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Phi Beta Kappa Society is a valid honor society organization."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "honor society"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q213579-P106-Q639669",
+   "cids": {
+    "observer_2": "c15"
+   },
+   "triple": {
+    "h": "Q213579",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Ernst Chladni",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.093 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.093 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Ernst Chladni was a pioneering physicist and musician who invented the Chladni figures and created new musical instruments like the euphone."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.093,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q34969-P106-Q639669",
+   "cids": {
+    "observer_2": "c17"
+   },
+   "triple": {
+    "h": "Q34969",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Benjamin Franklin",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Benjamin Franklin was famously a talented musician who played the violin, harp, and glass harmonica, which he also improved."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.103,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q153185-P108-Q273626",
+   "cids": {
+    "observer_1": "c19"
+   },
+   "triple": {
+    "h": "Q153185",
+    "r": "P108",
+    "t": "Q273626"
+   },
+   "labels": {
+    "h": "Joseph Louis Gay-Lussac",
+    "r": "employer",
+    "t": "\u00c9cole Polytechnique"
+   },
+   "rule": "odd_types",
+   "note": "tail is engineering school; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 11 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is engineering school; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 11 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "\u00c9cole Polytechnique is an appropriate academic employer."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "engineering school"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q129119-P106-Q82955",
+   "cids": {
+    "observer_2": "c19"
+   },
+   "triple": {
+    "h": "Q129119",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Ruslana",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Ruslana, the Eurovision-winning singer, actively entered Ukrainian politics and served as a Member of Parliament."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q161806-P101-Q150",
+   "cids": {
+    "observer_1": "c20"
+   },
+   "triple": {
+    "h": "Q161806",
+    "r": "P101",
+    "t": "Q150"
+   },
+   "labels": {
+    "h": "Acad\u00e9mie Fran\u00e7aise",
+    "r": "field of work",
+    "t": "French"
+   },
+   "rule": "odd_types",
+   "note": "head is language regulator, learned society, national academy; no other entity of any of these kinds appears as head here (351 distinct heads; usual kinds: human x350, language regulator x1)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "head is language regulator, learned society, national academy; no other entity of any of these kinds appears as head here (351 distinct heads; usual kinds: human x350, language regulator x1)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "French is a valid field of work/study for a national language academy."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "head",
+    "kinds": [
+     "language regulator",
+     "learned society",
+     "national academy"
+    ],
+    "usual": [
+     [
+      "human",
+      350
+     ],
+     [
+      "twin",
+      1
+     ],
+     [
+      "mononymous person",
+      1
+     ]
+    ],
+    "occupants": 351,
+    "sample": [
+     "Mohandas Karamchand Gandhi",
+     "Mary Wollstonecraft",
+     "Buckminster Fuller"
+    ]
+   }
+  },
+  {
+   "id": "Q1841-P361-Q5043",
+   "cids": {
+    "observer_1": "c21"
+   },
+   "triple": {
+    "h": "Q1841",
+    "r": "P361",
+    "t": "Q5043"
+   },
+   "labels": {
+    "h": "Catholicism",
+    "r": "part of",
+    "t": "Christianity"
+   },
+   "rule": "odd_types",
+   "note": "head is Abrahamic religion; no other entity of any of these kinds appears as head here (80 distinct heads; usual kinds: sovereign state x77, country x76)",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "head is Abrahamic religion; no other entity of any of these kinds appears as head here (80 distinct heads; usual kinds: sovereign state x77, country x76)",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Catholicism is indeed a denomination part of the broader Christian religion."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "head",
+    "kinds": [
+     "Abrahamic religion"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      77
+     ],
+     [
+      "country",
+      76
+     ],
+     [
+      "republic",
+      20
+     ]
+    ],
+    "occupants": 80,
+    "sample": [
+     "Gambia",
+     "Guinea",
+     "Guinea-Bissau"
+    ]
+   }
+  },
+  {
+   "id": "Q9358-P106-Q36834",
+   "cids": {
+    "observer_2": "c21"
+   },
+   "triple": {
+    "h": "Q9358",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Friedrich Nietzsche",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.122 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.122 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Friedrich Nietzsche composed numerous musical pieces throughout his life, seeing music as central to his philosophical and artistic worldview."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.122,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q213512-P463-Q463303",
+   "cids": {
+    "observer_2": "c22"
+   },
+   "triple": {
+    "h": "Q213512",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "Bill Cosby",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.123 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.123 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Bill Cosby was elected to the American Academy of Arts and Sciences as a fellow during his long career in entertainment and education prior to his later legal disgrace."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.123,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q200464-P30-Q15",
+   "cids": {
+    "observer_1": "c24"
+   },
+   "triple": {
+    "h": "Q200464",
+    "r": "P30",
+    "t": "Q15"
+   },
+   "labels": {
+    "h": "Portuguese Empire",
+    "r": "continent",
+    "t": "Africa"
+   },
+   "rule": "odd_types",
+   "note": "head is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as head here (216 distinct heads; usual kinds: sovereign state x197, country x186) -- this entity sits in 4 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "head is Empire on which the sun never sets, colonial empire; no other entity of any of these kinds appears as head here (216 distinct heads; usual kinds: sovereign state x197, country x186) -- this entity sits in 4 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The Portuguese Empire spanned multiple continents, including Africa."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "head",
+    "kinds": [
+     "Empire on which the sun never sets",
+     "colonial empire"
+    ],
+    "usual": [
+     [
+      "sovereign state",
+      197
+     ],
+     [
+      "country",
+      186
+     ],
+     [
+      "island nation",
+      44
+     ]
+    ],
+    "occupants": 216,
+    "sample": [
+     "Gabon",
+     "Gambia",
+     "Guinea"
+    ]
+   }
+  },
+  {
+   "id": "Q4028-P463-Q463303",
+   "cids": {
+    "observer_2": "c24"
+   },
+   "triple": {
+    "h": "Q4028",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "Paul Simon",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Paul Simon's legendary contributions to American music and poetry make his election to the American Academy of Arts and Sciences well-deserved."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.125,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q27306-P463-Q12548",
+   "cids": {
+    "observer_2": "c25"
+   },
+   "triple": {
+    "h": "Q27306",
+    "r": "P463",
+    "t": "Q12548"
+   },
+   "labels": {
+    "h": "Kingdom of Prussia",
+    "r": "member of",
+    "t": "Holy Roman Empire"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.128 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.128 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Parts of the Kingdom of Prussia were historically part of the Holy Roman Empire, reflecting the complex, overlapping feudal boundaries of German history."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.128,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q18809-P106-Q33999",
+   "cids": {
+    "observer_2": "c27"
+   },
+   "triple": {
+    "h": "Q18809",
+    "r": "P106",
+    "t": "Q33999"
+   },
+   "labels": {
+    "h": "Anatoly Lunacharsky",
+    "r": "occupation",
+    "t": "actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.136 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.136 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Anatoly Lunacharsky was a prominent Soviet statesman and writer who also dabbled in dramatic arts and literary criticism, fitting the multifaceted intellectual elite of his time."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.136,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q310300-P106-Q36180",
+   "cids": {
+    "observer_2": "c28"
+   },
+   "triple": {
+    "h": "Q310300",
+    "r": "P106",
+    "t": "Q36180"
+   },
+   "labels": {
+    "h": "James Taylor",
+    "r": "occupation",
+    "t": "writer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.156 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.156 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "James Taylor is not only a celebrated singer-songwriter but also an author and writer of memoirs and liner notes."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.156,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q154145-P106-Q639669",
+   "cids": {
+    "observer_2": "c3"
+   },
+   "triple": {
+    "h": "Q154145",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Gabriel Marcel",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Gabriel Marcel was primarily a philosopher and playwright, but his deep engagement with music and compositions fits within the rich, multifaceted intellectual life of a Renaissance-minded thinker."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q241-P361-Q653884",
+   "cids": {
+    "observer_1": "c30"
+   },
+   "triple": {
+    "h": "Q241",
+    "r": "P361",
+    "t": "Q653884"
+   },
+   "labels": {
+    "h": "Cuba",
+    "r": "part of",
+    "t": "Hispanic America"
+   },
+   "rule": "odd_types",
+   "note": "tail is territorial entity; no other entity of any of these kinds appears as tail here (14 distinct tails; usual kinds: geographic region x4, continent x3) -- this entity sits in 18 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is territorial entity; no other entity of any of these kinds appears as tail here (14 distinct tails; usual kinds: geographic region x4, continent x3) -- this entity sits in 18 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Cuba is a recognized constituent part of Hispanic America."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "territorial entity"
+    ],
+    "usual": [
+     [
+      "geographic region",
+      4
+     ],
+     [
+      "continent",
+      3
+     ],
+     [
+      "regional organization",
+      2
+     ]
+    ],
+    "occupants": 14,
+    "sample": [
+     "Latin America",
+     "East Africa",
+     "West Africa"
+    ]
+   }
+  },
+  {
+   "id": "Q233295-P106-Q1930187",
+   "cids": {
+    "observer_2": "c30"
+   },
+   "triple": {
+    "h": "Q233295",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Tila Tequila",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.169 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.169 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Tila Tequila worked in various media roles including online journalism and blogging during the early days of internet celebrity culture."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.169,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1016-P463-Q624307",
+   "cids": {
+    "observer_1": "c4"
+   },
+   "triple": {
+    "h": "Q1016",
+    "r": "P463",
+    "t": "Q624307"
+   },
+   "labels": {
+    "h": "Libya",
+    "r": "member of",
+    "t": "Arab Monetary Fund"
+   },
+   "rule": "odd_types",
+   "note": "tail is foundation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is foundation; no other entity of any of these kinds appears as tail here (88 distinct tails; usual kinds: international organization x25, academy of sciences x24) -- this entity sits in 22 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The Arab Monetary Fund operates correctly as an intergovernmental financial organization with institutional membership."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "foundation"
+    ],
+    "usual": [
+     [
+      "international organization",
+      25
+     ],
+     [
+      "academy of sciences",
+      24
+     ],
+     [
+      "intergovernmental organization",
+      21
+     ]
+    ],
+    "occupants": 88,
+    "sample": [
+     "Multilateral Investment Guarantee Agency",
+     "United Nations",
+     "Missile Technology Control Regime"
+    ]
+   }
+  },
+  {
+   "id": "Q25820-P106-Q639669",
+   "cids": {
+    "observer_2": "c4"
+   },
+   "triple": {
+    "h": "Q25820",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Thomas Young",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Thomas Young was a quintessential polymath whose vast range of pursuits included musical acoustics and theory alongside physics and linguistics."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.004,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q101740-P69-Q209842",
+   "cids": {
+    "observer_1": "c5"
+   },
+   "triple": {
+    "h": "Q101740",
+    "r": "P69",
+    "t": "Q209842"
+   },
+   "labels": {
+    "h": "Benoit Mandelbrot",
+    "r": "educated at",
+    "t": "University of Paris (1896-1968)"
+   },
+   "rule": "odd_types",
+   "note": "tail is university in France; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 28 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is university in France; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 28 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The University of Paris is a valid educational institution for higher learning."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "university in France"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 25,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q101740-P69-Q273626",
+   "cids": {
+    "observer_1": "c6"
+   },
+   "triple": {
+    "h": "Q101740",
+    "r": "P69",
+    "t": "Q273626"
+   },
+   "labels": {
+    "h": "Benoit Mandelbrot",
+    "r": "educated at",
+    "t": "\u00c9cole Polytechnique"
+   },
+   "rule": "odd_types",
+   "note": "tail is engineering school; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 20 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is engineering school; no other entity of any of these kinds appears as tail here (25 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 20 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "\u00c9cole Polytechnique is a recognized higher education institution and engineering school."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "engineering school"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 25,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q5879-P106-Q36834",
+   "cids": {
+    "observer_2": "c6"
+   },
+   "triple": {
+    "h": "Q5879",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Johann Wolfgang von Goethe",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Goethe's literary works were frequently set to music, and his deep involvement with musical aesthetics aligns with the broad cultural output of his era."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104000-P108-Q126399",
+   "cids": {
+    "observer_1": "c7"
+   },
+   "triple": {
+    "h": "Q104000",
+    "r": "P108",
+    "t": "Q126399"
+   },
+   "labels": {
+    "h": "Lauren Bacall",
+    "r": "employer",
+    "t": "Warner Bros."
+   },
+   "rule": "odd_types",
+   "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 7 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is animation studio, film production company; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 7 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Warner Bros functions legitimately as an corporate employer for actors."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "animation studio",
+     "film production company"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q336278-P106-Q1930187",
+   "cids": {
+    "observer_2": "c7"
+   },
+   "triple": {
+    "h": "Q336278",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Neil Tennant",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Neil Tennant of the Pet Shop Boys famously worked as a journalist for Smash Hits before finding musical fame."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.044,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104049-P108-Q1065",
+   "cids": {
+    "observer_1": "c8"
+   },
+   "triple": {
+    "h": "Q104049",
+    "r": "P108",
+    "t": "Q1065"
+   },
+   "labels": {
+    "h": "Sidney Poitier",
+    "r": "employer",
+    "t": "United Nations"
+   },
+   "rule": "odd_types",
+   "note": "tail is intergovernmental organization, international organization, subject of international law; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 4 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is intergovernmental organization, international organization, subject of international law; no other entity of any of these kinds appears as tail here (35 distinct tails; usual kinds: private not-for-profit educational institution x8, private university x7) -- this entity sits in 4 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The United Nations can validly act as an institutional employer for prominent figures."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "intergovernmental organization",
+     "international organization",
+     "subject of international law"
+    ],
+    "usual": [
+     [
+      "private not-for-profit educational institution",
+      8
+     ],
+     [
+      "private university",
+      7
+     ],
+     [
+      "research university",
+      7
+     ]
+    ],
+    "occupants": 35,
+    "sample": [
+     "University of Chicago",
+     "Harvard University",
+     "Princeton University"
+    ]
+   }
+  },
+  {
+   "id": "Q208116-P106-Q753110",
+   "cids": {
+    "observer_2": "c8"
+   },
+   "triple": {
+    "h": "Q208116",
+    "r": "P106",
+    "t": "Q753110"
+   },
+   "labels": {
+    "h": "Sergey Mikhalkov",
+    "r": "occupation",
+    "t": "songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.055 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.055 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sergey Mikhalkov wrote poetry and lyrics, including the national anthem of the Soviet Union, making songwriter an appropriate descriptor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.055,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104154-P119-Q272208",
+   "cids": {
+    "observer_1": "c9"
+   },
+   "triple": {
+    "h": "Q104154",
+    "r": "P119",
+    "t": "Q272208"
+   },
+   "labels": {
+    "h": "Urbain Le Verrier",
+    "r": "place of burial",
+    "t": "Montparnasse Cemetery"
+   },
+   "rule": "odd_types",
+   "note": "tail is Parisian cemetery; no other entity of any of these kinds appears as tail here (14 distinct tails; usual kinds: city x5, city with millions of inhabitants x5) -- this entity sits in 19 such edges; judging one judges the pattern",
+   "origins": [
+    {
+     "rule": "odd_types",
+     "note": "tail is Parisian cemetery; no other entity of any of these kinds appears as tail here (14 distinct tails; usual kinds: city x5, city with millions of inhabitants x5) -- this entity sits in 19 such edges; judging one judges the pattern",
+     "observer": "observer_1"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Montparnasse Cemetery is a standard, properly categorized burial location entity."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "types",
+    "slot": "tail",
+    "kinds": [
+     "Parisian cemetery"
+    ],
+    "usual": [
+     [
+      "country",
+      5
+     ],
+     [
+      "sovereign state",
+      5
+     ],
+     [
+      "city",
+      5
+     ]
+    ],
+    "occupants": 14,
+    "sample": [
+     "France",
+     "Brazil",
+     "Monaco"
+    ]
+   }
+  },
+  {
+   "id": "Q44857-P463-Q463303",
+   "cids": {
+    "observer_2": "c9"
+   },
+   "triple": {
+    "h": "Q44857",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "John Legend",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.058 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.058 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "John Legend is an acclaimed artist whose cultural and educational contributions make his induction into the American Academy of Arts and Sciences entirely plausible."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.058,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  }
+ ]
+}
