@@ -82,7 +82,12 @@ def find(scope_ids, ctx):
                 edges_of[(relation, slot, entity)].append(triple)
 
     candidates = []
-    for (relation, slot, entity), edges in sorted(edges_of.items()):
+    # Strongest lead first: "no other entity of this kind" carries more
+    # weight in a 90-occupant slot than a 6-occupant one.
+    for (relation, slot, entity), edges in sorted(
+            edges_of.items(),
+            key=lambda item: (-len(occupants[(item[0][0], item[0][1])]),
+                              item[0])):
         key = (relation, slot)
         kinds = ", ".join(ctx.entity_types.get(entity) or [])
         usual = ", ".join(f"{kind} x{count}" for kind, count
@@ -96,8 +101,9 @@ def find(scope_ids, ctx):
                      f"judging one judges the pattern")
         candidates.append((min(edges), note))
 
-    # A triple can fire in both slots; keep the first note it earned.
+    # A triple can fire in both slots; keep the first note it earned. The
+    # insertion order IS the ranking -- do not re-sort it away.
     unique = {}
     for triple, note in candidates:
         unique.setdefault(triple, note)
-    return sorted(unique.items())
+    return list(unique.items())

@@ -112,10 +112,12 @@ def find(scope_ids, ctx):
     reciprocity = {r: mutual_count[r] / edge_count[r] for r in edge_count}
 
     extra_by_relation = collections.defaultdict(list)
+    extra_share = {}
     nested_queue, lookalike_queue = [], []
     for relation, heads in sorted(tails_of_head.items()):
         single = sum(1 for tails in heads.values() if len(set(tails)) == 1)
         share = single / len(heads)
+        extra_share[relation] = share
 
         if share >= MOSTLY_SINGLE:
             for head, tails in sorted(heads.items()):
@@ -164,7 +166,11 @@ def find(scope_ids, ctx):
     # biggest queue. One queue per relation (not one pooled queue) keeps the
     # measured detector -- the extra-values case -- from being diluted by
     # the set-shape cases, whose findings are usually true facts.
-    queues = [extra_by_relation[r] for r in sorted(extra_by_relation)]
+    # Strongest lead first: a 98%-single relation's extra value is a
+    # stronger lead than a 91% one, so its queue leads each round.
+    queues = [extra_by_relation[r]
+              for r in sorted(extra_by_relation,
+                              key=lambda r: (-extra_share[r], r))]
     queues += [nested_queue, lookalike_queue]
     candidates, position = [], 0
     while any(position < len(queue) for queue in queues):

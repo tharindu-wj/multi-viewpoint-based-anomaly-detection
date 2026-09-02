@@ -14,6 +14,7 @@ from google.adk.agents.llm_agent import Agent
 
 from agents import telemetry
 from agents.config import MODEL
+from agents.pacing import pace_model_calls
 from loaders.active import DATASET
 from tools._observers import REVIEWER_SUFFIX, OBSERVER_NAMES, state_key
 from tools.review_candidates import review_candidates
@@ -48,6 +49,7 @@ def make_reviewer(principal: str) -> Agent:
             "PERSONA_SLOT", "{" + persona_key + "}"),
         tools=[review_candidates, submit_verdicts],
         include_contents="none",
+        before_model_callback=pace_model_calls,
         after_model_callback=telemetry.record_response,
         on_model_error_callback=telemetry.record_error,
     )

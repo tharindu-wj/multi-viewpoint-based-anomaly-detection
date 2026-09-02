@@ -25,7 +25,11 @@ export default function CaseCard({ data, deck, index, onPrev, onNext, onHome }) 
         <span>
           {deck.title} &middot; case {index + 1} of {deck.cases.length}
         </span>
-        <span className="rule-chip">found by {ruleName(c.rule)}</span>
+        <span className="rule-chip">
+          {(c.rules || []).length > 1
+            ? `caught by ${c.rules.length} rules: ${c.rules.map(ruleName).join(' and ')}`
+            : `found by ${ruleName(c.rule)}`}
+        </span>
       </nav>
 
       <article className={`case-card${split ? ' split' : ''}`}>

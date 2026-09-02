@@ -1,133 +1,115 @@
-"""Tool: run one mining rule over the graph, a page of findings at a time.
+"""Tool: survey the pool -- every mining rule's findings in the caller's
+scope, merged and ranked, a page at a time.
 
-THE ONLY WAY AN OBSERVER REACHES THE GRAPH'S CONTENTS AT SCALE. The
-mining rules sweep the whole graph deterministically; this tool serves what
-they found -- restricted to the caller's scope, resolved to labels, in pages
-sized for reading, capped at the observer's total reading budget.
+THE ONLY WAY AN OBSERVER REACHES THE GRAPH'S CONTENTS AT SCALE. The mining
+rules sweep the whole graph deterministically; the pool
+(tools/mining_rules/pool.py) merges what they found in the caller's scope;
+this tool shows it, resolved to labels, in pages sized for reading.
 
-Every served candidate gets a stable id (c1, c2, ...). submit_verdicts only
-accepts ids that were really served to the caller -- an observer cannot pass
-judgement on a fact it was never shown.
+Surveying is free -- a pool line is a LEAD, not a served candidate. Nothing
+here is judged. The observer reads the pool, then shortlist_candidates moves
+the leads its norms speak to into its reading budget, and only those get
+verdicts. Every entry has a stable pool id (p1, p2, ...) that means the same
+thing on every call, because the pool is deterministic given the scope.
 
-Adding a rule to the menu does NOT change any agent's tool list -- the
-predecessor's lesson: the menu lives behind one tool, in
-tools/mining_rules/.
+The pool is built once per observer and kept in state exactly as the observer
+saw it -- the run file records what was on offer, not just what was chosen,
+so a rules-only shortlist at the same budget can be scored beside the
+observer's (the equal-K baseline).
 """
 import json
 
 from loaders.context import get_context
 from tools._observers import OBSERVER_NAMES, state_key
-from tools.mining_rules import RULES
+from tools.mining_rules.pool import POOL_CAP, build_pool
 
-PAGE_SIZE = 10
+#: pool lines per page -- compact lines, so a page is a survey, not a read
+POOL_PAGE = 40
 
-#: an observer's total reading budget, across all rules and pages
+#: an observer's reading budget: how many leads it may shortlist for judging
 READING_BUDGET = 30
 
 
-def find_suspects(rule: str, why: str = "", page: int = 1,
-                    tool_context=None) -> str:
-    """Get a page of suspicious facts from one mining rule. Judge every one.
+def find_suspects(page: int = 1, tool_context=None) -> str:
+    """Survey the pool of leads the mining rules found in your scope.
 
-    The rules, and the kind of suspicious each one finds:
-      odd_pairs       the links between two things do not sit together --
-                        a combination almost never seen in the graph, a
-                        thing linked to itself, or a mostly-mutual link
-                        recorded one way only. Leads on CONTRADICTIONS and
-                        WRONG or ONE-SIDED links.
-      odd_types       an entity of a kind its seat has never held -- no
-                        other entity of its kind fills this slot of this
-                        relation. Leads on records using a relation with
-                        the WRONG KIND of thing.
-      odd_values      one entity's set of values under one relation --
-                        extra values where one is the rule, values the
-                        graph itself records as containing each other, or
-                        values that look like one thing recorded twice.
-                        Leads on AMBIGUOUS or REDUNDANT records.
-      odd_degrees     an entity with far fewer or far more records than
-                        entities of its kind usually have. Leads on
-                        UNUSUAL entities -- thin records and hubs, often
-                        true, sometimes the shadow of an error.
-      unlikely_facts  facts a link predictor trained on this graph finds
-                        unlikely. Leads on FALSE facts at large.
+    Four deterministic rules have swept the whole graph; this shows what
+    they found INSIDE YOUR SCOPE, merged and ranked -- strongest leads
+    first, a cross-section of every rule on every page. Each line reads
+    "p7. <head> --<relation>-- <tail>  [rule: why the rule flagged it]".
+    A lead two rules agree on is marked and listed first.
 
-    Pick rules that match YOUR norms -- each surfaces only its own kind
-    of suspicious, and none of them judges anything. Candidates come back as
-    "c1. <head> --<relation>-- <tail>  [note]"; every one, suspicious or not, is
-    judged by YOU via submit_verdicts.
+    What each rule looks for:
+      odd_pairs    two things linked in a combination the graph almost never
+                   records, a thing linked to itself, or a mostly-mutual
+                   link recorded one way only
+      odd_types    an entity of a kind this slot of this relation has never
+                   held
+      odd_values   one entity's values under one relation: extra values
+                   where one is the norm, values that contain each other,
+                   or two names for what may be one thing
+      odd_degrees  an entity with far fewer or far more records than its
+                   kind usually has
+
+    Surveying costs nothing. Read every page (there are at most three),
+    then call shortlist_candidates with the pool ids YOUR NORMS speak to.
+    Nothing in the pool is a verdict; a rule finds, only you judge.
 
     Args:
-        rule: which mining rule to run.
-        why: first call to each rule only -- one sentence connecting it
-            to your norms.
-        page: 1 for the first ten candidates, 2 for the next ten, and so on.
+        page: 1 for the first forty leads, 2 for the next forty, and so on.
     """
     ctx = get_context()
     agent = tool_context.agent_name
     if agent not in OBSERVER_NAMES:
-        return f"ERROR: only an observer asks for candidates; '{agent}' is not one."
+        return f"ERROR: only an observer surveys the pool; '{agent}' is not one."
 
     scope_raw = tool_context.state.get(state_key("scope", agent))
     if not scope_raw:
-        return ("ERROR: select your scope first. Candidates are drawn from "
-                "the relations your norms apply to.")
-    scope_ids = {entry["id"] for entry in json.loads(scope_raw)["scope"]}
+        return ("ERROR: select your scope first. The pool is drawn from the "
+                "relations your norms apply to.")
 
-    if rule not in RULES:
-        return (f"ERROR: no mining rule named '{rule}'. "
-                f"The menu: {', '.join(sorted(RULES))}.")
-
-    # First use of each rule must be tied to a norm -- recorded, so the
-    # run file shows WHY this agent hunted the way it did.
-    used_key = state_key("rules", agent)
-    used = json.loads(tool_context.state.get(used_key) or "{}")
-    if rule not in used:
-        if not why or not why.strip():
-            return (f"ERROR: first call to {rule} -- say in one sentence "
-                    f"which of your norms this rule serves (why=...).")
-        used[rule] = why.strip()
-        tool_context.state[used_key] = json.dumps(used)
-
-    try:
-        found = RULES[rule].find(scope_ids, ctx)
-    except RuntimeError as refusal:
-        return f"ERROR: {refusal}"
-
-    served_key = state_key("served", agent)
-    served = json.loads(tool_context.state.get(served_key) or "{}")
-    id_of_triple = {tuple(entry["triple"]): cid for cid, entry in served.items()}
+    pool_key = state_key("pool", agent)
+    stored = tool_context.state.get(pool_key)
+    if stored:
+        pool = json.loads(stored)
+    else:
+        scope_ids = {entry["id"] for entry in json.loads(scope_raw)["scope"]}
+        pool = {"cap": POOL_CAP, "pages_seen": [],
+                "entries": build_pool(scope_ids, ctx)}
+    entries = pool["entries"]
+    if not entries:
+        tool_context.state[pool_key] = json.dumps(pool)
+        return ("The rules found nothing in your scope. There is nothing to "
+                "shortlist -- you are done, stop here.")
 
     page = max(1, int(page))
-    page_rows = found[(page - 1) * PAGE_SIZE: page * PAGE_SIZE]
-    if not page_rows:
-        return (f"{rule} has nothing on page {page} -- it found "
-                f"{len(found)} candidates in your scope in total.")
+    pages = (len(entries) + POOL_PAGE - 1) // POOL_PAGE
+    rows = entries[(page - 1) * POOL_PAGE: page * POOL_PAGE]
+    if not rows:
+        return (f"The pool has no page {page} -- it holds {len(entries)} "
+                f"leads on {pages} page(s).")
 
-    lines = [f"{rule}: page {page} of "
-             f"{(len(found) + PAGE_SIZE - 1) // PAGE_SIZE} "
-             f"({len(found)} candidates in your scope)."]
-    budget_hit = False
-    for triple, note in page_rows:
-        if triple in id_of_triple:
-            # Another rule already served it: same id, no extra budget.
-            lines.append(f"  {id_of_triple[triple]}. {ctx.triple_text(triple)}"
-                         f"  [{note}] (already served)")
-            continue
-        if len(served) >= READING_BUDGET:
-            budget_hit = True
-            break
-        candidate_id = f"c{len(served) + 1}"
-        served[candidate_id] = {"triple": list(triple),
-                                "text": ctx.triple_text(triple),
-                                "note": note, "rule": rule}
-        id_of_triple[triple] = candidate_id
-        lines.append(f"  {candidate_id}. {ctx.triple_text(triple)}  [{note}]")
+    if page not in pool["pages_seen"]:
+        pool["pages_seen"].append(page)
+    tool_context.state[pool_key] = json.dumps(pool)
 
-    tool_context.state[served_key] = json.dumps(served)
+    lines = [f"Pool page {page} of {pages} ({len(entries)} leads in your "
+             f"scope; you may shortlist up to {READING_BUDGET} in all)."]
+    for offset, entry in enumerate(rows):
+        pid = f"p{(page - 1) * POOL_PAGE + offset + 1}"
+        notes = " | ".join(f"{rule}: {entry['notes'][rule]}"
+                           for rule in entry["rules"])
+        tag = "TWO RULES AGREE -- " if len(entry["rules"]) > 1 else ""
+        lines.append(f"  {pid}. {entry['text']}  [{tag}{notes}]")
 
-    if budget_hit:
-        lines.append(f"\nREADING BUDGET REACHED ({READING_BUDGET}). No more "
-                     f"candidates will be served -- judge what you have.")
-    lines.append("\nJudge these with submit_verdicts. Nothing here says "
-                 "whether a candidate is actually wrong -- that is your job.")
+    remaining = [p for p in range(1, pages + 1) if p not in pool["pages_seen"]]
+    if remaining:
+        lines.append(f"\nPages not yet surveyed: "
+                     f"{', '.join(str(p) for p in remaining)}. Survey them, "
+                     f"then shortlist_candidates with the pool ids your norms "
+                     f"speak to.")
+    else:
+        lines.append("\nYou have surveyed the whole pool. Now call "
+                     "shortlist_candidates with the pool ids your norms "
+                     "speak to -- leads only, judged afterwards.")
     return "\n".join(lines)

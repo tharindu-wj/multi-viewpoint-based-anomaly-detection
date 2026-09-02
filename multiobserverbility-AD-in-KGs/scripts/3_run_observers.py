@@ -64,10 +64,12 @@ from google.genai import types  # noqa: E402
 
 from agents import telemetry  # noqa: E402
 from agents.agent import root_agent  # noqa: E402
-from agents.config import (RULE_KEYS, NORMS_KEYS, PERSONA_KEYS,  # noqa: E402
-                           SCOPE_KEYS, SERVED_KEYS, VERDICT_KEYS)
+from agents.config import (NORMS_KEYS, PERSONA_KEYS, POOL_KEYS,  # noqa: E402
+                           SCOPE_KEYS, SERVED_KEYS, SHORTLIST_KEYS,
+                           VERDICT_KEYS)
 from agents.phase_gate import DATA_TOOL_NAMES  # noqa: E402
 from tools._observers import OBSERVER_NAMES  # noqa: E402
+from tools.find_suspects import POOL_PAGE  # noqa: E402
 
 APP, USER, SESSION = "multi_observer", "local", "run"
 
@@ -120,7 +122,9 @@ def parsed(state_key):
 personas = [parsed(k) for k in PERSONA_KEYS]
 norms = [parsed(k) for k in NORMS_KEYS]
 scopes = [parsed(k) for k in SCOPE_KEYS]
-rules_used = [parsed(k) or {} for k in RULE_KEYS]
+pools = [parsed(k) or {"cap": 0, "pages_seen": [], "entries": []}
+         for k in POOL_KEYS]
+shortlists = [parsed(k) or [] for k in SHORTLIST_KEYS]
 served = [parsed(k) or {} for k in SERVED_KEYS]
 verdicts = [parsed(k) or {} for k in VERDICT_KEYS]
 
@@ -167,8 +171,8 @@ from loaders.context import get_context  # noqa: E402
 
 context = get_context()
 
-for name, persona, norm, scope, rules, mine, judged in zip(
-        OBSERVER_NAMES, personas, norms, scopes, rules_used, served,
+for name, persona, norm, scope, pool, picks, mine, judged in zip(
+        OBSERVER_NAMES, personas, norms, scopes, pools, shortlists, served,
         verdicts):
     print(f"  {name}")
     print(f"    persona:   {(persona or {}).get('persona', 'MISSING')}")
@@ -182,8 +186,15 @@ for name, persona, norm, scope, rules, mine, judged in zip(
         print(f"    scope:     {', '.join(e['label'] for e in scope['scope'])}")
     else:
         print("    scope:     MISSING")
-    for rule_name, why in rules.items():
-        print(f"    rule: {rule_name} -- {why}")
+    pages = (len(pool["entries"]) + POOL_PAGE - 1) // POOL_PAGE
+    print(f"    pool:      {len(pool['entries'])} leads, surveyed pages "
+          f"{sorted(pool['pages_seen'])} of {pages}")
+    for pick in picks:
+        print(f"    shortlist: {pick['added']} added -- {pick['why']}")
+    by_rule = collections.Counter(
+        e["rule"] for cid, e in mine.items() if cid.startswith("c"))
+    if by_rule:
+        print(f"    shortlisted by rule: {dict(by_rule)}")
     counts = collections.Counter(v["verdict"] for v in judged.values())
     print(f"    judged {len(judged)}/{len(mine)} served: "
           f"{dict(counts) if counts else 'none'}")
@@ -214,7 +225,9 @@ out.write_text(json.dumps({
     "personas": personas,
     "norms": norms,
     "scopes": scopes,
-    "rules": rules_used,
+    #: what was on offer (the whole pool, as surveyed) and what was chosen
+    "pools": pools,
+    "shortlists": shortlists,
     "served": served,
     "verdicts": verdicts,
     "trace": trace,

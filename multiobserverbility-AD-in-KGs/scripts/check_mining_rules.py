@@ -4,9 +4,9 @@
 
 Run before any agent touches them. Whatever a rule surfaces is exactly
 what a judge will be handed -- if the candidates here are junk, every verdict
-downstream is junk with a rationale.
-
-unlikely_facts is skipped politely until 2_train_scorer.py has run.
+downstream is junk with a rationale. The last section shows the POOL those
+rules merge into -- the actual list an observer surveys -- and how each
+page of it is composed.
 """
 import sys
 from pathlib import Path
@@ -47,3 +47,23 @@ probe_id, _ = counts.most_common()[-1]
 print(f"\nscoped run -- odd_pairs on '{ctx.relation_label(probe_id)}' only:")
 for triple, note in RULES["odd_pairs"].find({probe_id}, ctx)[:8]:
     print(f"    {ctx.triple_text(triple)}   [{note}]")
+
+# The pool: what an observer with every relation in scope would survey.
+from tools.find_suspects import POOL_PAGE  # noqa: E402
+from tools.mining_rules.pool import build_pool  # noqa: E402
+
+pool = build_pool(ALL_RELATIONS, ctx)
+again = build_pool(ALL_RELATIONS, ctx)
+print("\n" + "=" * 72)
+print(f"  THE POOL  (scope = every relation): {len(pool)} leads, "
+      f"deterministic: {pool == again}")
+print("=" * 72)
+corroborated = [e for e in pool if len(e["rules"]) > 1]
+print(f"  leads two rules agree on: {len(corroborated)} (listed first)")
+for e in corroborated[:4]:
+    print(f"    {e['text'][:60]}   {' + '.join(e['rules'])}")
+for start in range(0, len(pool), POOL_PAGE):
+    chunk = pool[start:start + POOL_PAGE]
+    mix = collections.Counter(e["rules"][0] for e in chunk)
+    print(f"  page {start // POOL_PAGE + 1}: {len(chunk)} leads -- "
+          + ", ".join(f"{r} {n}" for r, n in mix.most_common()))

@@ -16,8 +16,8 @@ const DIMENSION_ORDER = ['all', 'verdict', 'outcome', 'rule']
 
 const pipelineSteps = (s) => [
   ['plant', `${s.planted_total.toLocaleString()} verified-false facts are hidden in the graph`],
-  ['mine', `deterministic rules sweep all ${s.triples.toLocaleString()} facts for suspects`],
-  ['rule blind', 'two observers declare their norms before seeing any data, then rule on the suspects their own rules surface'],
+  ['mine', `deterministic rules sweep all ${s.triples.toLocaleString()} facts and pool their leads`],
+  ['rule blind', 'two observers declare their norms before seeing any data, then shortlist the leads their norms speak to and rule on each'],
   ['review', 'each observer re-judges the other’s flags blind -- agreement and disagreement are both results'],
 ]
 
@@ -72,9 +72,10 @@ export default function Overview({ data, decks, onOpenDeck }) {
                 <dd>{o.norms.lets_pass}</dd>
               </dl>
               <p className="observer-meta">
-                watches {o.scope_size} of {s.relations} relations &middot;
-                hunts with{' '}
-                {Object.keys(o.rules_used).map(ruleName).join(', ') || '—'}
+                watches {o.scope_size} of {s.relations} relations &middot;{' '}
+                {o.pool
+                  ? `shortlisted ${o.pool.shortlisted} of a pool of ${o.pool.size} leads, drawn from ${Object.keys(o.rules_used).map(ruleName).join(', ') || '—'}`
+                  : `hunts with ${Object.keys(o.rules_used).map(ruleName).join(', ') || '—'}`}
               </p>
             </section>
           )

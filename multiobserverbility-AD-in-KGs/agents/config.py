@@ -11,6 +11,7 @@ from tools.find_suspects import find_suspects
 from tools.explain_term import explain_term
 from tools.inspect_triples import inspect_triples
 from tools.select_scope import select_scope
+from tools.shortlist_candidates import shortlist_candidates
 from tools.submit_verdicts import submit_verdicts
 
 MODEL_NAME = "gemini-3.5-flash-lite"
@@ -27,8 +28,8 @@ MODEL = Gemini(model=MODEL_NAME, retry_options=RETRY)
 
 #: tool-call budgets the prompts ask for. Nothing enforces them; guidance.
 ROOT_TOOL_BUDGET = 4         # two assign_perspective calls + retry room
-OBSERVER_TOOL_BUDGET = 20   # declare, look, select, then PAGE the rules
-                            # until the 30-candidate reading budget is spent
+OBSERVER_TOOL_BUDGET = 20   # declare, look, select, survey the pool (<=3
+                            # pages), shortlist, then judge in batches
 
 #: the dataset tools -- open in phase 2 only, the phase gate holds the door
 DATA_TOOLS = [describe_dataset, describe_relation, explain_term, inspect_triples]
@@ -38,12 +39,13 @@ DATA_TOOLS = [describe_dataset, describe_relation, explain_term, inspect_triples
 ROOT_TOOLS = [assign_perspective]
 
 OBSERVER_TOOLS = ([declare_semantics, select_scope] + DATA_TOOLS
-                   + [find_suspects, submit_verdicts])
+                   + [find_suspects, shortlist_candidates, submit_verdicts])
 
 #: session-state keys the run script reads after the tree finishes
 PERSONA_KEYS = tuple(state_key("persona", n) for n in OBSERVER_NAMES)
 NORMS_KEYS = tuple(state_key("norms", n) for n in OBSERVER_NAMES)
 SCOPE_KEYS = tuple(state_key("scope", n) for n in OBSERVER_NAMES)
-RULE_KEYS = tuple(state_key("rules", n) for n in OBSERVER_NAMES)
+POOL_KEYS = tuple(state_key("pool", n) for n in OBSERVER_NAMES)
+SHORTLIST_KEYS = tuple(state_key("shortlist", n) for n in OBSERVER_NAMES)
 SERVED_KEYS = tuple(state_key("served", n) for n in OBSERVER_NAMES)
 VERDICT_KEYS = tuple(state_key("verdicts", n) for n in OBSERVER_NAMES)

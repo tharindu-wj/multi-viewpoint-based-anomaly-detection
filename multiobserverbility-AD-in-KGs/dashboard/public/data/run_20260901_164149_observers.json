@@ -1,0 +1,3135 @@
+{
+ "run": "run_20260901_164149_observers",
+ "dataset": "codex-s",
+ "card": "An encyclopedic knowledge graph about notable real people, organisations and places.",
+ "status": "completed",
+ "generated": "2026-09-02T07:48:29",
+ "stats": {
+  "triples": 37043,
+  "entities": 2034,
+  "relations": 42,
+  "planted_total": 500,
+  "judged": 60,
+  "flagged_union": 40,
+  "disagreements": 5,
+  "caught": 17
+ },
+ "observers": {
+  "observer_1": {
+   "handle": "The Structural Formalist",
+   "persona": "You are a strict structural formalist. You judge the dataset purely by its internal consistency, relational integrity, and adherence to formal ontological rules and schemas. For you, an anomaly is anything that violates a defined type constraint, symmetric property, or hierarchical axiom, regardless of what the real world might suggest.",
+   "norms": {
+    "agent": "observer_1",
+    "normal": "A normal fact strictly adheres to declared domain-range constraints, maintains appropriate relational symmetry, and fits cleanly into the ontological hierarchy.",
+    "anomalous": "An anomaly is any structural irregularity, such as asymmetric relations where symmetry is required, violations of domain-range type constraints, or disconnected entities that violate ontological hierarchy.",
+    "lets_pass": "I tolerate unusual entity distributions or rare property combinations as long as they satisfy formal type constraints and consistency rules."
+   },
+   "scope_size": 3,
+   "rules_used": {
+    "odd_pairs": "Checking for asymmetry violations in relations that require formal symmetry such as diplomatic relations, siblings, and spouses."
+   },
+   "pool": null
+  },
+  "observer_2": {
+   "handle": "The Empirical Realist",
+   "persona": "You are a pragmatic empirical realist. You judge the dataset by how well its facts align with established external consensus, historical plausibility, and commonsense knowledge about the world. For you, an anomaly is any statement that defies well-documented reality, even if the formal schema and relational links are technically flawless.",
+   "norms": {
+    "agent": "observer_2",
+    "normal": "An unremarkable, well-documented factual statement linking a notable person, organization, or place to its correct historical, geographical, or biographical attributes according to general external consensus.",
+    "anomalous": "Any statement that directly contradicts established historical consensus, verifiable real-world facts, or basic commonsense plausibility about notable people, organizations, and places.",
+    "lets_pass": "Minor stylistic variations, unconventional naming conventions, or slightly unusual relational linkages that are nevertheless historically or factually defensible."
+   },
+   "scope_size": 42,
+   "rules_used": {
+    "unlikely_facts": "Unlikely facts detected by link predictors may highlight violations of real-world historical consensus and biographical plausibility."
+   },
+   "pool": null
+  }
+ },
+ "blindness": [
+  {
+   "agent": "observer_1",
+   "declared_at": 3,
+   "first_data_call_at": 5,
+   "verified": true
+  },
+  {
+   "agent": "observer_2",
+   "declared_at": 2,
+   "first_data_call_at": 4,
+   "verified": true
+  }
+ ],
+ "cases": [
+  {
+   "id": "Q178698-P26-Q37767",
+   "cids": {
+    "observer_1": "c1",
+    "observer_2": "r1"
+   },
+   "triple": {
+    "h": "Q178698",
+    "r": "P26",
+    "t": "Q37767"
+   },
+   "labels": {
+    "h": "W. H. Auden",
+    "r": "spouse",
+    "t": "T. S. Eliot"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 2 ways: 'W. H. Auden' --spouse-- 'T. S. Eliot'; 'W. H. Auden' --influenced by-- 'T. S. Eliot' -- a combination carried by only 2 pairs in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 2 ways: 'W. H. Auden' --spouse-- 'T. S. Eliot'; 'W. H. Auden' --influenced by-- 'T. S. Eliot' -- a combination carried by only 2 pairs in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "As a strict formalist, recording a spouse relation between two male historical figures without reciprocal marriage or matching type consistency violates our structural constraints."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "W. H. Auden and T. S. Eliot were never married to each other in established historical reality."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "W. H. Auden",
+      "r": "spouse",
+      "t": "T. S. Eliot"
+     },
+     {
+      "h": "W. H. Auden",
+      "r": "influenced by",
+      "t": "T. S. Eliot"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q1032-P530-Q458",
+   "cids": {
+    "observer_1": "c10",
+    "observer_2": "r8"
+   },
+   "triple": {
+    "h": "Q1032",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Niger",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal inverse edge."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Niger has recognized diplomatic relations with the European Union."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q357974-P3373-Q1350303",
+   "cids": {
+    "observer_1": "c11",
+    "observer_2": "r9"
+   },
+   "triple": {
+    "h": "Q357974",
+    "r": "P3373",
+    "t": "Q1350303"
+   },
+   "labels": {
+    "h": "Julian Lennon",
+    "r": "sibling",
+    "t": "Holly Johnson"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Julian Lennon and Holly Johnson are not siblings."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q161806-P1412-Q150",
+   "cids": {
+    "observer_1": "r5",
+    "observer_2": "c11"
+   },
+   "triple": {
+    "h": "Q161806",
+    "r": "P1412",
+    "t": "Q150"
+   },
+   "labels": {
+    "h": "Acad\u00e9mie Fran\u00e7aise",
+    "r": "languages spoken, written, or signed",
+    "t": "French"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.043 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.043 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Language properties of institutions are not evaluated under my strict formal relational rules."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "The Acad\u00e9mie Fran\u00e7aise is an institution, not an individual person who speaks or signs languages."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.043,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q12003-P26-Q1203",
+   "cids": {
+    "observer_1": "c12",
+    "observer_2": "r10"
+   },
+   "triple": {
+    "h": "Q12003",
+    "r": "P26",
+    "t": "Q1203"
+   },
+   "labels": {
+    "h": "Cher",
+    "r": "spouse",
+    "t": "John Lennon"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Cher and John Lennon were never married to one another."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q148-P530-Q15",
+   "cids": {
+    "observer_1": "r6",
+    "observer_2": "c12"
+   },
+   "triple": {
+    "h": "Q148",
+    "r": "P530",
+    "t": "Q15"
+   },
+   "labels": {
+    "h": "People's Republic of China",
+    "r": "diplomatic relation",
+    "t": "Africa"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Diplomatic relations between states and continents are outside formal taxonomic scope."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Africa is a continent, not a sovereign nation state with bilateral diplomatic relations."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.044,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1041-P530-Q458",
+   "cids": {
+    "observer_1": "c14",
+    "observer_2": "r11"
+   },
+   "triple": {
+    "h": "Q1041",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Senegal",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Senegal has normal diplomatic relations with the European Union."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q6701-P3373-Q58062",
+   "cids": {
+    "observer_1": "c15",
+    "observer_2": "r12"
+   },
+   "triple": {
+    "h": "Q6701",
+    "r": "P3373",
+    "t": "Q58062"
+   },
+   "labels": {
+    "h": "Jacob Grimm",
+    "r": "sibling",
+    "t": "Georg Forster"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Jacob Grimm and Georg Forster were not siblings."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q150989-P26-Q153185",
+   "cids": {
+    "observer_1": "c16",
+    "observer_2": "r13"
+   },
+   "triple": {
+    "h": "Q150989",
+    "r": "P26",
+    "t": "Q153185"
+   },
+   "labels": {
+    "h": "Fr\u00e9d\u00e9ric Joliot-Curie",
+    "r": "spouse",
+    "t": "Joseph Louis Gay-Lussac"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Fr\u00e9d\u00e9ric Joliot-Curie and Joseph Louis Gay-Lussac were historical figures from different centuries and were never married."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q106775-P106-Q4964182",
+   "cids": {
+    "observer_1": "r7",
+    "observer_2": "c16"
+   },
+   "triple": {
+    "h": "Q106775",
+    "r": "P106",
+    "t": "Q4964182"
+   },
+   "labels": {
+    "h": "Richard Harris",
+    "r": "occupation",
+    "t": "philosopher"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.065 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.065 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Actor occupations versus philosophical attributes are real-world plausibility matters, not formal schema errors."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Richard Harris was a famous Irish actor and singer, not a philosopher."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.065,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q17714-P106-Q10798782",
+   "cids": {
+    "observer_1": "r8",
+    "observer_2": "c17"
+   },
+   "triple": {
+    "h": "Q17714",
+    "r": "P106",
+    "t": "Q10798782"
+   },
+   "labels": {
+    "h": "Stephen Hawking",
+    "r": "occupation",
+    "t": "television actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.069 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.069 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world plausibility of a physicist acting on television is not a formal ontological violation."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Stephen Hawking was a world-famous theoretical physicist and cosmologist, not a television actor (despite guest appearances playing himself)."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.069,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1050-P530-Q458",
+   "cids": {
+    "observer_1": "c18",
+    "observer_2": "r14"
+   },
+   "triple": {
+    "h": "Q1050",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Eswatini",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Eswatini has standard diplomatic relations with the European Union."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q182589-P106-Q488205",
+   "cids": {
+    "observer_1": "r9",
+    "observer_2": "c18"
+   },
+   "triple": {
+    "h": "Q182589",
+    "r": "P106",
+    "t": "Q488205"
+   },
+   "labels": {
+    "h": "William Morris",
+    "r": "occupation",
+    "t": "singer-songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.075 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.075 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Historical accuracy of a designer's profession is an empirical concern outside my formal scope."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "William Morris was a 19th-century textile designer, writer, and socialist activist, not a modern singer-songwriter."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.075,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q6701-P3373-Q6694",
+   "cids": {
+    "observer_1": "c19",
+    "observer_2": "r15"
+   },
+   "triple": {
+    "h": "Q6701",
+    "r": "P3373",
+    "t": "Q6694"
+   },
+   "labels": {
+    "h": "Jacob Grimm",
+    "r": "sibling",
+    "t": "Alexander von Humboldt"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Jacob Grimm and Alexander von Humboldt were not siblings."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q42904-P106-Q82955",
+   "cids": {
+    "observer_1": "r10",
+    "observer_2": "c19"
+   },
+   "triple": {
+    "h": "Q42904",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Dima Bilan",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.076 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.076 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world career paths of musicians are outside formal internal structural consistency checks."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Dima Bilan is a Russian singer and Eurovision winner, not a politician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.076,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1011-P530-Q458",
+   "cids": {
+    "observer_1": "c2",
+    "observer_2": "r2"
+   },
+   "triple": {
+    "h": "Q1011",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Cape Verde",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal inverse edge in a graph where 97% of such relations are symmetric."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Cape Verde has established diplomatic relations with the European Union."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q180619-P106-Q2405480",
+   "cids": {
+    "observer_1": "r11",
+    "observer_2": "c22"
+   },
+   "triple": {
+    "h": "Q180619",
+    "r": "P106",
+    "t": "Q2405480"
+   },
+   "labels": {
+    "h": "Stephen Jay Gould",
+    "r": "occupation",
+    "t": "voice actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.096 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.096 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world career plausibility of paleontologists does not violate any internal schema constraints."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Stephen Jay Gould was an eminent paleontologist and evolutionary biologist, not a voice actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.096,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q185465-P106-Q1930187",
+   "cids": {
+    "observer_1": "r12",
+    "observer_2": "c25"
+   },
+   "triple": {
+    "h": "Q185465",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Paula Abdul",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.104 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.104 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world occupations of dancers are outside my structural formalist norms."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Paula Abdul is a singer, dancer, and choreographer, not a journalist."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.104,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q131964-P463-Q12548",
+   "cids": {
+    "observer_1": "r13",
+    "observer_2": "c27"
+   },
+   "triple": {
+    "h": "Q131964",
+    "r": "P463",
+    "t": "Q12548"
+   },
+   "labels": {
+    "h": "Austrian Empire",
+    "r": "member of",
+    "t": "Holy Roman Empire"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.117 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.117 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Historical and political memberships are empirical claims outside formal ontological rule checking."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "The Austrian Empire was proclaimed in 1804 long after the Holy Roman Empire was dissolved in 1806, and as an empire it was distinct."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.117,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q217427-P3373-Q202801",
+   "cids": {
+    "observer_1": "c3",
+    "observer_2": "r3"
+   },
+   "triple": {
+    "h": "Q217427",
+    "r": "P3373",
+    "t": "Q202801"
+   },
+   "labels": {
+    "h": "La Toya Jackson",
+    "r": "sibling",
+    "t": "Vanessa Williams"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation is fundamentally symmetric and lacks the necessary reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "La Toya Jackson and Vanessa Williams are not siblings in real life."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q6882-P1303-Q17172850",
+   "cids": {
+    "observer_1": "r1",
+    "observer_2": "c3"
+   },
+   "triple": {
+    "h": "Q6882",
+    "r": "P1303",
+    "t": "Q17172850"
+   },
+   "labels": {
+    "h": "James Joyce",
+    "r": "instrument",
+    "t": "voice"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.042 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.042 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "As a strict structural formalist, I do not evaluate whether real people played instruments unless a formal schema type constraint is violated."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "James Joyce was a renowned author and poet, not a musical instrumentalist."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.042,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1512-P106-Q753110",
+   "cids": {
+    "observer_1": "r14",
+    "observer_2": "c30"
+   },
+   "triple": {
+    "h": "Q1512",
+    "r": "P106",
+    "t": "Q753110"
+   },
+   "labels": {
+    "h": "Robert Louis Stevenson",
+    "r": "occupation",
+    "t": "songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.125 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world competencies of authors are outside my strict structural and schema-based verification."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Robert Louis Stevenson was a celebrated novelist and poet, not a songwriter."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.125,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q104081-P26-Q273055",
+   "cids": {
+    "observer_1": "c4",
+    "observer_2": "r4"
+   },
+   "triple": {
+    "h": "Q104081",
+    "r": "P26",
+    "t": "Q273055"
+   },
+   "labels": {
+    "h": "Mickey Rooney",
+    "r": "spouse",
+    "t": "R. Kelly"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "A spouse relation between these individuals lacks reciprocal structural integrity and domain validity."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mickey Rooney and R. Kelly were never married, defying historical consensus and chronology."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q93356-P106-Q33999",
+   "cids": {
+    "observer_1": "r2",
+    "observer_2": "c4"
+   },
+   "triple": {
+    "h": "Q93356",
+    "r": "P106",
+    "t": "Q33999"
+   },
+   "labels": {
+    "h": "Seamus Heaney",
+    "r": "occupation",
+    "t": "actor"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world occupations of poets fall outside my formal structural and relational consistency checks."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Seamus Heaney was a celebrated Nobel Prize-winning poet and playwright, not an actor."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q17-P530-Q12585",
+   "cids": {
+    "observer_1": "r3",
+    "observer_2": "c5"
+   },
+   "triple": {
+    "h": "Q17",
+    "r": "P530",
+    "t": "Q12585"
+   },
+   "labels": {
+    "h": "Japan",
+    "r": "diplomatic relation",
+    "t": "Latin America"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.029 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.029 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Geopolitical relations between countries and regions are outside formal schema type verification norms."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Latin America is a geographic region rather than a sovereign state capable of bilateral diplomatic relations."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.029,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1028-P530-Q458",
+   "cids": {
+    "observer_1": "c6",
+    "observer_2": "r5"
+   },
+   "triple": {
+    "h": "Q1028",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Morocco",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal inverse edge."
+    },
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Morocco maintains diplomatic and association relations with the European Union."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q349461-P3373-Q344983",
+   "cids": {
+    "observer_1": "c7",
+    "observer_2": "r6"
+   },
+   "triple": {
+    "h": "Q349461",
+    "r": "P3373",
+    "t": "Q344983"
+   },
+   "labels": {
+    "h": "Randy Jackson",
+    "r": "sibling",
+    "t": "Babyface"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Randy Jackson and Babyface are not siblings."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q104109-P26-Q108941",
+   "cids": {
+    "observer_1": "c8",
+    "observer_2": "r7"
+   },
+   "triple": {
+    "h": "Q104109",
+    "r": "P26",
+    "t": "Q108941"
+   },
+   "labels": {
+    "h": "Mary Pickford",
+    "r": "spouse",
+    "t": "Carrie Fisher"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false,
+    "observer_2": true
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation lacks the required reciprocal edge."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Mary Pickford and Carrie Fisher lived in entirely different eras and were never married."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q542101-P106-Q170790",
+   "cids": {
+    "observer_1": "r4",
+    "observer_2": "c9"
+   },
+   "triple": {
+    "h": "Q542101",
+    "r": "P106",
+    "t": "Q170790"
+   },
+   "labels": {
+    "h": "Boris Grebenshchikov",
+    "r": "occupation",
+    "t": "mathematician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.019 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_1": true,
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "out_of_scope",
+     "why": "Real-world professional accuracy of musicians is outside my structural formalism."
+    },
+    "observer_2": {
+     "verdict": "anomaly",
+     "why": "Boris Grebenshchikov is a legendary Russian rock musician, not a mathematician."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.019,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q179150-P106-Q82955",
+   "cids": {
+    "observer_2": "c1"
+   },
+   "triple": {
+    "h": "Q179150",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Sonny Bono",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sonny Bono famously served as the mayor of Palm Springs and later as a U.S. Representative, making politician a historically accurate occupation."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q5879-P106-Q36834",
+   "cids": {
+    "observer_2": "c10"
+   },
+   "triple": {
+    "h": "Q5879",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Johann Wolfgang von Goethe",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.035 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Johann Wolfgang von Goethe's texts were extensively set to music by major composers, and he was deeply engaged with musical theory and composition."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.035,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q35-P530-Q458",
+   "cids": {
+    "observer_1": "c13"
+   },
+   "triple": {
+    "h": "Q35",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Denmark",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 2 ways: 'Denmark' --member of-- 'European Union'; 'Denmark' --diplomatic relation-- 'European Union' -- a combination carried by only 2 pairs in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 2 ways: 'Denmark' --member of-- 'European Union'; 'Denmark' --diplomatic relation-- 'European Union' -- a combination carried by only 2 pairs in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The concurrent membership and diplomatic relation are structurally valid."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Denmark",
+      "r": "member of",
+      "t": "European Union"
+     },
+     {
+      "h": "Denmark",
+      "r": "diplomatic relation",
+      "t": "European Union"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q336278-P106-Q1930187",
+   "cids": {
+    "observer_2": "c13"
+   },
+   "triple": {
+    "h": "Q336278",
+    "r": "P106",
+    "t": "Q1930187"
+   },
+   "labels": {
+    "h": "Neil Tennant",
+    "r": "occupation",
+    "t": "journalist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.044 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Neil Tennant of the Pet Shop Boys worked as a journalist and editor for magazines like Smash Hits before his music career."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.044,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q208116-P106-Q753110",
+   "cids": {
+    "observer_2": "c14"
+   },
+   "triple": {
+    "h": "Q208116",
+    "r": "P106",
+    "t": "Q753110"
+   },
+   "labels": {
+    "h": "Sergey Mikhalkov",
+    "r": "occupation",
+    "t": "songwriter"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.055 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.055 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Sergey Mikhalkov was a prominent Soviet poet who wrote the lyrics to the national anthem, making songwriter an appropriate designation."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.055,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q44857-P463-Q463303",
+   "cids": {
+    "observer_2": "c15"
+   },
+   "triple": {
+    "h": "Q44857",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "John Legend",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.058 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.058 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "John Legend is a notable cultural figure elected as a member of the American Academy of Arts and Sciences."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.058,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q38-P530-Q55",
+   "cids": {
+    "observer_1": "c17"
+   },
+   "triple": {
+    "h": "Q38",
+    "r": "P530",
+    "t": "Q55"
+   },
+   "labels": {
+    "h": "Italy",
+    "r": "diplomatic relation",
+    "t": "Netherlands"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 3 ways: 'Italy' --diplomatic relation-- 'Netherlands'; 'Netherlands' --country-- 'Italy'; 'Netherlands' --diplomatic relation-- 'Italy' -- a combination carried by only 2 pairs in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 3 ways: 'Italy' --diplomatic relation-- 'Netherlands'; 'Netherlands' --country-- 'Italy'; 'Netherlands' --diplomatic relation-- 'Italy' -- a combination carried by only 2 pairs in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The mutual diplomatic links between these European nations are fully symmetric and valid."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Italy",
+      "r": "diplomatic relation",
+      "t": "Netherlands"
+     },
+     {
+      "h": "Netherlands",
+      "r": "country",
+      "t": "Italy"
+     },
+     {
+      "h": "Netherlands",
+      "r": "diplomatic relation",
+      "t": "Italy"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q155-P530-Q7159",
+   "cids": {
+    "observer_2": "c2"
+   },
+   "triple": {
+    "h": "Q155",
+    "r": "P530",
+    "t": "Q7159"
+   },
+   "labels": {
+    "h": "Brazil",
+    "r": "diplomatic relation",
+    "t": "African Union"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.060 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.060 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Brazil maintains diplomatic and cooperative relations with the African Union as an international entity."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.06,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q93343-P26-Q5679",
+   "cids": {
+    "observer_1": "c20"
+   },
+   "triple": {
+    "h": "Q93343",
+    "r": "P26",
+    "t": "Q5679"
+   },
+   "labels": {
+    "h": "Percy Bysshe Shelley",
+    "r": "spouse",
+    "t": "Lord Byron"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 2 ways: 'Percy Bysshe Shelley' --spouse-- 'Lord Byron'; 'Percy Bysshe Shelley' --influenced by-- 'Lord Byron' -- a combination carried by only 2 pairs in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 2 ways: 'Percy Bysshe Shelley' --spouse-- 'Lord Byron'; 'Percy Bysshe Shelley' --influenced by-- 'Lord Byron' -- a combination carried by only 2 pairs in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation combined with influence linkage violates formal consistency constraints."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Percy Bysshe Shelley",
+      "r": "spouse",
+      "t": "Lord Byron"
+     },
+     {
+      "h": "Percy Bysshe Shelley",
+      "r": "influenced by",
+      "t": "Lord Byron"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q15873-P106-Q169470",
+   "cids": {
+    "observer_2": "c20"
+   },
+   "triple": {
+    "h": "Q15873",
+    "r": "P106",
+    "t": "Q169470"
+   },
+   "labels": {
+    "h": "Brian May",
+    "r": "occupation",
+    "t": "physicist"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.080 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.080 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Brian May of Queen holds a PhD in astrophysics and is an accomplished astrophysicist."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.08,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q114-P530-Q458",
+   "cids": {
+    "observer_1": "c21"
+   },
+   "triple": {
+    "h": "Q114",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Kenya",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q213579-P106-Q639669",
+   "cids": {
+    "observer_2": "c21"
+   },
+   "triple": {
+    "h": "Q213579",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Ernst Chladni",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.093 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.093 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Ernst Chladni invented the euphoniun and performed publicly on musical instruments, earning recognition in acoustics and music."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.093,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q7504-P3373-Q154353",
+   "cids": {
+    "observer_1": "c22"
+   },
+   "triple": {
+    "h": "Q7504",
+    "r": "P3373",
+    "t": "Q154353"
+   },
+   "labels": {
+    "h": "Ir\u00e8ne Joliot-Curie",
+    "r": "sibling",
+    "t": "Fran\u00e7ois Arago"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q178698-P26-Q453288",
+   "cids": {
+    "observer_1": "c23"
+   },
+   "triple": {
+    "h": "Q178698",
+    "r": "P26",
+    "t": "Q453288"
+   },
+   "labels": {
+    "h": "W. H. Auden",
+    "r": "spouse",
+    "t": "George Steiner"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q42-P1303-Q6607",
+   "cids": {
+    "observer_2": "c23"
+   },
+   "triple": {
+    "h": "Q42",
+    "r": "P1303",
+    "t": "Q6607"
+   },
+   "labels": {
+    "h": "Douglas Adams",
+    "r": "instrument",
+    "t": "guitar"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Douglas Adams was an avid guitar collector and player, even performing on stage with Pink Floyd."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.103,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1246-P530-Q28",
+   "cids": {
+    "observer_1": "c24"
+   },
+   "triple": {
+    "h": "Q1246",
+    "r": "P530",
+    "t": "Q28"
+   },
+   "labels": {
+    "h": "Kosovo",
+    "r": "diplomatic relation",
+    "t": "Hungary"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q34969-P106-Q639669",
+   "cids": {
+    "observer_2": "c24"
+   },
+   "triple": {
+    "h": "Q34969",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Benjamin Franklin",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.103 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Benjamin Franklin was an accomplished musician who played the violin, harp, and guitar, and invented the glass armonica."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.103,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q7504-P3373-Q336222",
+   "cids": {
+    "observer_1": "c25"
+   },
+   "triple": {
+    "h": "Q7504",
+    "r": "P3373",
+    "t": "Q336222"
+   },
+   "labels": {
+    "h": "Ir\u00e8ne Joliot-Curie",
+    "r": "sibling",
+    "t": "Tito Jackson"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q178698-P26-Q909",
+   "cids": {
+    "observer_1": "c26"
+   },
+   "triple": {
+    "h": "Q178698",
+    "r": "P26",
+    "t": "Q909"
+   },
+   "labels": {
+    "h": "W. H. Auden",
+    "r": "spouse",
+    "t": "Jorge Luis Borges"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q129119-P106-Q82955",
+   "cids": {
+    "observer_2": "c26"
+   },
+   "triple": {
+    "h": "Q129119",
+    "r": "P106",
+    "t": "Q82955"
+   },
+   "labels": {
+    "h": "Ruslana",
+    "r": "occupation",
+    "t": "politician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.110 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.110 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Ruslana served as a Member of the Ukrainian Parliament (Verkhovna Rada) following her music career."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.11,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q1246-P530-Q851",
+   "cids": {
+    "observer_1": "c27"
+   },
+   "triple": {
+    "h": "Q1246",
+    "r": "P530",
+    "t": "Q851"
+   },
+   "labels": {
+    "h": "Kosovo",
+    "r": "diplomatic relation",
+    "t": "Saudi Arabia"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q7504-P3373-Q366671",
+   "cids": {
+    "observer_1": "c28"
+   },
+   "triple": {
+    "h": "Q7504",
+    "r": "P3373",
+    "t": "Q366671"
+   },
+   "labels": {
+    "h": "Ir\u00e8ne Joliot-Curie",
+    "r": "sibling",
+    "t": "Jan Hammer"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 92% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 92% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The sibling relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.92,
+    "examples": [
+     [
+      "Kylie Minogue",
+      "Dannii Minogue"
+     ],
+     [
+      "Janet Jackson",
+      "La Toya Jackson"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q9358-P106-Q36834",
+   "cids": {
+    "observer_2": "c28"
+   },
+   "triple": {
+    "h": "Q9358",
+    "r": "P106",
+    "t": "Q36834"
+   },
+   "labels": {
+    "h": "Friedrich Nietzsche",
+    "r": "occupation",
+    "t": "composer"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.122 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.122 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Friedrich Nietzsche composed numerous musical works throughout his life."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.122,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q232113-P26-Q178698",
+   "cids": {
+    "observer_1": "c29"
+   },
+   "triple": {
+    "h": "Q232113",
+    "r": "P26",
+    "t": "Q178698"
+   },
+   "labels": {
+    "h": "Anna Karina",
+    "r": "spouse",
+    "t": "W. H. Auden"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 78% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 78% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The spouse relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": true,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.78,
+    "examples": [
+     [
+      "Mickey Rooney",
+      "Ava Gardner"
+     ],
+     [
+      "Mary Pickford",
+      "Douglas Fairbanks"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q213512-P463-Q463303",
+   "cids": {
+    "observer_2": "c29"
+   },
+   "triple": {
+    "h": "Q213512",
+    "r": "P463",
+    "t": "Q463303"
+   },
+   "labels": {
+    "h": "Bill Cosby",
+    "r": "member of",
+    "t": "American Academy of Arts and Sciences"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.123 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.123 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Bill Cosby was elected to the American Academy of Arts and Sciences in recognition of his contributions to the arts."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.123,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q142-P530-Q159583",
+   "cids": {
+    "observer_1": "c30"
+   },
+   "triple": {
+    "h": "Q142",
+    "r": "P530",
+    "t": "Q159583"
+   },
+   "labels": {
+    "h": "France",
+    "r": "diplomatic relation",
+    "t": "Holy See"
+   },
+   "rule": "odd_pairs",
+   "note": "recorded one way only, on a relation that is 97% two-way",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "recorded one way only, on a relation that is 97% two-way",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "anomaly",
+     "why": "The diplomatic relation lacks the required reciprocal edge."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "mirror",
+    "symmetry": 0.97,
+    "examples": [
+     [
+      "Gabon",
+      "France"
+     ],
+     [
+      "Gabon",
+      "People's Republic of China"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "Q30-P530-Q55",
+   "cids": {
+    "observer_1": "c5"
+   },
+   "triple": {
+    "h": "Q30",
+    "r": "P530",
+    "t": "Q55"
+   },
+   "labels": {
+    "h": "United States of America",
+    "r": "diplomatic relation",
+    "t": "Netherlands"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 3 ways: 'United States of America' --diplomatic relation-- 'Netherlands'; 'Netherlands' --country-- 'United States of America'; 'Netherlands' --diplomatic relation-- 'United States of America' -- a combination carried by only 2 pairs in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 3 ways: 'United States of America' --diplomatic relation-- 'Netherlands'; 'Netherlands' --country-- 'United States of America'; 'Netherlands' --diplomatic relation-- 'United States of America' -- a combination carried by only 2 pairs in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "Although multiple link combinations are rare, the mutual diplomatic edges are present and structurally sound."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "United States of America",
+      "r": "diplomatic relation",
+      "t": "Netherlands"
+     },
+     {
+      "h": "Netherlands",
+      "r": "country",
+      "t": "United States of America"
+     },
+     {
+      "h": "Netherlands",
+      "r": "diplomatic relation",
+      "t": "United States of America"
+     }
+    ]
+   }
+  },
+  {
+   "id": "Q154145-P106-Q639669",
+   "cids": {
+    "observer_2": "c6"
+   },
+   "triple": {
+    "h": "Q154145",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Gabriel Marcel",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Gabriel Marcel was not only a philosopher and playwright but also an accomplished musician and composer."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q25820-P106-Q639669",
+   "cids": {
+    "observer_2": "c7"
+   },
+   "triple": {
+    "h": "Q25820",
+    "r": "P106",
+    "t": "Q639669"
+   },
+   "labels": {
+    "h": "Thomas Young",
+    "r": "occupation",
+    "t": "musician"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score -0.004 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Thomas Young was a consummate polymath who made contributions across physics, medicine, and linguistics, and musical proficiency was part of his education and abilities."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": -0.004,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q159-P530-Q7172",
+   "cids": {
+    "observer_2": "c8"
+   },
+   "triple": {
+    "h": "Q159",
+    "r": "P530",
+    "t": "Q7172"
+   },
+   "labels": {
+    "h": "Russia",
+    "r": "diplomatic relation",
+    "t": "Arab League"
+   },
+   "rule": "unlikely_facts",
+   "note": "plausibility score 0.008 (bottom 0.1% of the graph)",
+   "origins": [
+    {
+     "rule": "unlikely_facts",
+     "note": "plausibility score 0.008 (bottom 0.1% of the graph)",
+     "observer": "observer_2"
+    }
+   ],
+   "rules": [
+    "unlikely_facts"
+   ],
+   "via_second_opinion": {
+    "observer_2": false
+   },
+   "verdicts": {
+    "observer_2": {
+     "verdict": "ok",
+     "why": "Russia maintains formal diplomatic dialogue and relations with the Arab League as a regional organization."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "score",
+    "score": 0.008,
+    "percentile": 0.1,
+    "total": 37043
+   }
+  },
+  {
+   "id": "Q32-P530-Q458",
+   "cids": {
+    "observer_1": "c9"
+   },
+   "triple": {
+    "h": "Q32",
+    "r": "P530",
+    "t": "Q458"
+   },
+   "labels": {
+    "h": "Luxembourg",
+    "r": "diplomatic relation",
+    "t": "European Union"
+   },
+   "rule": "odd_pairs",
+   "note": "these two are linked 2 ways: 'Luxembourg' --member of-- 'European Union'; 'Luxembourg' --diplomatic relation-- 'European Union' -- a combination carried by only 2 pairs in the whole graph",
+   "origins": [
+    {
+     "rule": "odd_pairs",
+     "note": "these two are linked 2 ways: 'Luxembourg' --member of-- 'European Union'; 'Luxembourg' --diplomatic relation-- 'European Union' -- a combination carried by only 2 pairs in the whole graph",
+     "observer": "observer_1"
+    }
+   ],
+   "rules": [
+    "odd_pairs"
+   ],
+   "via_second_opinion": {
+    "observer_1": false
+   },
+   "verdicts": {
+    "observer_1": {
+     "verdict": "ok",
+     "why": "The presence of membership and diplomatic relations is structurally valid under type constraints."
+    }
+   },
+   "planted": false,
+   "evidence": {
+    "type": "combo",
+    "edges": [
+     {
+      "h": "Luxembourg",
+      "r": "member of",
+      "t": "European Union"
+     },
+     {
+      "h": "Luxembourg",
+      "r": "diplomatic relation",
+      "t": "European Union"
+     }
+    ]
+   }
+  }
+ ]
+}

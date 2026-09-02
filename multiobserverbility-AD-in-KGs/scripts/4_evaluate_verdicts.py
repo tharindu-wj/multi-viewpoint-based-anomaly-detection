@@ -35,6 +35,7 @@ from loaders import graph  # noqa: E402
 from loaders.active import DATASET  # noqa: E402
 from loaders.context import get_context  # noqa: E402
 from tools._observers import OBSERVER_NAMES  # noqa: E402
+from tools.mining_rules.pool import interleave  # noqa: E402
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--run", default=None, help="run file; default is newest")
@@ -151,6 +152,24 @@ print(f"    {agent_1} alone {len(only_1)} "
       f"(planted {sum(1 for t in only_2 if truth.get(t) == 1)})   "
       f"both {len(shared)}")
 print(f"  equal-K scorer comparison uses K = {len(union_flags)}")
+
+# The rules-only baseline: the same pools the observers surveyed, zipped
+# strongest-first and cut at the same K -- what the system would output if
+# nobody selected or judged. Selection earns its place only above this line.
+pools = [p.get("entries", []) for p in run.get("pools", [])]
+if union_flags and any(pools):
+    K = len(union_flags)
+    rules_only = interleave(pools, K)
+    rules_hits = sum(1 for t in rules_only if truth.get(t) == 1)
+    print(f"  rules-only top-{K} (pools zipped, no LLM): {rules_hits}/{K} "
+          f"({rules_hits / K:.0%}) -- the observers' selection "
+          f"{'beats' if union_hits > rules_hits else 'does not beat'} it "
+          f"({union_hits} vs {rules_hits})")
+    for name, pool in zip(OBSERVER_NAMES, pools):
+        in_pool = sum(1 for e in pool if truth.get(tuple(e["triple"])) == 1)
+        print(f"    {name}: pool {len(pool)} leads, {in_pool} planted "
+              f"({in_pool / len(pool):.0%} density)" if pool
+              else f"    {name}: empty pool")
 
 print("\n" + "=" * 70)
 print("  COMPOSED -- the two viewpoints together")

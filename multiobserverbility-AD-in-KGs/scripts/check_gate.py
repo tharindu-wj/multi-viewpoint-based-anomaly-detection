@@ -40,9 +40,10 @@ class FakeToolContext:
 
 # Relation probes come from the loaded dataset, so the rig ports with it.
 # REL_A must be one the odd_pairs mirror case can fire on (mostly two-way,
-# with at least one one-way edge), because the phase-3 checks below serve a
-# candidate from it. Derived by the rule's own criterion, not by name.
+# with at least one one-way edge), so the phase-3 pool below is guaranteed
+# non-empty. Derived by the rule's own criterion, not by name.
 import collections  # noqa: E402
+import json  # noqa: E402
 
 from loaders.context import get_context  # noqa: E402
 
@@ -130,25 +131,44 @@ check("refuses re-selection (scope is a commitment)",
       select_scope([REL_B], "w", agent_1).startswith("ERROR"))
 check("stores resolved ids", REL_A_ID in state["scope_1"])
 
-print("\nphase 3: finding and judging")
-from tools.find_suspects import find_suspects  # noqa: E402
+print("\nphase 3: surveying, shortlisting and judging")
+from tools.find_suspects import READING_BUDGET, find_suspects  # noqa: E402
+from tools.shortlist_candidates import shortlist_candidates  # noqa: E402
 from tools.submit_verdicts import submit_verdicts  # noqa: E402
 
 fresh = FakeToolContext("observer_2", {})
 check("find_suspects refuses without a scope",
-      find_suspects("odd_pairs", "w", 1, fresh).startswith("ERROR"))
+      find_suspects(1, fresh).startswith("ERROR"))
+check("shortlist refuses before the pool is surveyed",
+      shortlist_candidates(["p1"], "w", agent_1).startswith("ERROR"))
 check("submit_verdicts refuses before anything is served",
       submit_verdicts([{"id": "c1", "verdict": "ok", "why": "w"}],
                       fresh).startswith("ERROR"))
 
-check("unknown rule is a readable error",
-      find_suspects("psychic", "w", 1, agent_1).startswith("ERROR"))
-check("first call to a rule requires a why",
-      find_suspects("odd_pairs", "", 1, agent_1).startswith("ERROR"))
-page = find_suspects("odd_pairs",
-                       "my mutuality norm concerns two-way bonds", 1, agent_1)
-check("candidates served with stable ids", "c1." in page)
+page = find_suspects(1, agent_1)
+check("the pool is served with stable pool ids", "p1." in page)
+check("the pool is recorded as surveyed",
+      "pool_1" in state and 1 in json.loads(state["pool_1"])["pages_seen"])
+check("surveying serves nothing (no budget spent)", "served_1" not in state)
+check("a pool id out of range is a readable error",
+      shortlist_candidates(["p9999"], "w", agent_1).startswith("ERROR"))
+check("shortlisting requires a why",
+      shortlist_candidates(["p1"], " ", agent_1).startswith("ERROR"))
+picked = shortlist_candidates(["p1", "p2", "p1"],
+                              "my mutuality norm concerns two-way bonds", agent_1)
+check("shortlisted leads become candidates with stable ids",
+      "c1." in picked and "c2." in picked and "c3." not in picked)
 check("serving is recorded", "served_1" in state and "c1" in state["served_1"])
+check("re-shortlisting a lead does not duplicate it",
+      "already on your shortlist" in shortlist_candidates(["p1"], "w", agent_1))
+too_many = shortlist_candidates([f"p{i}" for i in range(1, READING_BUDGET + 5)],
+                                "w", agent_1)
+check("the reading budget caps the shortlist",
+      "Budget reached" in too_many
+      and sum(1 for c in json.loads(state["served_1"])
+              if c.startswith("c")) == READING_BUDGET)
+check("a full shortlist refuses more",
+      shortlist_candidates([f"p{READING_BUDGET + 6}"], "w", agent_1).startswith("ERROR"))
 
 check("verdict on an id never served is refused, batch not recorded",
       submit_verdicts([{"id": "c999", "verdict": "ok", "why": "w"}],
@@ -162,8 +182,7 @@ check("an empty why is refused",
 ok = submit_verdicts([{"id": "c1", "verdict": "anomaly",
                        "why": "one-sided record of a mutual bond"}], agent_1)
 check("a valid verdict is recorded", ok.startswith("Recorded"))
-check("progress says what remains or hands the hunt back",
-      "unjudged" in ok or "done" in ok or "room" in ok)
+check("progress says what remains", "unjudged" in ok)
 
 # Second-opinion guards -- reuses the state above (agent_1 judged c1 'anomaly').
 print("\nsecond opinions")

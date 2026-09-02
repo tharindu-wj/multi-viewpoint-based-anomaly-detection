@@ -817,3 +817,93 @@ ceiling only via budget).
 6. NOT a lever: coaching rule choice toward planted-heavy rules — that
    optimizes the metric by contaminating the design (observers must never
    be steered by the answer key).
+
+## 19. The pool — survey, shortlist, judge (2 Sep 2026)
+
+**DECIDED — observers no longer pick ONE mining rule and read its pages;
+every rule runs on the observer's scope, the leads are merged into one
+POOL, and the observer's norms SELECT from the pool.** §17 measured that
+rule choice, not reading volume, bound the planted yield: an observer that
+picked odd_types (0 planted) or unlikely_facts (0 planted, memorization)
+spent its whole budget on a dry rule, and the answer-key-blind design
+forbids steering that choice. The pool removes the choice without adding
+a nudge: the observer sees what all the counting rules turned up and uses
+its semantics to decide which leads its norms speak to. Every rule's leads
+reach the observer; the norms still do the selecting.
+
+Mechanics (tools/mining_rules/pool.py, find_suspects, shortlist_candidates):
+- `build_pool(scope, ctx)` runs each registered rule on the scope, merges
+  by triple, puts leads two rules agree on first (by agreement count, then
+  best rank), then round-robins the rules in registry order, each
+  strongest-first (the §17/Stage-1 in-rule ranking is what makes the
+  round-robin worth anything). Capped at POOL_CAP = 120, paged at
+  POOL_PAGE = 40 (≤ 3 pages), ids p1..pN, deterministic for a scope.
+- **Surveying is free**: find_suspects serves pool pages and spends no
+  budget. The observer is told to read the whole pool before choosing.
+- `shortlist_candidates(ids, why)` turns pool ids into served c-ids, up to
+  READING_BUDGET = 30. Unshortlisted leads are "not examined" — never an
+  implicit ok. Validation refuses out-of-range ids, an empty why, and
+  shortlisting before the survey; duplicates and repeats are absorbed.
+- submit_verdicts is unchanged downstream (every shortlisted c-id needs a
+  verdict; it hands the hunt back while budget room remains). Reviewers,
+  the dashboard and the evaluator are untouched except for a new
+  "caught by N rules" chip and pool meta.
+- A served entry carries every rule that surfaced it (`rules`, and a
+  `rule: note | rule: note` merged note) so corroboration is visible to
+  the observer and exportable.
+
+**Rules-only baseline.** `interleave(pools, K)` zips the two observers'
+pools strongest-first, dedupes and cuts at K — what the union would be if
+the LLM made no selection at all. Reported by the evaluator ("the
+observers' selection beats / does not beat it") and as the `base` column
+of the batch runner. This is the honest equal-K comparison for the pool
+design: the observers must add value OVER the merged rules, not merely
+over a single rule.
+
+**unlikely_facts RETIRED.** Removed from the RULES registry (module kept,
+dormant). Evidence: across the Sep-1 runs it took ~160 of ~330 reads and
+surfaced 0 planted — the DistMult scorer memorized the planted positives
+(AUC 0.617; §18.1 lever 2). It stays retired until the held-out/ADKGD
+channel fix (IMPROVEMENT_PLAN Stage 2b) gives it a measured reason to
+return; it would re-enter as a fifth queue in the round-robin.
+
+**Pacing.** Free-tier 15 RPM was hit once the pool added calls. Every
+model call on root, observers and reviewers is preceded by an async
+CALL_PAUSE = 4.0 s (agents/pacing.py, before_model_callback). A full run
+is ~27 model calls, ~100 s wall.
+
+Offline measurements (probe over TRUTH, evaluator-side only):
+- uncapped all-relations pool: 585 leads / 102 planted (the roster's
+  ceiling); corroborated leads: 8 (odd_pairs + odd_types, all one Don
+  Rickles religion pair), 0 planted — corroboration is harmless but not a
+  lever at this roster.
+- capped pool (120): 25 planted (21%), pages holding 8 / 9 / 8.
+- rules-only top-20/30/40/60: 10% / 17% / 20% / 20%.
+- on the three Sep-1 scopes: pools of 120 with 25–50 planted (one
+  70-lead pool with 1).
+
+First live run, **run_20260902_075018** (BLINDNESS VERIFIED both, gate
+all-PASS, 27 calls, 98 s): both observers surveyed pages 1-2-3 then
+shortlisted then judged, exactly as designed. The structuralist (42
+relations) shortlisted 30 (odd_types 22, odd_pairs 6, odd_values 2) and
+flagged 36 with 0 planted; the pragmatic historian (11 relations)
+shortlisted 11, all odd_values place-of-birth extras, flagged 10 with 8
+planted. Union K = 36, **P@K 22%, R@K 1.6% (ceiling 7.2%)**; rules-only
+top-36 = 8% (3/36) — the observers' selection beats the merged rules
+(8 vs 3). Complementarity: 28 + 8 unique, 0 shared, all 8 hits from one
+side. Same §17 lesson in a new form: the formalist's norms select
+odd_types (norm-true, planted-empty); the pool did not change WHAT the
+norms want, it changed what they could see.
+
+Batch `pool`, 3 runs (`6_run_batch.py --n 3 --label pool`, all BLINDNESS
+VERIFIED): **P@K 78.5% ± 4.3%, R@K 2.9% ± 0.5%, K 18.7 ± 3.1, hits
+12/17/15**; rules-only top-K on the same pools 3.4% ± 3.0%; Stage-1 (one
+rule per observer) was 17.7% ± 22.1%. The lottery is gone — the sd fell
+from 22 points to 4. Two readings: (i) selection is semantic — the pool
+serves odd_types first on every page and the observers walked past it to
+odd_pairs leads whose entities they could name as unrelated; (ii)
+observers shortlist well under budget (4–21 of 30) and say their norms
+are silent on the rest, so K is small and self-chosen: precision is high
+because of it and recall is bound by it (ceilings 3–4%). Raising K
+without coaching is the open question; the full table and per-run
+observations are in IMPROVEMENT_PLAN.md (Stage 1b).

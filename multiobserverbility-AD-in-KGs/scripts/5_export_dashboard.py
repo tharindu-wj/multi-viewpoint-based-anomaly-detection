@@ -335,9 +335,16 @@ def _origins(triple):
     origins = []
     for name in OBSERVER_NAMES:
         for entry in served_by[name].values():
-            if tuple(entry["triple"]) == triple and entry["rule"] != "second_opinion":
-                origins.append({"rule": entry["rule"], "note": entry["note"],
-                                "observer": name})
+            if tuple(entry["triple"]) != triple or entry["rule"] == "second_opinion":
+                continue
+            # A pool entry carries every rule's note under "notes"; a pre-pool
+            # run carries one rule and one note.
+            notes = entry.get("notes")
+            if not notes and entry.get("rules") and " | " in entry["note"]:
+                notes = dict(part.split(": ", 1) for part in entry["note"].split(" | ")
+                             if ": " in part)
+            for rule, note in (notes or {entry["rule"]: entry["note"]}).items():
+                origins.append({"rule": rule, "note": note, "observer": name})
     return origins
 
 
@@ -364,6 +371,9 @@ for triple, case in case_of.items():
         "rule": rule,
         "note": note,
         "origins": origins,
+        #: every distinct rule that surfaced this fact -- two or more means
+        #: independent counting arguments agree it is odd
+        "rules": sorted({o["rule"] for o in origins if o["rule"] != "unknown"}),
         "via_second_opinion": via_review,
         "verdicts": case["verdicts"],
         "planted": truth.get(triple) == 1,
@@ -388,15 +398,33 @@ disagreements = [c for c in cases
                  == {"anomaly", "ok"}]
 
 observers = {}
-for name, persona, norms, scope, rules in zip(
+# Pool runs record what was on offer and what was chosen; pre-pool runs
+# recorded which rules the observer chose to read. Either way the view model
+# gets rules_used (rule -> how it came to be used) and, for pool runs, the
+# pool summary the overview reports.
+pools = run.get("pools") or [None] * len(OBSERVER_NAMES)
+shortlists = run.get("shortlists") or [[]] * len(OBSERVER_NAMES)
+rules_legacy = run.get("rules") or [{}] * len(OBSERVER_NAMES)
+for name, persona, norms, scope, pool, picks, legacy in zip(
         OBSERVER_NAMES, run["personas"], run["norms"], run["scopes"],
-        run["rules"]):
+        pools, shortlists, rules_legacy):
+    primary = [e for cid, e in served_by[name].items() if cid.startswith("c")]
+    if pool is not None:
+        counts = collections.Counter(e["rule"] for e in primary)
+        rules_used = {rule: f"{n} shortlisted" for rule, n in counts.most_common()}
+        pool_info = {"size": len(pool.get("entries", [])),
+                     "pages_seen": sorted(pool.get("pages_seen", [])),
+                     "shortlisted": len(primary),
+                     "why": [p["why"] for p in picks]}
+    else:
+        rules_used, pool_info = legacy, None
     observers[name] = {
         "handle": _handle((persona or {}).get("persona", "")),
         "persona": (persona or {}).get("persona", ""),
         "norms": norms or {},
         "scope_size": len((scope or {}).get("scope", [])),
-        "rules_used": rules,
+        "rules_used": rules_used,
+        "pool": pool_info,
     }
 
 view_model = {

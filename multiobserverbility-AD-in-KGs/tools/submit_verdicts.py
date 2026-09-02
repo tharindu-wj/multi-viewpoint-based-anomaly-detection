@@ -30,8 +30,7 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
       unsure        you genuinely cannot tell; say what is missing
 
     The why is one sentence, in terms of YOUR norms, not anyone else's.
-    Every candidate you were served needs a verdict -- and judging a page
-    does not end the hunt while your reading budget has room for more.
+    Every candidate on your shortlist needs a verdict.
 
     Args:
         verdicts: a list of {"id", "verdict", "why"} objects.
@@ -44,7 +43,8 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
 
     served = json.loads(tool_context.state.get(state_key("served", agent)) or "{}")
     if not served:
-        return "ERROR: nothing has been served to you yet. find_suspects first."
+        return ("ERROR: nothing has been served to you yet. Survey the pool "
+                "with find_suspects and shortlist_candidates first.")
 
     if not verdicts:
         return "ERROR: an empty batch judges nothing."
@@ -77,7 +77,9 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
         judged[candidate_id] = {"verdict": verdict, "why": why,
                                 "triple": served[candidate_id]["triple"],
                                 "text": served[candidate_id].get("text", ""),
-                                "rule": served[candidate_id]["rule"]}
+                                "rule": served[candidate_id]["rule"],
+                                "rules": served[candidate_id].get(
+                                    "rules", [served[candidate_id]["rule"]])}
     tool_context.state[judged_key] = json.dumps(judged)
 
     remaining = [cid for cid in served if cid not in judged]
@@ -87,19 +89,19 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
                 f"{', '.join(sorted(remaining))}.")
 
     # The closing line is the last thing the model reads (the select_scope
-    # lesson), so it must hand the hunt BACK while budget remains. Only a
-    # reviewer, or a spent budget, ends the phase.
+    # lesson). A reviewer, or a full shortlist, ends the phase; otherwise the
+    # room left is named, and the choice to use it stays the observer's --
+    # a shortlist is a selection, not a quota.
     if is_reviewer(tool_context.agent_name):
         return (f"Recorded {len(accepted)} verdict(s). Every candidate you "
                 f"were served is judged -- you are done, stop here.")
-    room = READING_BUDGET - len(served)
+    room = READING_BUDGET - sum(1 for cid in served if cid.startswith("c"))
     if room > 0:
-        return (f"Recorded {len(accepted)} verdict(s). Every candidate "
-                f"served so far is judged, and your reading budget has room "
-                f"for {room} more. Fetch the next page, or a rule you have "
-                f"not tried whose kind of suspicious matches your norms -- "
-                f"stop only when the budget is spent or the rules have "
-                f"nothing more in your scope.")
+        return (f"Recorded {len(accepted)} verdict(s). Every shortlisted "
+                f"candidate is judged; your reading budget has room for "
+                f"{room} more. If the pool holds further leads your norms "
+                f"speak to, shortlist and judge them; if it does not, you "
+                f"are done.")
     return (f"Recorded {len(accepted)} verdict(s). Every candidate is "
             f"judged and your reading budget is spent -- you are done, "
             f"stop here.")

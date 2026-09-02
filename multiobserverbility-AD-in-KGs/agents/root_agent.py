@@ -11,6 +11,7 @@ from google.adk.agents.llm_agent import Agent
 
 from agents import telemetry
 from agents.config import MODEL, ROOT_TOOLS, ROOT_TOOL_BUDGET
+from agents.pacing import pace_model_calls
 from loaders.active import DATASET
 
 ROOT_INSTRUCTION = f"""\
@@ -46,7 +47,8 @@ root = Agent(
     # A fresh context every turn: a second question in one `adk web` session
     # cannot leak an earlier run's personas into this one.
     include_contents="none",
-    # Observation only -- both return None, so nothing about the run changes.
+    # Observation only -- all return None, so nothing about the run changes.
+    before_model_callback=pace_model_calls,
     after_model_callback=telemetry.record_response,
     on_model_error_callback=telemetry.record_error,
 )

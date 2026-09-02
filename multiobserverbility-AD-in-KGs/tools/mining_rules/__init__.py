@@ -1,6 +1,7 @@
 """The mining rules -- deterministic sweeps of the graph, one kind of
 suspicious each. NOT TOOLS: an agent reaches these only through
-find_suspects, which serves what they found a page at a time.
+find_suspects, which serves the POOL of everything they found in the
+observer's scope, merged and ranked (tools/mining_rules/pool.py).
 
 Contract every rule honours:
 
@@ -18,24 +19,29 @@ Contract every rule honours:
   - No ground truth: no rule reads the answer key, ever.
 
 The roster maps the TAXO anomaly taxonomy (Senaratne et al.,
-arXiv:2412.04780, section 5) onto five rules -- each module's docstring
-names the types it mines:
+arXiv:2412.04780, section 5) onto four counting rules -- each module's
+docstring names the types it mines:
 
     odd_pairs       contradicting facts, incorrect predicate,
                     entity ambiguity, one-way records of two-way relations
     odd_types       invalid predicate (inconsistency)
     odd_values      predicate ambiguity, redundant facts, duplicate facts
     odd_degrees     rare entity, prolific entity (unusual)
-    unlikely_facts  incorrectness at large -- the model-based plausibility
-                    channel kept alongside the four counting rules
+
+RETIRED (2 Sep 2026): unlikely_facts, the model-based plausibility channel.
+Measured over eight live runs it was the most-read rule (160 of ~330
+candidate reads) and surfaced zero planted facts -- the scorer had trained
+on the contaminated graph and memorised the fakes as plausible. The module
+stays on disk, dormant, for the day a held-out or external scorer earns its
+place back; it is simply not in the roster below.
 
 Missingness types stay where TAXO itself puts them: at the storage layer,
 i.e. the ingest guards of scripts/1_prepare_graph.py, because a malformed
 row is a certainty, not a lead for a judge.
 """
-from tools.mining_rules import (odd_degrees, odd_pairs, odd_types,
-                                odd_values, unlikely_facts)
+from tools.mining_rules import odd_degrees, odd_pairs, odd_types, odd_values
 
-#: the menu find_suspects serves. Each rule knows ONE kind of suspicious.
+#: the roster the pool is built from. Each rule knows ONE kind of suspicious;
+#: the ORDER here is the round-robin order of the pool.
 RULES = {module.NAME: module for module in (
-    odd_pairs, odd_types, odd_values, odd_degrees, unlikely_facts)}
+    odd_pairs, odd_types, odd_values, odd_degrees)}

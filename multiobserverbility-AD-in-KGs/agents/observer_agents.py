@@ -13,6 +13,7 @@ from google.adk.agents.llm_agent import Agent
 
 from agents import telemetry
 from agents.config import MODEL, OBSERVER_TOOLS, OBSERVER_TOOL_BUDGET
+from agents.pacing import pace_model_calls
 from agents.phase_gate import keep_norms_blind
 from loaders.active import DATASET
 from tools._observers import OBSERVER_NAMES, state_key
@@ -45,21 +46,22 @@ select_scope with the relations your norms apply to, saying which norm makes
 each of them yours. Your norms are fixed; only the mapping is yours to
 choose now.
 
-PHASE 3 -- FIND AND JUDGE.
-You cannot read the whole graph, so mining rules sweep it for you. You have
-a reading budget of {READING_BUDGET} candidates -- SPEND IT: a page of ten
-is a start, not the hunt. Call find_suspects with every rule whose kind of
-suspicious MATCHES YOUR NORMS (its description lists the menu), saying
-which norm each serves, and keep fetching further pages until your budget
-is reached or the rules have nothing more in your scope. Judge every
-candidate you are served through submit_verdicts, by YOUR norms alone:
-anomaly, ok, out_of_scope, or unsure, each with one sentence of why. A
-candidate a rule found suspicious can still be ok by your norms, and a
-fact that is literally true can still be an anomaly by them -- the rules
-find, but only you judge.
+PHASE 3 -- SURVEY, SHORTLIST, JUDGE.
+You cannot read the whole graph, so mining rules sweep it for you and pool
+what they found in your scope -- every lead named, with the rule's reason
+in plain words. Survey the WHOLE pool with find_suspects (every page; at
+most three). Then call shortlist_candidates with the pool ids YOUR NORMS
+speak to, up to your reading budget of {READING_BUDGET}, saying which norm
+drove the choice: the pool is larger than your budget, so choose the leads
+that matter by your norms -- including ones another judge would let pass --
+and leave aside leads your norms are silent on, however odd a rule found
+them. Then judge every shortlisted candidate through submit_verdicts, by
+YOUR norms alone: anomaly, ok, out_of_scope, or unsure, each with one
+sentence of why. A lead a rule found odd can still be ok by your norms, and
+a fact that is literally true can still be an anomaly by them -- the rules
+find, you select and judge.
 
-You are done only when your reading budget is spent (or the rules are
-exhausted) AND every served candidate is judged. Use at most
+You are done when every shortlisted candidate is judged. Use at most
 {OBSERVER_TOOL_BUDGET} tool calls in all.
 """
 
@@ -80,6 +82,7 @@ def make_observer(name: str) -> Agent:
         # and neither can satisfy the other's precondition.
         before_tool_callback=keep_norms_blind,
         include_contents="none",
+        before_model_callback=pace_model_calls,
         after_model_callback=telemetry.record_response,
         on_model_error_callback=telemetry.record_error,
     )
