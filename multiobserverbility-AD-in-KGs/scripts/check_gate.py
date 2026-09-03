@@ -131,44 +131,33 @@ check("refuses re-selection (scope is a commitment)",
       select_scope([REL_B], "w", agent_1).startswith("ERROR"))
 check("stores resolved ids", REL_A_ID in state["scope_1"])
 
-print("\nphase 3: surveying, shortlisting and judging")
-from tools.find_suspects import READING_BUDGET, find_suspects  # noqa: E402
-from tools.shortlist_candidates import shortlist_candidates  # noqa: E402
+print("\nphase 3: reading and ruling, page by page")
+import tools.find_suspects as _fs  # noqa: E402
+import tools.submit_verdicts as _sv  # noqa: E402
+from tools.find_suspects import POOL_PAGE, find_suspects  # noqa: E402
 from tools.submit_verdicts import submit_verdicts  # noqa: E402
 
 fresh = FakeToolContext("observer_2", {})
 check("find_suspects refuses without a scope",
       find_suspects(1, fresh).startswith("ERROR"))
-check("shortlist refuses before the pool is surveyed",
-      shortlist_candidates(["p1"], "w", agent_1).startswith("ERROR"))
 check("submit_verdicts refuses before anything is served",
       submit_verdicts([{"id": "c1", "verdict": "ok", "why": "w"}],
                       fresh).startswith("ERROR"))
 
 page = find_suspects(1, agent_1)
-check("the pool is served with stable pool ids", "p1." in page)
-check("the pool is recorded as surveyed",
+check("a page serves its leads as candidates", "c1." in page)
+check("the fetch is recorded",
       "pool_1" in state and 1 in json.loads(state["pool_1"])["pages_seen"])
-check("surveying serves nothing (no budget spent)", "served_1" not in state)
-check("a pool id out of range is a readable error",
-      shortlist_candidates(["p9999"], "w", agent_1).startswith("ERROR"))
-check("shortlisting requires a why",
-      shortlist_candidates(["p1"], " ", agent_1).startswith("ERROR"))
-picked = shortlist_candidates(["p1", "p2", "p1"],
-                              "my mutuality norm concerns two-way bonds", agent_1)
-check("shortlisted leads become candidates with stable ids",
-      "c1." in picked and "c2." in picked and "c3." not in picked)
-check("serving is recorded", "served_1" in state and "c1" in state["served_1"])
-check("re-shortlisting a lead does not duplicate it",
-      "already on your shortlist" in shortlist_candidates(["p1"], "w", agent_1))
-too_many = shortlist_candidates([f"p{i}" for i in range(1, READING_BUDGET + 5)],
-                                "w", agent_1)
-check("the reading budget caps the shortlist",
-      "Budget reached" in too_many
-      and sum(1 for c in json.loads(state["served_1"])
-              if c.startswith("c")) == READING_BUDGET)
-check("a full shortlist refuses more",
-      shortlist_candidates([f"p{READING_BUDGET + 6}"], "w", agent_1).startswith("ERROR"))
+pool_size = len(json.loads(state["pool_1"])["entries"])
+served_now = sum(1 for c in json.loads(state["served_1"]) if c.startswith("c"))
+check("every lead on the page is served, up to the budget",
+      served_now == min(pool_size, POOL_PAGE, _fs.READING_BUDGET))
+find_suspects(1, agent_1)
+check("re-fetching a page re-serves the same ids, charging nothing",
+      sum(1 for c in json.loads(state["served_1"])
+          if c.startswith("c")) == served_now)
+check("a page out of range is a readable error",
+      "no page" in find_suspects(9999, agent_1))
 
 check("verdict on an id never served is refused, batch not recorded",
       submit_verdicts([{"id": "c999", "verdict": "ok", "why": "w"}],
@@ -183,6 +172,51 @@ ok = submit_verdicts([{"id": "c1", "verdict": "anomaly",
                        "why": "one-sided record of a mutual bond"}], agent_1)
 check("a valid verdict is recorded", ok.startswith("Recorded"))
 check("progress says what remains", "unjudged" in ok)
+rest = [{"id": cid, "verdict": "ok", "why": "mutual and honestly recorded"}
+        for cid in json.loads(state["served_1"]) if cid != "c1"]
+done = submit_verdicts(rest, agent_1)
+check("a judged page hands back the hunt or ends it",
+      "find_suspects" in done or "you are done" in done)
+
+# The budget cap, in miniature: a private state with the budget patched to 2,
+# so the cap's behaviour is provable without a 160-lead pool.
+_real_budget = _fs.READING_BUDGET
+_fs.READING_BUDGET = _sv.READING_BUDGET = 2
+tiny_state = {}
+tiny = FakeToolContext("observer_1", tiny_state)
+declare_semantics("n", "a", "l", tiny)
+select_scope([REL_A, REL_B, REL_C], "w", tiny)
+tiny_page = find_suspects(1, tiny)
+tiny_served = sorted(c for c in json.loads(tiny_state["served_1"])
+                     if c.startswith("c"))
+check("the reading budget caps what a page serves",
+      tiny_served == ["c1", "c2"] and "stay unexamined" in tiny_page)
+tiny_done = submit_verdicts(
+    [{"id": cid, "verdict": "ok", "why": "w"} for cid in tiny_served], tiny)
+check("a spent budget ends the phase",
+      "you are done" in tiny_done and "find_suspects" not in tiny_done)
+check("duplicate ids in one batch are refused",
+      submit_verdicts([{"id": "c1", "verdict": "ok", "why": "w"},
+                       {"id": "c1", "verdict": "anomaly", "why": "w"}],
+                      tiny).startswith("ERROR"))
+_fs.READING_BUDGET = _sv.READING_BUDGET = _real_budget
+
+# Out-of-order fetches: whatever page is read first, the tools must keep
+# offering the LOWEST unfetched page instead of declaring the pool done
+# (review finding: max(pages_seen)+1 ended hunts with pages unread).
+ooo_state = {}
+ooo = FakeToolContext("observer_1", ooo_state)
+declare_semantics("n", "a", "l", ooo)
+select_scope(_ctx.all_relation_labels(), "w", ooo)
+page2 = find_suspects(2, ooo)
+pool_pages = -(-len(json.loads(ooo_state["pool_1"])["entries"]) // POOL_PAGE)
+check("an out-of-order fetch still offers the lowest unfetched page",
+      pool_pages < 2 or "fetch page 1" in page2)
+ooo_judged = submit_verdicts(
+    [{"id": cid, "verdict": "ok", "why": "w"}
+     for cid in json.loads(ooo_state["served_1"])], ooo)
+check("a judged out-of-order page hands back the earlier page",
+      pool_pages < 2 or "page 1" in ooo_judged)
 
 # Second-opinion guards -- reuses the state above (agent_1 judged c1 'anomaly').
 print("\nsecond opinions")

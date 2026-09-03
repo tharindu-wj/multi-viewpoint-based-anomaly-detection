@@ -1,5 +1,14 @@
 """Tool: the observer's selection -- pool leads become served candidates.
 
+RETIRED (2 Sep 2026): survey-then-shortlist let the observer stop after the
+leads that leapt out -- measured across the first pool batch, observers
+chose 4-21 of a 30 budget and declared their norms silent on the rest, so
+recall was capped by reticence, not by the roster (DESIGN.md section 20).
+find_suspects now serves every pool lead as a candidate page by page, and
+the viewpoint acts in the VERDICTS (anomaly / ok / out_of_scope) instead of
+in the choice of what to read. This module stays for the run files that
+used it; it is no longer in OBSERVER_TOOLS.
+
 THE STEP WHERE THE VIEWPOINT ACTS. The pool is the same for any observer
 with the same scope; what differs between observers is which leads their
 norms speak to. Shortlisting moves chosen leads (p-ids) into the caller's

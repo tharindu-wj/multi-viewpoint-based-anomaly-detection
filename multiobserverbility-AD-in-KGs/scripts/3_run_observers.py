@@ -187,14 +187,14 @@ for name, persona, norm, scope, pool, picks, mine, judged in zip(
     else:
         print("    scope:     MISSING")
     pages = (len(pool["entries"]) + POOL_PAGE - 1) // POOL_PAGE
-    print(f"    pool:      {len(pool['entries'])} leads, surveyed pages "
+    print(f"    pool:      {len(pool['entries'])} leads, fetched pages "
           f"{sorted(pool['pages_seen'])} of {pages}")
-    for pick in picks:
+    for pick in picks:   # only pre-Sep-2 shortlist runs record these
         print(f"    shortlist: {pick['added']} added -- {pick['why']}")
     by_rule = collections.Counter(
         e["rule"] for cid, e in mine.items() if cid.startswith("c"))
     if by_rule:
-        print(f"    shortlisted by rule: {dict(by_rule)}")
+        print(f"    served by rule: {dict(by_rule)}")
     counts = collections.Counter(v["verdict"] for v in judged.values())
     print(f"    judged {len(judged)}/{len(mine)} served: "
           f"{dict(counts) if counts else 'none'}")

@@ -31,6 +31,7 @@ sys.path.insert(0, str(ROOT))
 import argparse  # noqa: E402
 import collections  # noqa: E402
 
+import eval_lib  # noqa: E402  (lives beside this script)
 from loaders import graph  # noqa: E402
 from loaders.active import DATASET  # noqa: E402
 from loaders.context import get_context  # noqa: E402
@@ -51,6 +52,21 @@ if path is None:
     path = found[-1]
 
 run = json.loads(path.read_text(encoding="utf-8"))
+
+# Staleness binding (review finding, same as the exporter's): the ladder
+# rebuilds pools from the CURRENT kg.tsv, so a run recorded against a
+# different preparation would be scored on a graph it never judged.
+import hashlib  # noqa: E402
+
+kg_hash = hashlib.sha256(DATASET.KG.read_bytes()).hexdigest()
+run_hash = run.get("kg_sha256")
+if run_hash and run_hash != kg_hash:
+    raise SystemExit(f"STALE RUN: {path.name} was recorded against a "
+                     f"different graph than the current {DATASET.KG.name}. "
+                     "Re-run the observation, or restore that graph.")
+if not run_hash:
+    print(f"note: {path.name} predates graph-hash stamping -- cannot verify "
+          f"it matches the current graph.\n")
 
 if run["status"] == "invalid":
     raise SystemExit(f"{path.name} is INVALID -- its blindness proof failed. "
@@ -170,6 +186,35 @@ if union_flags and any(pools):
         print(f"    {name}: pool {len(pool)} leads, {in_pool} planted "
               f"({in_pool / len(pool):.0%} density)" if pool
               else f"    {name}: empty pool")
+
+# The union above lets the observers choose K, so it moves run to run and
+# no two runs are read at the same depth. The ladder fixes K in advance and
+# reads down ONE ranking of everything the run touched -- every verdict and
+# every unexamined pool lead, ordered by how much the system believes it --
+# so the judged share of a rung shows where the LLM owns the ordering and
+# where it has decayed into rules-tail.
+print("\n" + "=" * 70)
+print("  P@K LADDER -- confidence-tier ranking (K fixed in advance)")
+print("=" * 70)
+built = eval_lib.build_ranking(run, ctx)
+if built is None:
+    print("  skipped -- this run predates recorded scopes/pools, so the "
+          "uncapped ranking cannot be rebuilt.")
+else:
+    ranked, meta = built
+    print(f"  tier order: {eval_lib.TIER_ORDER}")
+    for row in eval_lib.ladder(ranked, meta, truth):
+        K = row["k"]
+        print(f"  P@{K:<4}{row['hits']:>4}/{K:<4}({row['hits'] / K:>4.0%})   "
+              f"R@{K:<4}{row['hits'] / planted_total:>6.1%}   "
+              f"judged{row['judged']:>4}/{K:<4}({row['judged'] / K:>4.0%})   "
+              f"rules-only{row['rules_hits']:>4}/{K:<4}"
+              f"({row['rules_hits'] / K:>4.0%})")
+    if len(ranked) < max(eval_lib.LADDER):
+        print(f"  ranking exhausts at {len(ranked)} -- deeper rungs count "
+              f"their missing slots as misses")
+    print(f"  K={planted_total} is the conventional rung: {planted_total} "
+          f"planted, so P@K = R@K there by construction")
 
 print("\n" + "=" * 70)
 print("  COMPOSED -- the two viewpoints together")

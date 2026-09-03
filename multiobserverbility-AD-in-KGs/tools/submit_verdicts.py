@@ -13,7 +13,7 @@ import json
 
 from tools._observers import (OBSERVER_NAMES, is_reviewer, principal_of,
                               state_key)
-from tools.find_suspects import READING_BUDGET
+from tools.find_suspects import POOL_PAGE, READING_BUDGET
 
 VERDICTS = ("anomaly", "ok", "out_of_scope", "unsure")
 
@@ -30,7 +30,7 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
       unsure        you genuinely cannot tell; say what is missing
 
     The why is one sentence, in terms of YOUR norms, not anyone else's.
-    Every candidate on your shortlist needs a verdict.
+    Every candidate served to you needs a verdict.
 
     Args:
         verdicts: a list of {"id", "verdict", "why"} objects.
@@ -43,8 +43,8 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
 
     served = json.loads(tool_context.state.get(state_key("served", agent)) or "{}")
     if not served:
-        return ("ERROR: nothing has been served to you yet. Survey the pool "
-                "with find_suspects and shortlist_candidates first.")
+        return ("ERROR: nothing has been served to you yet. Fetch a page of "
+                "the pool with find_suspects first.")
 
     if not verdicts:
         return "ERROR: an empty batch judges nothing."
@@ -53,11 +53,17 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
     judged = json.loads(tool_context.state.get(judged_key) or "{}")
 
     accepted = []
+    seen_ids = set()
     for entry in verdicts:
         candidate_id = (entry.get("id") or "").strip()
         verdict = (entry.get("verdict") or "").strip().lower()
         why = (entry.get("why") or "").strip()
 
+        if candidate_id in seen_ids:
+            return (f"ERROR: '{candidate_id}' appears twice in this batch -- "
+                    f"one verdict per candidate. Nothing from this batch "
+                    f"was recorded.")
+        seen_ids.add(candidate_id)
         if candidate_id not in served:
             return (f"ERROR: '{candidate_id}' was never served to you. "
                     f"Your candidates are {', '.join(sorted(served))}. "
@@ -89,19 +95,26 @@ def submit_verdicts(verdicts: list[dict], tool_context=None) -> str:
                 f"{', '.join(sorted(remaining))}.")
 
     # The closing line is the last thing the model reads (the select_scope
-    # lesson). A reviewer, or a full shortlist, ends the phase; otherwise the
-    # room left is named, and the choice to use it stays the observer's --
-    # a shortlist is a selection, not a quota.
+    # lesson). A reviewer ends the phase; an observer is handed the next
+    # page while budget and pool both have room -- coverage comes from the
+    # budget, and the viewpoint lives in the verdicts, not in stopping early.
     if is_reviewer(tool_context.agent_name):
         return (f"Recorded {len(accepted)} verdict(s). Every candidate you "
                 f"were served is judged -- you are done, stop here.")
-    room = READING_BUDGET - sum(1 for cid in served if cid.startswith("c"))
-    if room > 0:
-        return (f"Recorded {len(accepted)} verdict(s). Every shortlisted "
-                f"candidate is judged; your reading budget has room for "
-                f"{room} more. If the pool holds further leads your norms "
-                f"speak to, shortlist and judge them; if it does not, you "
-                f"are done.")
-    return (f"Recorded {len(accepted)} verdict(s). Every candidate is "
-            f"judged and your reading budget is spent -- you are done, "
-            f"stop here.")
+    primary = sum(1 for cid in served if cid.startswith("c"))
+    room = READING_BUDGET - primary
+    pool = json.loads(tool_context.state.get(state_key("pool", agent)) or "{}")
+    entries = pool.get("entries", [])
+    pages = (len(entries) + POOL_PAGE - 1) // POOL_PAGE
+    # Lowest UNFETCHED page, not max+1: an out-of-order fetch must not make
+    # the tool declare the pool exhausted while pages remain (review finding).
+    unfetched = [p for p in range(1, pages + 1)
+                 if p not in (pool.get("pages_seen") or [])]
+    if room > 0 and unfetched:
+        return (f"Recorded {len(accepted)} verdict(s). Every candidate served "
+                f"so far is judged; your reading budget has room for {room} "
+                f"more. Fetch page {unfetched[0]} with find_suspects and "
+                f"judge it the same way.")
+    return (f"Recorded {len(accepted)} verdict(s). Every candidate is judged "
+            f"and the pool holds nothing more within your reading budget -- "
+            f"you are done, stop here.")

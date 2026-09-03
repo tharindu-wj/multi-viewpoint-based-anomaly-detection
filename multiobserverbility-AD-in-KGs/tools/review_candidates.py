@@ -16,8 +16,11 @@ import json
 from loaders.context import get_context
 from tools._observers import is_reviewer, other_agent, principal_of, state_key
 
-#: how many second-opinion candidates an observer can be handed
-REVIEW_CAP = 15
+#: how many second-opinion candidates an observer can be handed. Scaled with
+#: the reading budget (30 -> 160 made 40+ flags a normal hunt): a cap far
+#: below the flag count would quietly decide which flags can ever reach the
+#: agreement tier -- by judging order, not by merit (review finding).
+REVIEW_CAP = 40
 
 
 def review_candidates(tool_context=None) -> str:
@@ -50,13 +53,16 @@ def review_candidates(tool_context=None) -> str:
 
     ctx = get_context()
     lines = ["Additional candidates for your review:"]
+    # Continue the numbering past ids already served -- a re-fetch must
+    # never reuse r1 for a different triple (review finding).
+    existing = sum(1 for cid in served if cid.startswith("r"))
     added = 0
     for triple in flagged:
         if triple in already:
             continue                    # this observer has already judged it
         if added >= REVIEW_CAP:
             break
-        review_id = f"r{added + 1}"
+        review_id = f"r{existing + added + 1}"
         served[review_id] = {"triple": list(triple),
                              "text": ctx.triple_text(triple),
                              "note": "additional candidate for your review",

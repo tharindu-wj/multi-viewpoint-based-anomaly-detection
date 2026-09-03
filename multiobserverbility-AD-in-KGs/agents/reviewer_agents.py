@@ -34,7 +34,7 @@ submit_verdicts -- by your norms alone, exactly as before: anomaly, ok,
 out_of_scope, or unsure, each with one sentence of why.
 
 You are done when every candidate from review_candidates is judged, or when
-it tells you nothing awaits you. Use at most 6 tool calls.
+it tells you nothing awaits you. Use at most 10 tool calls.
 """
 
 

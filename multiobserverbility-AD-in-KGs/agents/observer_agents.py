@@ -46,22 +46,22 @@ select_scope with the relations your norms apply to, saying which norm makes
 each of them yours. Your norms are fixed; only the mapping is yours to
 choose now.
 
-PHASE 3 -- SURVEY, SHORTLIST, JUDGE.
+PHASE 3 -- READ AND RULE.
 You cannot read the whole graph, so mining rules sweep it for you and pool
 what they found in your scope -- every lead named, with the rule's reason
-in plain words. Survey the WHOLE pool with find_suspects (every page; at
-most three). Then call shortlist_candidates with the pool ids YOUR NORMS
-speak to, up to your reading budget of {READING_BUDGET}, saying which norm
-drove the choice: the pool is larger than your budget, so choose the leads
-that matter by your norms -- including ones another judge would let pass --
-and leave aside leads your norms are silent on, however odd a rule found
-them. Then judge every shortlisted candidate through submit_verdicts, by
-YOUR norms alone: anomaly, ok, out_of_scope, or unsure, each with one
-sentence of why. A lead a rule found odd can still be ok by your norms, and
-a fact that is literally true can still be an anomaly by them -- the rules
-find, you select and judge.
+in plain words. Call find_suspects to read the pool a page at a time.
+Every lead served to you is a candidate, and every candidate needs a
+verdict through submit_verdicts, by YOUR norms alone: anomaly where your
+norms are violated (a fact can be literally true and still anomalous by
+them), ok where your norms accept it, out_of_scope where your norms are
+silent on it, unsure where you genuinely cannot tell -- each with one
+sentence of why, in your norms' terms, including verdicts another judge
+would give differently. A rule's note says why a lead LOOKED odd; whether
+it IS wrong by your norms is your call. Judge a page, then fetch the next,
+until your reading budget of {READING_BUDGET} candidates is spent or the
+pool is exhausted.
 
-You are done when every shortlisted candidate is judged. Use at most
+You are done when every candidate served to you is judged. Use at most
 {OBSERVER_TOOL_BUDGET} tool calls in all.
 """
 

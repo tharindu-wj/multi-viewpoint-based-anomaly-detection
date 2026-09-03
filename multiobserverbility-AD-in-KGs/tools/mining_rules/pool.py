@@ -31,11 +31,16 @@ Entry shape (JSON-safe, stored in session state as the observer saw it):
 from tools.mining_rules import RULES
 
 #: the pool served to an observer is at most this long
-POOL_CAP = 120
+POOL_CAP = 200
 
 
 def build_pool(scope_ids, ctx, cap=POOL_CAP):
-    """Merged, ranked findings of every rule on this scope."""
+    """Merged, ranked findings of every rule on this scope.
+
+    cap=None returns the WHOLE ranking -- the evaluator rebuilds uncapped
+    pools from a run's recorded scopes to rank leads past what the observer
+    was served. Deterministic either way: same scope, same pool.
+    """
     rank = {}                # rule -> {triple: position in that rule's list}
     notes = {}               # triple -> {rule: note}
     for name, rule in RULES.items():
@@ -66,7 +71,8 @@ def build_pool(scope_ids, ctx, cap=POOL_CAP):
     queues = [[t for t, _ in sorted(rank[name].items(), key=lambda kv: kv[1])]
               for name in RULES if name in rank]
     position = 0
-    while len(pool) < cap and any(position < len(q) for q in queues):
+    limit = float("inf") if cap is None else cap
+    while len(pool) < limit and any(position < len(q) for q in queues):
         for queue in queues:
             if position < len(queue) and queue[position] not in taken:
                 pool.append(entry(queue[position]))

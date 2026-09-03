@@ -906,4 +906,74 @@ observers shortlist well under budget (4–21 of 30) and say their norms
 are silent on the rest, so K is small and self-chosen: precision is high
 because of it and recall is bound by it (ceilings 3–4%). Raising K
 without coaching is the open question; the full table and per-run
-observations are in IMPROVEMENT_PLAN.md (Stage 1b).
+observations are in IMPROVEMENT_PLAN.md (Stage 1b). §20 is the answer.
+
+## 20. Read-and-rule + the P@K ladder (2 Sep 2026)
+
+**DECIDED — two changes that make the numbers comparable to the detector
+literature (ADKGD/CAGED report P@K ladders at fixed K; SEKA at expert
+budget b): (i) observers judge the pool PAGE BY PAGE instead of
+shortlisting from it; (ii) the evaluator reports P@K/R@K at fixed
+K = 50/100/150/200 (+500 footnoted) off a confidence-tier ranking.**
+
+**Why shortlisting had to go.** The §19 batch measured that observers
+shortlist 4–21 of a 30 budget and declare their norms silent on the rest:
+precision 78% but K self-chosen at ~19, recall capped at ~3% by
+reticence, not by the roster (whose pooled reach is 102/500). A fixed-K
+protocol needs the budget SPENT. Survey-then-shortlist made stopping the
+default; read-and-rule makes coverage the default while the viewpoint
+moves wholly into the verdicts — anomaly / ok / out_of_scope ("my norms
+are silent") / unsure, every served lead ruled on explicitly, nothing an
+implicit ok. No coaching is involved: nobody points at planted-heavy
+anything; the protocol says only that every candidate served gets a
+ruling.
+
+Mechanics: find_suspects now SERVES each page's leads as candidates
+(c-ids) directly — READING_BUDGET 30 → 160, POOL_CAP 120 → 200 (5 pages
+of 40), OBSERVER_TOOL_BUDGET 20 → 32; re-fetching a page re-serves the
+same ids and charges nothing; submit_verdicts hands back "fetch page
+N+1" while budget and pool both have room. shortlist_candidates is
+RETIRED (module kept for the §19 run files). Reviewers unchanged
+(REVIEW_CAP 15). Offline probe on the §19 scopes: planted in the first
+160 pool leads = 33 (observer_1, uncapped pool 585) and 42 (observer_2,
+uncapped pool 174) — if the funnel fact holds, recall's reachable range
+moves from ~3% to ~10–14%.
+
+**The ranking that makes fixed-K honest.** The system emits a decision
+set, not a ranking, so the evaluator builds one from what a run records,
+ordered by confidence tier:
+  1. flagged anomaly by BOTH observers,
+  2. flagged by one,
+  3. unsure,
+  4. unexamined pool leads (pool order) — judged out_of_scope ranks here
+     too: "my norms are silent" carries no information about truth,
+  5. judged ok (an informative negative — examined and passed),
+then nothing (triples no rule surfaced; the ladder reports exhaustion).
+Within a tier: best rank across the observers' UNCAPPED pools (rebuilt
+deterministically from the run's recorded scopes — pool.py's cap=None).
+Each rung reports its JUDGED SHARE, so a reader can see which K the LLM
+actually owns and where the ranking degrades into the rules-only tail;
+the rules-only interleave at the same K prints beside every rung. K=500
+is the conventional rung where P@K = R@K (500 planted); with the current
+roster P@500 ≤ 20% by reach — that ceiling printed is the standing
+argument for a fifth rule (Stage 3) or the ADKGD scorer arm.
+
+Implemented in scripts/eval_lib.py (ranking, truth-free) +
+4_evaluate_verdicts.py (ladder section) + 6_run_batch.py (per-rung
+mean ± sd). Live numbers recorded in IMPROVEMENT_PLAN.md Stage 1c.
+
+Measured (3-run batch, 3 Sep 2026): **P@50 43.3% ± 10.1 / P@100 37.0% ±
+4.4 / P@150 30.0% ± 2.4 / P@200 25.0% ± 1.8** vs rules-only 16/21/21/21;
+R@200 ≈ 10%; ~34 planted caught per run (2.3× the §19 shortlist design)
+at ~30-35 model calls, ~3 min per run. The top-50 rung is 100%
+LLM-judged. Two findings worth carrying into the write-up: (i) the funnel
+fact broke ASYMMETRICALLY — the structuralist passes 13-17 planted per
+run because its norms are silent on factual falsity, the pragmatist
+passes 1-5: judging-at-volume is a property of the STANDPOINT, which is
+the thesis's point made measurable; (ii) an adversarial verification pass
+(2 Sep) found and fixed: review r-id overwrite on re-fetch, REVIEW_CAP
+15 → 40 (cap-15 silently truncated the agreement tier to the first 15
+flags), out-of-order page fetches ending the hunt early, odd_types note
+hash-seed nondeterminism, duplicate-id verdict batches, and a missing
+kg_sha256 staleness bind in the evaluator — all covered by new
+check_gate checks (all-PASS).

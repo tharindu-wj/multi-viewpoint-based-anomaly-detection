@@ -405,16 +405,27 @@ observers = {}
 pools = run.get("pools") or [None] * len(OBSERVER_NAMES)
 shortlists = run.get("shortlists") or [[]] * len(OBSERVER_NAMES)
 rules_legacy = run.get("rules") or [{}] * len(OBSERVER_NAMES)
+# Era is a property of the RUN, not of one observer: a shortlist-era
+# observer that shortlisted nothing must not be dressed in read-and-rule
+# wording (review finding).
+shortlist_era = any(run.get("shortlists") or [])
 for name, persona, norms, scope, pool, picks, legacy in zip(
         OBSERVER_NAMES, run["personas"], run["norms"], run["scopes"],
         pools, shortlists, rules_legacy):
     primary = [e for cid, e in served_by[name].items() if cid.startswith("c")]
     if pool is not None:
         counts = collections.Counter(e["rule"] for e in primary)
-        rules_used = {rule: f"{n} shortlisted" for rule, n in counts.most_common()}
+        # Shortlist-era pool runs chose what to read; page-served runs judge
+        # everything served, so the label says which happened. "judged"
+        # counts VERDICTS, not servings -- a truncated run must not claim
+        # rulings it never got (review finding).
+        chose = "shortlisted" if shortlist_era else "judged"
+        rules_used = {rule: f"{n} {chose}" for rule, n in counts.most_common()}
         pool_info = {"size": len(pool.get("entries", [])),
                      "pages_seen": sorted(pool.get("pages_seen", [])),
-                     "shortlisted": len(primary),
+                     "shortlisted": len(primary) if shortlist_era else None,
+                     "judged": sum(1 for cid in verdicts_by[name]
+                                   if cid.startswith("c")),
                      "why": [p["why"] for p in picks]}
     else:
         rules_used, pool_info = legacy, None

@@ -60,7 +60,10 @@ def find(scope_ids, ctx):
     support = {}
     for key, entities in occupants.items():
         counts = collections.Counter()
-        for entity in entities:
+        # sorted: Counter.most_common breaks count ties by insertion order,
+        # and set iteration order varies with the process hash seed -- the
+        # note text must be identical on every rebuild (determinism claim)
+        for entity in sorted(entities):
             for kind in ctx.entity_types.get(entity) or []:
                 counts[kind] += 1
         support[key] = counts

@@ -28,9 +28,12 @@ stay attributable.
 | 20260828_005921 | 24 | 25% | 1.2% (4.8%) | 11 + 11 unique / 2 shared |
 | 20260901_081533 | 22 | 0% | 0% (4.4%) | 14 + 8 / 0 |
 
-Superseded 2 Sep 2026 by the Stage-1b pool batch: **P@K 78.5% ± 4.3%,
-R@K 2.9% ± 0.5%, K 18.7 ± 3.1** (table under Stage 1b). That is now the
-number to beat.
+Superseded 2 Sep 2026 by the Stage-1b pool batch (P@K 78.5% ± 4.3% at
+self-chosen K 18.7 — high-precision, recall-starved), and again 3 Sep by
+the Stage-1c read-and-rule batch. **The current headline is the fixed-K
+ladder: P@50 43.3% ± 10.1, P@100 37.0% ± 4.4, P@150 30.0% ± 2.4, P@200
+25.0% ± 1.8, ~34 planted caught per run** (table under Stage 1c). Those
+rungs are now the numbers to beat.
 
 Union recall ceiling of the current rule roster: 102/500 = 20%.
 Scorer channel: DistMult AUC 0.617, ~0 planted in early pages (memorization).
@@ -132,6 +135,72 @@ What the runs show:
 - The rules-only head is dry (0–6%): the pool leads with the 8
   corroborated Don Rickles pairs and odd_types' queue, both planted-empty
   — the LLM's value is precisely skipping them.
+
+## Stage 1c — read-and-rule + the P@K ladder (built 2 Sep 2026)
+
+**Do:** (DESIGN §20) observers judge the pool page by page — every served
+lead gets an explicit verdict (anomaly / ok / out_of_scope / unsure),
+READING_BUDGET 160, POOL_CAP 200; shortlisting retired. Evaluator gains a
+confidence-tier ranking (flagged-by-both > flagged-by-one > unsure >
+unexamined-pool-order > judged-ok) and reports the ladder P@K/R@K at
+K = 50/100/150/200 (+500 footnoted), each rung with its judged share and
+the rules-only interleave beside it.
+
+**Why:** Stage 1b's precision is real but K is self-chosen (~19); the
+detector literature reports fixed-K ladders. Coverage must come from the
+budget, with the viewpoint in the verdicts. Offline: planted in the first
+160 pool leads = 33 (obs_1) / 42 (obs_2) on the §19 scopes.
+
+**Gate (live, 3 runs):** mean P@50 > rules-only P@50 AND union hits/run >
+Stage 1b's 14.7 AND the funnel fact holds (served planted still flagged).
+Fail → judgement quality degrades with volume → drop budget to 80 and
+re-measure (the bend itself is a paper finding).
+
+**Result (3 Sep 2026), batch `readrule`, 3 runs, all completed +
+BLINDNESS VERIFIED (runs 000706 / 001010 / 001317):**
+
+| mean ± sd | K=50 | K=100 | K=150 | K=200 | union (self-K) |
+|---|---|---|---|---|---|
+| read-and-rule ×3 | **43.3% ± 10.1** | **37.0% ± 4.4** | **30.0% ± 2.4** | **25.0% ± 1.8** | P 41.0% ± 9.9 at K 87.7 ± 32.6 |
+| rules-only, same pools | 16.0% | 21.0% | 20.9% | 20.5% | 21.4% |
+
+R@K: mean 6.9% ± 1.6 at self-K; R@200 ≈ 10%; hits/run 32 / 43 / 28
+(mean 34.3 vs Stage 1b's 14.7). Complementarity regained a real agreement
+tier: 20 / 11 / 24 shared primary flags (Stage 1b had 0 / 0 / 7).
+
+**Gate: PASSED on coverage, FAILED on the funnel fact — and the failure is
+a standpoint finding, not noise.** P@50 43% ≫ rules-only 16%; hits more
+than doubled. But observers now pass planted facts they read: per run,
+observer_1 (the structuralist every draw) passed 15 / 13 / 17 of ~35
+planted read, observer_2 (the pragmatist) passed 1 / 1 / 5 of ~33. The
+formalist's norms are genuinely silent on factual falsity — a well-formed
+false spouse edge is "ok" by structure — so at volume its passes are
+norm-consistent, not sloppy. The union absorbs part of it (the pragmatist
+re-catches overlapping leads; agreement tier now 11-24/run). Remaining
+lever if wanted: a third observer whose norms target provenance/falsity,
+NOT coaching (§18.1 lever 4).
+
+**Post-batch verification fixes (3 Sep 2026, adversarial review, 3 lenses;
+ladder math verified item-by-item):** review-fetch r-id overwrite fixed
+(numbering now continues), REVIEW_CAP 15 → 40 + reviewer tool budget 10
+(cap-15 was silently truncating the agreement tier to the first 15 flags
+by judging order — the batch above ran at cap 15, so its agreement tier is
+a floor), out-of-order page fetches now hand back the lowest unfetched
+page instead of declaring the pool done, odd_types note text made
+hash-seed-deterministic, duplicate ids in one verdict batch refused,
+evaluator now enforces the kg_sha256 staleness bind, dashboard "ruled on"
+counts verdicts not servings. check_gate extended to cover all of it
+(all-PASS); one confirmation run on the fixed code recorded separately.
+
+**Confirmation run on the fixed code** (run_20260903_001849, BLINDNESS
+VERIFIED, 30 calls / 103 s): **P@50 50% / P@100 40% / P@150 33% / P@200
+27% / P@500 20%** (rules-only 18/22/21/20/17), union P 52% at K=62,
+R@500 rung = 20.2% — the ranking's top-500 holds 101 of the roster's 102
+reachable planted, i.e. the ladder now runs INTO the roster ceiling.
+Inside the batch distribution on every rung; fixes changed no behaviour
+on the happy path. (Its reviewers had nothing to fetch: the two scopes
+overlapped enough that every counterpart flag was already judged —
+agreement came from the overlap itself, 14 shared primary flags.)
 
 ## Stage 2 — fix the plausibility channel (SHELVED 2 Sep 2026)
 

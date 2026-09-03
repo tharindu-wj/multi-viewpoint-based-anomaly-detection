@@ -64,8 +64,8 @@ def select_scope(relations: list[str], why: str, tool_context) -> str:
     labels = ", ".join(entry["label"] for entry in resolved)
     return (f"Recorded. Your scope: {labels}.\n"
             f"Your observability point is complete -- persona, norms, scope.\n\n"
-            f"Now survey, shortlist, judge: call find_suspects to read the "
-            f"pool of leads the mining rules found in your scope (every "
-            f"page), shortlist_candidates with the leads your norms speak "
-            f"to, and give every shortlisted candidate a verdict through "
-            f"submit_verdicts.")
+            f"Now read and rule: call find_suspects to read the pool of "
+            f"leads the mining rules found in your scope, a page at a time, "
+            f"and give every candidate it serves you a verdict through "
+            f"submit_verdicts -- page after page, until your reading budget "
+            f"is spent or the pool is exhausted.")
